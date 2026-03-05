@@ -10,6 +10,8 @@
 !/wp-content/mu-plugins
 !/wp-content/mu-plugins/loader.php
 !/wp-content/mu-plugins/xmlrpc.php
+!/wp-content/mu-plugins/custom-events-order
+!/wp-content/mu-plugins/custom-events-order/custom-events-order.php
 /vendor/
 /wp/
 .DS_Store
