@@ -1,0 +1,2 @@
+!function(e){if("object"==typeof customizerPanelPreviewUrls)for(const n in customizerPanelPreviewUrls)e.section(n,(function(i){var r,t,o;o=e.previewer.previewUrl,t=function(){r=null},i.expanded.bind((function(e){e?(r=o.get(),o.set(customizerPanelPreviewUrls[n]),o.bind(t)):(o.unbind(t),r&&o.set(r))}))}))}(wp.customize);
+//# sourceMappingURL=customizer-preview.3f02b08b.js.map

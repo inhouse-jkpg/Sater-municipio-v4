@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity Interactive Image Map\n"
+"POT-Creation-Date: 2017-07-21 12:50+0200\n"
+"PO-Revision-Date: 2017-07-21 12:52+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: modularity-interactive-map.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/App.php:49
+msgid "Close"
+msgstr "Stäng"
+
+#: source/php/App.php:50 templates/admin/map-categories.php:36
+msgid "Remove"
+msgstr "Ta bort"
+
+#: source/php/App.php:51
+msgid "Description"
+msgstr "Beskrivning"
+
+#: source/php/App.php:52
+msgid "Link"
+msgstr "Länk"
+
+#: source/php/App.php:53
+msgid "Title"
+msgstr "Titel"
+
+#: source/php/Module.php:15 source/php/Module.php:16
+#, fuzzy
+#| msgid "Modularity Interactive Image Map"
+msgid "Interactive Map"
+msgstr "Modularity interaktiv karta"
+
+#: source/php/Module.php:17
+#, fuzzy
+#| msgid "Modularity Interactive Image Map"
+msgid "Create interactive image maps"
+msgstr "Modularity interaktiv karta"
+
+#: source/php/Module.php:98
+msgid "Map image"
+msgstr "Kartbild"
+
+#: source/php/Module.php:117
+msgid "Pin categories"
+msgstr "Kategorier"
+
+#: templates/admin/map-categories.php:3
+msgid "Category name"
+msgstr "Namn på kategori"
+
+#: templates/admin/map-categories.php:7 templates/admin/map-categories.php:31
+msgid "Pin icon"
+msgstr "Knappnålsikon"
+
+#: templates/admin/map-categories.php:12 templates/admin/map-categories.php:37
+msgid "Add icon"
+msgstr "Lägg till ikon"
+
+#: templates/admin/map-categories.php:15
+msgid "Pin color"
+msgstr "Knappnålsfärg"
+
+#: templates/admin/map-categories.php:19
+msgid "Add"
+msgstr "Lägg till"
+
+#: templates/admin/map-categories.php:27
+msgid "Edit category name"
+msgstr "Ändra namn på kategori"
+
+#: templates/admin/map-categories.php:40
+msgid "Edit pin color"
+msgstr "Ändra knappnålsfärg"
+
+#: templates/admin/map-categories.php:44
+msgid "Save changes"
+msgstr "Spara ändringar"
+
+#: templates/admin/map-categories.php:45
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: templates/admin/map-image.php:5
+msgid "Add layer"
+msgstr "Lägg till lager"
+
+#: templates/admin/map-image.php:6
+msgid "Add pin"
+msgstr "Lägg till knappnål"
+
+#: templates/admin/map-image.php:32
+msgid "No map image selected"
+msgstr "Ingen kartbild vald"
+
+#: templates/interactive-map.blade.php:321
+#: templates/module/modularity-mod-interactive-map.php:309
+msgid "Read more"
+msgstr "Läs mer"
+
+#: templates/interactive-map.blade.php:355
+#: templates/module/modularity-mod-interactive-map.php:332
+msgid "Zoom in"
+msgstr "Zooma in"
+
+#: templates/interactive-map.blade.php:360
+#: templates/module/modularity-mod-interactive-map.php:337
+msgid "Zoom out"
+msgstr "Zooma ut"
+
+#. Plugin Name of the plugin/theme
+msgid "Modularity Interactive Image Map"
+msgstr "Modularity interaktiv karta"
+
+#. Description of the plugin/theme
+msgid "Build a interactive image map in a Modularity Module"
+msgstr "Bygg en interaktiv karta med knappnålar"
+
+#. Author of the plugin/theme
+msgid "Kristoffer Svanmark, Sebastian Thulin"
+msgstr ""
+
+#~ msgid "Select map image"
+#~ msgstr "Välj kartbild"
+
+#~ msgid "Change map image"
+#~ msgstr "Byt ut kartbild"

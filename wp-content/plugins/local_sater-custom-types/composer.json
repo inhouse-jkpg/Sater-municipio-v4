@@ -1,0 +1,11 @@
+{
+    "name": "lmagnuss/sater-custom-types",
+	"type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Lars",
+            "email": "lars.c.magnusson@gmail.com"
+        }
+    ],
+    "require": {}
+}

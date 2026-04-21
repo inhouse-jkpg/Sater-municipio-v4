@@ -1,0 +1,38 @@
+{
+    "name": "forgravity/gf-addon-skeleton",
+    "description": "EDD software licensing updater",
+    "type": "library",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/ForGravity/gf-addon-skeleton/graphs/contributors"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ForGravity/coding-standards.git"
+        }
+    ],
+    "require-dev": {
+        "forgravity/coding-standards": "dev-master",
+        "yoast/phpunit-polyfills": "^1.0.1"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "format": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf . --standard=CosmicGiant --report=summary,source",
+        "lint": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs . --standard=CosmicGiant --report=summary,source",
+        "lint:errors": "@lint -n",
+        "test": "@php ./vendor/phpunit/phpunit/phpunit"
+    }
+}

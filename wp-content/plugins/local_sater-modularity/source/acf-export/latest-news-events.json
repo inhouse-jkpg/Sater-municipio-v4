@@ -1,0 +1,158 @@
+    {
+        "key": "group_58ca8d989b04d",
+        "title": "Nyheter \/ Evenemang",
+        "fields": [
+            {
+                "multiple": 0,
+                "allow_null": 0,
+                "choices": {
+                    "news": "Nyheter",
+                    "events": "Evenemang"
+                },
+                "default_value": [],
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "return_format": "value",
+                "key": "field_58cba07efa20c",
+                "label": "Typ av objekt",
+                "name": "object_type",
+                "type": "select",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": 3,
+                "min": 1,
+                "max": 3,
+                "step": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "key": "field_58cba012e6407",
+                "label": "Antal objekt",
+                "name": "number_of_items",
+                "type": "number",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": 0,
+                "message": "",
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": "",
+                "key": "field_58cb9f0281214",
+                "label": "Filtrera p\u00e5 kategori",
+                "name": "filtering_by_categorie",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "taxonomy": "nyhetskategorier",
+                "field_type": "select",
+                "multiple": 0,
+                "allow_null": 1,
+                "return_format": "id",
+                "add_term": 0,
+                "load_terms": 0,
+                "save_terms": 0,
+                "key": "field_58da1d50105dc",
+                "label": "Nyhetskategori",
+                "name": "newscategory",
+                "type": "taxonomy",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_58cba07efa20c",
+                            "operator": "==",
+                            "value": "news"
+                        },
+                        {
+                            "field": "field_58cb9f0281214",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "taxonomy": "evenemangskategorier",
+                "field_type": "select",
+                "multiple": 0,
+                "allow_null": 1,
+                "return_format": "id",
+                "add_term": 0,
+                "load_terms": 0,
+                "save_terms": 0,
+                "key": "field_58da13c21e24c",
+                "label": "Evenemangskategori",
+                "name": "eventcategory",
+                "type": "taxonomy",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_58cb9f0281214",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_58cba07efa20c",
+                            "operator": "==",
+                            "value": "events"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "mod-latestnewsevents"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }

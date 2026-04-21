@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="./tests/phpunit/bootstrap.php"
+         backupGlobals="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true">
+
+  <coverage processUncoveredFiles="false">
+    <include>
+      <directory suffix=".php">./library</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./library/AcfFields</directory>
+      <directory suffix=".test.php">./library</directory>
+      <directory suffix="Test.php">./library</directory>
+    </exclude>
+    <report>
+      <text outputFile="php://stdout" showUncoveredFiles="true"/>
+      <html outputDirectory="./.coverage"/>
+      <clover outputFile="./.coverage/clover.xml"/>
+    </report>
+  </coverage>
+
+  <testsuites>
+      <testsuite name="default">
+        <directory suffix=".php">./tests/phpunit/tests</directory>
+        <directory suffix=".test.php">./library</directory>
+        <directory suffix="Test.php">./library</directory>
+      </testsuite>
+  </testsuites>
+
+  <php>
+    <ini name="error_reporting" value="E_ALL" />
+    <ini name="memory_limit" value="512M" />
+  </php>
+</phpunit>

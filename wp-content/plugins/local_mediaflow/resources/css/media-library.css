@@ -1,0 +1,36 @@
+.mediaflow-file-selector {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.mediaflow-file-selector .mf_fileinfoArea,
+.mediaflow-file-selector .mf_foldertreeArea,
+.mediaflow-file-selector .mf_topArea {
+  border-radius: 0;
+}
+
+.mediaflow-file-selector.light .mf_cropperArea {
+  border: 0;
+}
+
+.mediaflow-file-selector.light .mf_topArea {
+  border-top: 0;
+  border-left: 0;
+}
+
+.mediaflow-file-selector.light .mf_foldertreeArea {
+  border-left: 0;
+}
+
+.mediaflow-file-selector.light .mf_fileinfoArea,
+.mediaflow-file-selector.light .mf_fileviewArea,
+.mediaflow-file-selector.light .mf_foldertreeArea {
+  border-bottom: 0;
+}
+
+.mediaflow-file-selector .notice {
+  margin-top: 1rem;
+}

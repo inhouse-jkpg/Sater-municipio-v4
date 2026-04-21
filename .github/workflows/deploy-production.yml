@@ -14,6 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: "Guard: composer.local.json must be empty in CI"
+      run: |
+        php -r '$j=json_decode(file_get_contents("composer.local.json"), true); if (!is_array($j)) {fwrite(STDERR,"composer.local.json is not valid JSON\n"); exit(1);} $req=$j["require"]??[]; if (!is_array($req)) {fwrite(STDERR,"composer.local.json: require must be an object\n"); exit(1);} if (count($req)!==0) {fwrite(STDERR,"composer.local.json must have an empty require block in CI\n"); exit(1);}'
+
     - uses: helsingborg-stad/municipio-deploy/4.0@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}

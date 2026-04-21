@@ -1,0 +1,91 @@
+@charset "UTF-8";
+/* ------------------ Maps -------------------*/
+.esri-map-frame {
+  display: table;
+  position: relative;
+  padding-top: 50%;
+  min-height: 240px;
+  width: 100%;
+  margin-bottom: 2em;
+}
+.hero .esri-map-frame {
+  padding-top: 25%;
+  min-height: 320px;
+  margin-bottom: 0;
+}
+.esri-map-frame .esri-map-canvas {
+  position: absolute;
+  display: table-cell;
+  top: 0;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+.esri-map-frame .esri-map-canvas .container {
+  max-width: none !important;
+}
+.esri-map-frame .esri-map-canvas .esri-map-loader {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.esri-map-frame .esri-map-canvas .esri-map-loader .loader-valign  {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* ------------------ Most Wanted -------------------*/
+.modularity-mod-mostwanted {
+  padding-bottom: 15px;
+}
+.modularity-mod-mostwanted li {
+  display: inline-block;
+}
+.modularity-mod-mostwanted li .mega-chip {
+  height: 2em;
+  font-size: 1.2em;
+  line-height: 2em;
+  padding: 0 1em;
+  margin: 0.2em 0.1em;
+  background-color: #950024;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 99em;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  white-space: nowrap;
+  max-width: calc(100vw - 2.2em);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.modularity-mod-mostwanted .rek-prediction__item {
+  display: inline-block;
+  margin: 0.6em 0;
+  height: 2em;
+  font-size: 1.2em;
+  line-height: 2em;
+  padding: 0 1em;
+  margin: 0.2em 0.1em;
+  background-color: #950024;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 99em;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  white-space: nowrap;
+  max-width: calc(100vw - 2.2em);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modularity-mod-mostwanted .rek-prediction__item:before {
+  content: "";
+  display: none;
+}
+.modularity-mod-mostwanted .rek-prediction__item a {
+  color: #fff;
+}
+.modularity-mod-mostwanted .rek-prediction__item a:hover {
+  text-decoration: none;
+}

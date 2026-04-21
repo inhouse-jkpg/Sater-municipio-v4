@@ -39,7 +39,6 @@ $removables = [
     'composer.json',
     'composer.local.json',
     'post-install.php',
-    'composer.lock',
     'images',
     'README.md',
     'guide',

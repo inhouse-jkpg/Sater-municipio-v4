@@ -1,0 +1,257 @@
+# Copyright (C) 2023 Anna Johansson
+# This file is distributed under the same license as the Visit Helsingborg: Custom Post Types, Taxonomies and ACF Fields plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Visit Helsingborg: Custom Post Types, Taxonomies and ACF Fields 0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/visit-custom-posttypes-taxonomies\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-04-19T14:28:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: visit\n"
+
+#. Plugin Name of the plugin
+msgid "Visit Helsingborg: Custom Post Types, Taxonomies and ACF Fields"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "-"
+msgstr ""
+
+#. Author of the plugin
+msgid "Anna Johansson"
+msgstr ""
+
+#: library/AcfFields/php/visit-activity.php:8
+#: library/AcfFields/php/visit-activity.php:12
+#: library/Taxonomies.php:24
+msgid "Activities"
+msgstr ""
+
+#: library/AcfFields/php/visit-cuisine.php:6
+#: library/AcfFields/php/visit-cuisine.php:10
+msgid "Cuisine"
+msgstr ""
+
+#: library/AcfFields/php/visit-infopoints.php:8
+msgid "Infopoint"
+msgstr ""
+
+#: library/AcfFields/php/visit-infopoints.php:12
+#: library/AcfFields/php/visit-visitorinformation.php:29
+msgid "Website"
+msgstr ""
+
+#: library/AcfFields/php/visit-location.php:8
+#: library/AcfFields/php/visit-location.php:12
+msgid "Location"
+msgstr ""
+
+#: library/AcfFields/php/visit-location.php:16
+msgid "Area or street address of the location."
+msgstr ""
+
+#: library/AcfFields/php/visit-other.php:8
+#: library/AcfFields/php/visit-other.php:12
+msgid "Other filters"
+msgstr ""
+
+#: library/AcfFields/php/visit-quicklinks-colors.php:8
+msgid "Menu item color"
+msgstr ""
+
+#: library/AcfFields/php/visit-quicklinks-colors.php:12
+msgid "Color"
+msgstr ""
+
+#: library/AcfFields/php/visit-term-description-wysiwyg.php:8
+msgid "Term Description WYSIWYG"
+msgstr ""
+
+#: library/AcfFields/php/visit-term-description-wysiwyg.php:12
+msgid "Description"
+msgstr ""
+
+#: library/AcfFields/php/visit-visitorinformation.php:8
+msgid "Visitor information"
+msgstr ""
+
+#: library/AcfFields/php/visit-visitorinformation.php:12
+msgid "Booking link"
+msgstr ""
+
+#: library/AcfFields/php/visit-visitorinformation.php:46
+msgid "Phone"
+msgstr ""
+
+#: library/AcfFields/php/visit-weather.php:8
+#: library/AcfFields/php/visit-weather.php:12
+msgid "Weather"
+msgstr ""
+
+#: library/PostTypes.php:25
+msgctxt "Post type pural"
+msgid "Places"
+msgstr ""
+
+#: library/PostTypes.php:26
+msgctxt "Post type singular"
+msgid "Place"
+msgstr ""
+
+#: library/PostTypes.php:27
+msgctxt "Menu label"
+msgid "Places"
+msgstr ""
+
+#: library/PostTypes.php:40
+msgctxt "Post type pural"
+msgid "Guides"
+msgstr ""
+
+#: library/PostTypes.php:41
+msgctxt "Post type singular"
+msgid "Guide"
+msgstr ""
+
+#: library/PostTypes.php:42
+msgctxt "Menu label"
+msgid "Guides"
+msgstr ""
+
+#: library/PostTypes.php:55
+msgctxt "Post type pural"
+msgid "Infopoints"
+msgstr ""
+
+#: library/PostTypes.php:56
+msgctxt "Post type singular"
+msgid "Infopoint"
+msgstr ""
+
+#: library/PostTypes.php:57
+msgctxt "Menu label"
+msgid "Infopoints"
+msgstr ""
+
+#: library/PostTypes.php:110
+msgid "Item Archives"
+msgstr ""
+
+#: library/PostTypes.php:111
+msgid "Item Attributes"
+msgstr ""
+
+#: library/PostTypes.php:112
+msgid "Parent Item:"
+msgstr ""
+
+#: library/PostTypes.php:113
+msgid "All Items"
+msgstr ""
+
+#: library/PostTypes.php:114
+#: library/PostTypes.php:115
+msgid "Add New"
+msgstr ""
+
+#: library/PostTypes.php:116
+msgid "New Item"
+msgstr ""
+
+#: library/PostTypes.php:117
+msgid "Edit Item"
+msgstr ""
+
+#: library/PostTypes.php:118
+msgid "Update Item"
+msgstr ""
+
+#: library/PostTypes.php:119
+msgid "View Item"
+msgstr ""
+
+#: library/PostTypes.php:120
+msgid "View Items"
+msgstr ""
+
+#: library/PostTypes.php:121
+msgid "Search Item"
+msgstr ""
+
+#: library/PostTypes.php:122
+msgid "Not found"
+msgstr ""
+
+#: library/PostTypes.php:123
+msgid "Not found in Trash"
+msgstr ""
+
+#: library/PostTypes.php:124
+msgid "Featured Image"
+msgstr ""
+
+#: library/PostTypes.php:125
+msgid "Set featured image"
+msgstr ""
+
+#: library/PostTypes.php:126
+msgid "Remove featured image"
+msgstr ""
+
+#: library/PostTypes.php:127
+msgid "Use as featured image"
+msgstr ""
+
+#: library/PostTypes.php:128
+msgid "Insert into item"
+msgstr ""
+
+#: library/PostTypes.php:129
+msgid "Uploaded to this item"
+msgstr ""
+
+#: library/PostTypes.php:130
+msgid "Items list"
+msgstr ""
+
+#: library/PostTypes.php:131
+msgid "Items list navigation"
+msgstr ""
+
+#: library/PostTypes.php:132
+msgid "Filter items list"
+msgstr ""
+
+#: library/Taxonomies.php:25
+msgid "Activity"
+msgstr ""
+
+#: library/Taxonomies.php:37
+msgid "Weathers"
+msgstr ""
+
+#: library/Taxonomies.php:38
+msgctxt "Singular term name"
+msgid "Weather"
+msgstr ""
+
+#: library/Taxonomies.php:51
+msgid "Other"
+msgstr ""
+
+#: library/Taxonomies.php:52
+msgctxt "Singular term name"
+msgid "Other"
+msgstr ""
+
+#: library/Taxonomies.php:65
+#: library/Taxonomies.php:66
+msgctxt "Singular term name"
+msgid "Cuisine"
+msgstr ""

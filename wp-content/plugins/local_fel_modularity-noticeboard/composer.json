@@ -1,0 +1,12 @@
+{
+    "name": "municipio-se/modularity-noticeboard",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anders Fajerson",
+            "email": "anders.fajerson@whitespace.se"
+        }
+    ],
+    "require": {}
+}

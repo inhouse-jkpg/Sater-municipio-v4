@@ -1,0 +1,30 @@
+
+.warning-messsage {
+  padding: 5px;
+  font-weight: 40;
+  i {
+    font-size: 3em;
+  }
+  .icon-grid {
+    padding-left: 10px;
+    padding-right: 0;
+    .pricon-notice-warning {
+      padding-left: 0; 
+      padding-right: 0;
+    }
+    .pricon-info-o {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.warning-messsage-link {
+  color: #000;
+}
+.transparent-header-with-warningMsg {
+  padding-top: 72px;
+}
+.is-sticky-scroll.transparent-header-with-warningMsg {       
+  padding-top: 0;
+} 

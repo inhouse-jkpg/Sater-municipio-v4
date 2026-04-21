@@ -1,0 +1,114 @@
+    {
+        "key": "group_58ac352e6c62c",
+        "title": "Evenemang",
+        "fields": [
+            {
+                "display_format": "Y-m-d H:i",
+                "return_format": "Y-m-d H:i",
+                "first_day": 1,
+                "key": "field_58ac353a42cf3",
+                "label": "Start",
+                "name": "start_datum",
+                "type": "date_time_picker",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50%",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "display_format": "Y-m-d H:i",
+                "return_format": "Y-m-d H:i",
+                "first_day": 1,
+                "key": "field_58ac359542cf4",
+                "label": "Slut",
+                "name": "slut_datum",
+                "type": "date_time_picker",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50%",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "key": "field_58ad55e2bdb78",
+                "label": "Plats",
+                "name": "plats",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "key": "field_58ad5695bdb79",
+                "label": "Pris",
+                "name": "pris",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "key": "field_58ad569abdb7a",
+                "label": "Arrang\u00f6r",
+                "name": "arrangor",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "events"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }
