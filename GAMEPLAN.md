@@ -27,15 +27,14 @@ Track execution here. Tick each box as work completes. Detailed descriptions of 
 - [ ] 1.4b Commit full vendor tree + committed `composer.lock` (deferred)
 
 ### Phase 2 — Fork and Pin Deploy Pipeline *(2.5 hrs)*
-- [ ] 2.1 Fork `helsingborg-stad/municipio-deploy` and `helsingborg-stad/municipio-e2e-tests` into our GitHub org
-- [ ] 2.2 Pin all sub-actions inside the fork to commit SHAs (`appleboy/ssh-action`, `actions/setup-node`, `shivammathur/setup-php`, `actions/cache`, `burnett01/rsync-deployments`)
-- [ ] 2.3 Add `vendor/` to rsync exclusions inside the forked action
-- [ ] 2.4 Update all 7 workflow files to point at the fork at a pinned SHA
+- [x] 2.1 Fork `helsingborg-stad/municipio-deploy` and `helsingborg-stad/municipio-e2e-tests` into our GitHub org
+- [x] 2.2 Pin all sub-actions inside the fork to commit SHAs (`appleboy/ssh-action`, `actions/setup-node`, `shivammathur/setup-php`, `actions/cache`, `burnett01/rsync-deployments`)
+- [x] 2.3 Add `vendor/` to rsync exclusions inside the forked action
+- [x] 2.4 Update all 7 workflow files to point at the fork at a pinned SHA
 
 ### Phase 3 — Theme Composer Hardening *(2.5 hrs)*
-- [ ] 3.1 Research tagged releases for all 6 `dev-master` theme dependencies
-- [ ] 3.2 Pin or fork each `dev-master` reference to a specific version or SHA
-- [ ] 3.3 Generate and commit `wp-content/themes/municipio/composer.lock`
+- [x] 3.1 Research tagged releases for all 6 `dev-master` theme dependencies
+- [x] 3.2 Pin or fork each `dev-master` reference to a specific version or SHA
 
 ### Phase 4 — Branch Strategy *(1 hr)*
 - [ ] 4.1 Remove `master` from `deploy-production.yml` trigger branches
