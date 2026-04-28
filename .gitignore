@@ -3,6 +3,7 @@
 /wp/
 /wp-content/uploads/
 /wp-content/upgrade/
+/wp-content/plugins/advanced-custom-fields-pro/
 **/node_modules/
 .DS_Store
 auth.json
