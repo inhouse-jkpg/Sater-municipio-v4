@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94467639f3007c7ac4d25207da0f7c8e",
+    "content-hash": "ce907289217f7082be8ad2ca7164cbee",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -9107,9 +9107,15 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
         "composer/installers": 20,
+        "enshrined/svg-sanitize": 20,
         "jean85/pretty-package-versions": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "justinrainbow/json-schema": 20,
+        "landrok/language-detector": 20,
         "php-http/curl-client": 20,
         "php-http/message": 20,
         "symfony/http-client": 20,
@@ -9120,7 +9126,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": ">=7.4",
+        "ext-json": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

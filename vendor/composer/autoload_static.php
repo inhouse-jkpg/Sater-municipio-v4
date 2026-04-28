@@ -240,12 +240,15 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             'ApiAlarmIntegration\\' => 20,
             'Algolia\\AlgoliaSearch\\' => 22,
             'AlgoliaIndex\\' => 13,
+            'AlgoliaIndexTypesenseProvider\\' => 30,
             'AlgoliaIndexModularityAddon\\' => 28,
             'AlgoliaIndexJsSearchpage\\' => 25,
             'AcfService\\' => 11,
             'AcfOpenStreetMap\\' => 17,
+            'AcfIcon\\' => 8,
             'AcfExportManager\\' => 17,
             'APIVolunteerManagerIntegration\\' => 31,
+            'ACF\\' => 4,
         ),
     );
 
@@ -304,17 +307,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'WebhooksManager\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/webhooks-manager/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/webhooks-manager/source/php',
         ),
         'WPMUSecurity\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/wpmu-security/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/wpmu-security/source/php',
         ),
         'Visit\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/visit-custom-posttypes-taxonomies/library',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/visit-custom-posttypes-taxonomies/library',
         ),
         'TrueBV\\' => 
         array (
@@ -457,12 +457,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Municipio\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/themes/municipio/library',
-            1 => __DIR__ . '/../..' . '/wp-content/themes/municipio/library',
         ),
         'Modularity\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php',
         ),
         'ModularityTimeline\\' => 
         array (
@@ -497,7 +495,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityLocalEvents\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-local-events/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-local-events/source/php',
         ),
         'ModularityLikePosts\\' => 
         array (
@@ -512,7 +509,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityInteractiveMap\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-interactive-img-map/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-interactive-img-map/source/php',
         ),
         'ModularityGuides\\' => 
         array (
@@ -532,7 +528,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityDynamicGuides\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-dynamic-guides/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-dynamic-guides/source/php',
         ),
         'ModularityContactBanner\\' => 
         array (
@@ -832,7 +827,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'EasyReading\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/easy-to-read-alternative/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/easy-to-read-alternative/source/php',
         ),
         'Dompdf\\' => 
         array (
@@ -859,7 +853,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ContentScheduler\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/content-scheduler/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/content-scheduler/source/php',
         ),
         'Composer\\Installers\\' => 
         array (
@@ -868,7 +861,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ComponentLibrary\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/component-library/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/component-library/source/php',
         ),
         'Clue\\StreamFilter\\' => 
         array (
@@ -919,6 +911,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php',
             1 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php',
         ),
+        'AlgoliaIndexTypesenseProvider\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php',
+        ),
         'AlgoliaIndexModularityAddon\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-modularity-addon/source/php',
@@ -938,6 +934,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php',
             1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php',
         ),
+        'AcfIcon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-icon-field/source/php',
+        ),
         'AcfExportManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src',
@@ -946,6 +946,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php',
             1 => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php',
+        ),
+        'ACF\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src',
         ),
     );
 
@@ -960,6 +964,16 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
     );
 
     public static $classMap = array (
+        'ACF\\Blocks\\Bindings' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Blocks/Bindings.php',
+        'ACF\\Meta\\Comment' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Comment.php',
+        'ACF\\Meta\\MetaLocation' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/MetaLocation.php',
+        'ACF\\Meta\\Option' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Option.php',
+        'ACF\\Meta\\Post' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Post.php',
+        'ACF\\Meta\\Term' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Term.php',
+        'ACF\\Meta\\User' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/User.php',
+        'ACF\\Pro\\Forms\\WC_Order' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Pro/Forms/WC_Order.php',
+        'ACF\\Pro\\Meta\\WooOrder' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Pro/Meta/WooOrder.php',
+        'ACF\\Site_Health\\Site_Health' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Site_Health/Site_Health.php',
         'APIVolunteerManagerIntegration\\Admin\\OptionsPage' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/Admin/OptionsPage.php',
         'APIVolunteerManagerIntegration\\App' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/App.php',
         'APIVolunteerManagerIntegration\\Bootstrap' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/Bootstrap.php',
@@ -1046,10 +1060,13 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AWS\\CRT\\OptionValue' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AWS\\CRT\\Options' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AcfExportManager\\AcfExportManager' => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src/AcfExportManager.php',
+        'AcfIcon\\CacheBust' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-icon-field/source/php/CacheBust.php',
         'AcfOpenStreetMap\\CacheBust' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php/CacheBust.php',
         'AcfOpenStreetMap\\Lang' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php/Lang.php',
         'AcfService\\AcfService' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/AcfService.php',
+        'AcfService\\Contracts\\AcfGetField' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AcfGetField.php',
         'AcfService\\Contracts\\AcfGetFields' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AcfGetFields.php',
+        'AcfService\\Contracts\\AcfValidateValue' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AcfValidateValue.php',
         'AcfService\\Contracts\\AddLocalFieldGroup' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AddLocalFieldGroup.php',
         'AcfService\\Contracts\\AddOptionsPage' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AddOptionsPage.php',
         'AcfService\\Contracts\\AddOptionsSubPage' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Contracts/AddOptionsSubPage.php',
@@ -1066,19 +1083,33 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AcfService\\Implementations\\FakeAcfService' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Implementations/FakeAcfService.php',
         'AcfService\\Implementations\\NativeAcfService' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/Implementations/NativeAcfService.php',
         'AlgoliaIndexJsSearchpage\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/App.php',
+        'AlgoliaIndexJsSearchpage\\Blade\\Blade' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/Blade/Blade.php',
         'AlgoliaIndexJsSearchpage\\ComponentsJs' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/ComponentsJs.php',
         'AlgoliaIndexJsSearchpage\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/Helper/CacheBust.php',
+        'AlgoliaIndexJsSearchpage\\Helper\\IsSearchPage' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/Helper/IsSearchPage.php',
+        'AlgoliaIndexJsSearchpage\\Helper\\Lang' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/Helper/Lang.php',
+        'AlgoliaIndexJsSearchpage\\UI\\Render' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/UI/Render.php',
+        'AlgoliaIndexJsSearchpage\\UI\\RenderInterface' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/UI/RenderInterface.php',
         'AlgoliaIndexModularityAddon\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-modularity-addon/source/php/App.php',
+        'AlgoliaIndexTypesenseProvider\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/App.php',
+        'AlgoliaIndexTypesenseProvider\\Helper\\Options' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Helper/Options.php',
+        'AlgoliaIndexTypesenseProvider\\Provider\\Typesense\\TypesenseProvider' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Provider/Typesense/TypesenseProvider.php',
+        'AlgoliaIndexTypesenseProvider\\Provider\\Typesense\\TypesenseProviderFactory' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Provider/Typesense/TypesenseProviderFactory.php',
         'AlgoliaIndex\\Admin\\Post' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Admin/Post.php',
         'AlgoliaIndex\\Admin\\Settings' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Admin/Settings.php',
         'AlgoliaIndex\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/App.php',
         'AlgoliaIndex\\Bulk' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Bulk.php',
+        'AlgoliaIndex\\Facetting' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Facetting.php',
         'AlgoliaIndex\\Helper\\Id' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Helper/Id.php',
         'AlgoliaIndex\\Helper\\Index' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Helper/Index.php',
         'AlgoliaIndex\\Helper\\Indexable' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Helper/Indexable.php',
         'AlgoliaIndex\\Helper\\Log' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Helper/Log.php',
         'AlgoliaIndex\\Helper\\Options' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Helper/Options.php',
         'AlgoliaIndex\\Index' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Index.php',
+        'AlgoliaIndex\\Provider\\AbstractProvider' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Provider/AbstractProvider.php',
+        'AlgoliaIndex\\Provider\\Algolia\\AlgoliaFactory' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Provider/Algolia/AlgoliaFactory.php',
+        'AlgoliaIndex\\Provider\\Algolia\\AlgoliaProvider' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Provider/Algolia/AlgoliaProvider.php',
+        'AlgoliaIndex\\Provider\\ProviderFactory' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Provider/ProviderFactory.php',
         'AlgoliaIndex\\Search' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Search.php',
         'AlgoliaIndex\\Vendor\\Psr4ClassLoader' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Vendor/Psr4ClassLoader.php',
         'Algolia\\AlgoliaSearch\\AccountClient' => __DIR__ . '/..' . '/algolia/algoliasearch-client-php/src/AccountClient.php',
@@ -1151,6 +1182,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ApiAlarmIntegration\\Disturbance' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Disturbance.php',
         'ApiAlarmIntegration\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Helper/CacheBust.php',
         'ApiAlarmIntegration\\Module' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Module.php',
+        'ApiAlarmIntegration\\Module\\AlarmList\\AlarmList' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Module/AlarmList/AlarmList.php',
         'ApiAlarmIntegration\\Module\\FireDangerLevels\\FireDangerLevels' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Module/FireDangerLevels/FireDangerLevels.php',
         'ApiAlarmIntegration\\Widget' => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php/Widget.php',
         'Apix\\Log\\Exception' => __DIR__ . '/..' . '/apix/log/src/Exception.php',
@@ -2779,6 +2811,8 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'EventManagerIntegration\\Entity\\PostManager' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/Entity/PostManager.php',
         'EventManagerIntegration\\Event' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/Event.php',
         'EventManagerIntegration\\EventArchive' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/EventArchive.php',
+        'EventManagerIntegration\\EventPostObject' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/EventPostObject.php',
+        'EventManagerIntegration\\EventPostObjectTest' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/EventPostObjectTest.php',
         'EventManagerIntegration\\Helper\\ApiUrl' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/Helper/ApiUrl.php',
         'EventManagerIntegration\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/Helper/CacheBust.php',
         'EventManagerIntegration\\Helper\\GetImageExtensionFromMimeType' => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php/Helper/GetImageExtensionFromMimeType.php',
@@ -4029,8 +4063,11 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityFormBuilder\\Upgrade\\Version\\V1' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-form-builder/source/php/Upgrade/Version/V1.php',
         'ModularityFormBuilder\\Upgrade\\Version\\VersionInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-form-builder/source/php/Upgrade/Version/VersionInterface.php',
         'ModularityFormBuilder\\WpCli' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-form-builder/source/php/WpCli.php',
+        'ModularityGuides\\Api' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/Api.php',
         'ModularityGuides\\App' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/App.php',
         'ModularityGuides\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/Helper/CacheBust.php',
+        'ModularityGuides\\Helper\\FieldTransform' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/Helper/FieldTransform.php',
+        'ModularityGuides\\Helper\\Lang' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/Helper/Lang.php',
         'ModularityGuides\\Module' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php/Module.php',
         'ModularityInteractiveMap\\App' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-interactive-img-map/source/php/App.php',
         'ModularityInteractiveMap\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-interactive-img-map/source/php/Helper/CacheBust.php',
@@ -4039,6 +4076,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityJsonRender\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-json-render/source/php/Helper/CacheBust.php',
         'ModularityJsonRender\\Helper\\React' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-json-render/source/php/Helper/React.php',
         'ModularityJsonRender\\Module\\JsonRender' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-json-render/source/php/Module/JsonRender.php',
+        'ModularityLikePosts\\Api\\GetPosts' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Api/GetPosts.php',
         'ModularityLikePosts\\Api\\HtmlTransformer' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Api/HtmlTransformer.php',
         'ModularityLikePosts\\Api\\LikePostsEndpoint' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Api/LikePostsEndpoint.php',
         'ModularityLikePosts\\Api\\ParamsConfig' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Api/ParamsConfig.php',
@@ -4049,6 +4087,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityLikePosts\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Helper/CacheBust.php',
         'ModularityLikePosts\\Helper\\FunctionCache' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Helper/FunctionCache.php',
         'ModularityLikePosts\\Helper\\GetOptionFields' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Helper/GetOptionFields.php',
+        'ModularityLikePosts\\Helper\\GetOptionFieldsInterface' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Helper/GetOptionFieldsInterface.php',
         'ModularityLikePosts\\LikeIconCounter' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/LikeIconCounter.php',
         'ModularityLikePosts\\Module\\LikedPosts' => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php/Module/LikedPosts.php',
         'ModularityLocalEvents\\App' => __DIR__ . '/../..' . '/wp-content/plugins/modularity-local-events/source/php/App.php',
@@ -4108,7 +4147,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Modularity\\Helper\\AcceptanceLabels' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/AcceptanceLabels.php',
         'Modularity\\Helper\\Acf' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/Acf.php',
         'Modularity\\Helper\\AcfService' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/AcfService.php',
-        'Modularity\\Helper\\AcfServiceTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/AcfServiceTest.php',
         'Modularity\\Helper\\Block' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/Block.php',
         'Modularity\\Helper\\Cache' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/Cache.php',
         'Modularity\\Helper\\CacheBust' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/CacheBust.php',
@@ -4129,7 +4167,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Modularity\\Helper\\WpQueryFactory\\WpQueryFactory' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/WpQueryFactory/WpQueryFactory.php',
         'Modularity\\Helper\\WpQueryFactory\\WpQueryFactoryInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/WpQueryFactory/WpQueryFactoryInterface.php',
         'Modularity\\Helper\\WpService' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/WpService.php',
-        'Modularity\\Helper\\WpServiceTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Helper/WpServiceTest.php',
         'Modularity\\HooksRegistrar\\Hookable' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/HooksRegistrar/Hookable.php',
         'Modularity\\HooksRegistrar\\HooksRegistrar' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/HooksRegistrar/HooksRegistrar.php',
         'Modularity\\HooksRegistrar\\HooksRegistrarInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/HooksRegistrar/HooksRegistrarInterface.php',
@@ -4144,7 +4181,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Modularity\\Module\\Curator\\Curator' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Curator/Curator.php',
         'Modularity\\Module\\Divider\\Divider' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Divider/Divider.php',
         'Modularity\\Module\\FilesList\\FilesList' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/FilesList/FilesList.php',
-        'Modularity\\Module\\FilesList\\FilesListTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/FilesList/FilesListTest.php',
         'Modularity\\Module\\Gallery\\Gallery' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Gallery/Gallery.php',
         'Modularity\\Module\\Hero\\Hero' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Hero/Hero.php',
         'Modularity\\Module\\Iframe\\Iframe' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Iframe/Iframe.php',
@@ -4183,24 +4219,18 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Modularity\\Module\\Posts\\Helper\\GetArchiveUrl' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetArchiveUrl.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\GetPosts' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/GetPosts.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\GetPostsFromMultipleSites' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/GetPostsFromMultipleSites.php',
-        'Modularity\\Module\\Posts\\Helper\\GetPosts\\GetPostsFromMultipleSitesTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/GetPostsFromMultipleSitesTest.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\GetPostsInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/GetPostsInterface.php',
-        'Modularity\\Module\\Posts\\Helper\\GetPosts\\GetPostsTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/GetPostsTest.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostTypesFromSchemaType\\NullPostTypesFromSchemaTypeResolver' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostTypesFromSchemaType/NullPostTypesFromSchemaTypeResolver.php',
-        'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostTypesFromSchemaType\\NullPostTypesFromSchemaTypeResolverTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostTypesFromSchemaType/NullPostTypesFromSchemaTypeResolverTest.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostTypesFromSchemaType\\PostTypesFromSchemaTypeResolver' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostTypesFromSchemaType/PostTypesFromSchemaTypeResolver.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostTypesFromSchemaType\\PostTypesFromSchemaTypeResolverInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostTypesFromSchemaType/PostTypesFromSchemaTypeResolverInterface.php',
-        'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostTypesFromSchemaType\\PostTypesFromSchemaTypeResolverTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostTypesFromSchemaType/PostTypesFromSchemaTypeResolverTest.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostsResult' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostsResult.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostsResultInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostsResultInterface.php',
-        'Modularity\\Module\\Posts\\Helper\\GetPosts\\PostsResultTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/PostsResultTest.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\UserGroupResolver\\UserGroupResolver' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/UserGroupResolver/UserGroupResolver.php',
         'Modularity\\Module\\Posts\\Helper\\GetPosts\\UserGroupResolver\\UserGroupResolverInterface' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Helper/GetPosts/UserGroupResolver/UserGroupResolverInterface.php',
         'Modularity\\Module\\Posts\\Posts' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Posts.php',
         'Modularity\\Module\\Posts\\PostsAjax' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/PostsAjax.php',
         'Modularity\\Module\\Posts\\Private\\PrivateController' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/Private/PrivateController.php',
         'Modularity\\Module\\Posts\\TemplateController\\AbstractController' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/TemplateController/AbstractController.php',
-        'Modularity\\Module\\Posts\\TemplateController\\AbstractControllerTest' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/TemplateController/AbstractControllerTest.php',
         'Modularity\\Module\\Posts\\TemplateController\\CollectionTemplate' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/TemplateController/CollectionTemplate.php',
         'Modularity\\Module\\Posts\\TemplateController\\ExpandableListTemplate' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/TemplateController/ExpandableListTemplate.php',
         'Modularity\\Module\\Posts\\TemplateController\\FeaturesGridTemplate' => __DIR__ . '/../..' . '/wp-content/plugins/modularity/source/php/Module/Posts/TemplateController/FeaturesGridTemplate.php',
@@ -6724,6 +6754,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Municipio\\Schema\\WriteAction' => __DIR__ . '/..' . '/helsingborg-stad/schema-library/src/WriteAction.php',
         'Municipio\\Schema\\XPathType' => __DIR__ . '/..' . '/helsingborg-stad/schema-library/src/XPathType.php',
         'Municipio\\Schema\\Zoo' => __DIR__ . '/..' . '/helsingborg-stad/schema-library/src/Zoo.php',
+        'Municipio\\Scripts\\FileModifier' => __DIR__ . '/../..' . '/wp-content/plugins/miniorange-saml-20-single-sign-on/Scripts/FileModifier.php',
         'Municipio\\Search\\Algolia' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Search/Algolia.php',
         'Municipio\\Search\\General' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Search/General.php',
         'Municipio\\Search\\Google' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Search/Google.php',
@@ -7413,6 +7444,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Symfony\\Contracts\\HttpClient\\Test\\TestHttpServer' => __DIR__ . '/..' . '/symfony/http-client-contracts/Test/TestHttpServer.php',
         'Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
         'Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
+        'Symfony\\Contracts\\Service\\ContainerAwareInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ContainerAwareInterface.php',
         'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
         'Symfony\\Contracts\\Service\\ServiceCollectionInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceCollectionInterface.php',
         'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceLocatorTrait.php',
@@ -10527,6 +10559,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'adApiWpIntegration\\App' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/App.php',
         'adApiWpIntegration\\BulkImport' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/BulkImport.php',
         'adApiWpIntegration\\Cleaning' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Cleaning.php',
+        'adApiWpIntegration\\Cli\\AdIntegrationCommand' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Cli/AdIntegrationCommand.php',
         'adApiWpIntegration\\Database' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Database.php',
         'adApiWpIntegration\\Helper\\AutoCreate' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Helper/AutoCreate.php',
         'adApiWpIntegration\\Helper\\Curl' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Helper/Curl.php',
@@ -10539,6 +10572,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'adApiWpIntegration\\NewBlog' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/NewBlog.php',
         'adApiWpIntegration\\Password' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Password.php',
         'adApiWpIntegration\\Profile' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/Profile.php',
+        'adApiWpIntegration\\UserActions' => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php/UserActions.php',
         'enshrined\\svgSanitize\\ElementReference\\Resolver' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Resolver.php',
         'enshrined\\svgSanitize\\ElementReference\\Subject' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Subject.php',
         'enshrined\\svgSanitize\\ElementReference\\Usage' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Usage.php',
