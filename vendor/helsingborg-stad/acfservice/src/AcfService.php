@@ -5,7 +5,9 @@ namespace AcfService;
 use AcfService\Contracts;
 
 interface AcfService extends
+    Contracts\AcfGetField,
     Contracts\AcfGetFields,
+    Contracts\AcfValidateValue,
     Contracts\AddLocalFieldGroup,
     Contracts\AddOptionsPage,
     Contracts\AddOptionsSubPage,

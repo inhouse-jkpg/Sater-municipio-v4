@@ -90,7 +90,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             'Symfony\\Component\\HttpClient\\' => 29,
             'Symfony\\Component\\Finder\\' => 25,
             'Svg\\' => 4,
-            'SimplifyAdminMenus\\' => 19,
             'SearchStatistics\\' => 17,
             'SearchNotices\\' => 14,
             'Sabberworm\\CSS\\' => 15,
@@ -108,13 +107,11 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
-            'Pressidium\\WP\\CookieConsent\\' => 28,
             'PackageVersions\\' => 16,
         ),
         'N' => 
         array (
             'Nette\\' => 6,
-            'NestedPages\\' => 12,
         ),
         'M' => 
         array (
@@ -240,15 +237,12 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             'ApiAlarmIntegration\\' => 20,
             'Algolia\\AlgoliaSearch\\' => 22,
             'AlgoliaIndex\\' => 13,
-            'AlgoliaIndexTypesenseProvider\\' => 30,
             'AlgoliaIndexModularityAddon\\' => 28,
             'AlgoliaIndexJsSearchpage\\' => 25,
             'AcfService\\' => 11,
             'AcfOpenStreetMap\\' => 17,
-            'AcfIcon\\' => 8,
             'AcfExportManager\\' => 17,
             'APIVolunteerManagerIntegration\\' => 31,
-            'ACF\\' => 4,
         ),
     );
 
@@ -260,7 +254,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'msRolePropagination\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/multisite-role-propagation/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/multisite-role-propagation/source/php',
         ),
         'libphonenumber\\' => 
         array (
@@ -273,7 +266,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'adApiWpIntegration\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/active-directory-api-wp-integration/source/php',
         ),
         'Zend\\Diactoros\\' => 
         array (
@@ -290,7 +282,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'WpPageForPostType\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/wp-page-for-post-type/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/wp-page-for-post-type/source/php',
         ),
         'WpCronService\\' => 
         array (
@@ -376,19 +367,13 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
         ),
-        'SimplifyAdminMenus\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/plugins/simplify-admin-menus/app',
-        ),
         'SearchStatistics\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/wp-search-statistics/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/wp-search-statistics/source/php',
         ),
         'SearchNotices\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/search-notices/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/search-notices/source/php',
         ),
         'Sabberworm\\CSS\\' => 
         array (
@@ -397,7 +382,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'RedirectionExtended\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/redirection-extended/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/redirection-extended/source/php',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -428,10 +412,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
-        'Pressidium\\WP\\CookieConsent\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes',
-        ),
         'PackageVersions\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
@@ -441,14 +421,9 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             0 => __DIR__ . '/..' . '/nette/schema/src',
             1 => __DIR__ . '/..' . '/nette/utils/src',
         ),
-        'NestedPages\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app',
-        ),
         'Municipio\\Scripts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/miniorange-saml-20-single-sign-on/Scripts',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/miniorange-saml-20-single-sign-on/Scripts',
         ),
         'Municipio\\Schema\\' => 
         array (
@@ -465,32 +440,26 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityTimeline\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-timeline/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-timeline/source/php',
         ),
         'ModularityTestimonials\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-testimonials/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-testimonials/source/php',
         ),
         'ModularitySections\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-sections/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-sections/source/php',
         ),
         'ModularityRecommend\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-recommend/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-recommend/source/php',
         ),
         'ModularityProducts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-products/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-products/source/php',
         ),
         'ModularityOpenStreetMap\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-open-street-map/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-open-street-map/source/php',
         ),
         'ModularityLocalEvents\\' => 
         array (
@@ -499,12 +468,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityLikePosts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/like-posts/source/php',
         ),
         'ModularityJsonRender\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-json-render/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-json-render/source/php',
         ),
         'ModularityInteractiveMap\\' => 
         array (
@@ -513,17 +480,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityGuides\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-guides/source/php',
         ),
         'ModularityFormBuilder\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-form-builder/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-form-builder/source/php',
         ),
         'ModularityEntryscape\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-entryscape/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-entryscape/source/php',
         ),
         'ModularityDynamicGuides\\' => 
         array (
@@ -532,17 +496,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ModularityContactBanner\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-contact-banner/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/modularity-contact-banner/source/php',
         ),
         'ModMyPages\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/mod-my-pages/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/mod-my-pages/source/php',
         ),
         'MediaUsage\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/media-usage/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/media-usage/source/php',
         ),
         'Masterminds\\' => 
         array (
@@ -551,7 +512,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'LixCalculator\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/lix-calculator/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/lix-calculator/source/php',
         ),
         'League\\Config\\' => 
         array (
@@ -568,17 +528,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Kirki\\Util\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/util/src',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/util/src',
         ),
         'Kirki\\Settings\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/settings/src',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/settings/src',
         ),
         'Kirki\\Pro\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/pro-src',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/pro-src',
         ),
         'Kirki\\Module\\' => 
         array (
@@ -591,15 +548,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             6 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-selective-refresh/src',
             7 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-tooltips/src',
             8 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-webfonts/src',
-            9 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-css/src',
-            10 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-editor-styles/src',
-            11 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-field-dependencies/src',
-            12 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-postmessage/src',
-            13 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-preset/src',
-            14 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-section-icons/src',
-            15 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-selective-refresh/src',
-            16 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-tooltips/src',
-            17 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-webfonts/src',
         ),
         'Kirki\\Field\\' => 
         array (
@@ -611,24 +559,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             5 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-multicolor/src',
             6 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-typography/src/Field',
             7 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-typography/src',
-            8 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field/src/Field',
-            9 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-background/src',
-            10 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-dimensions/src',
-            11 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-fontawesome/src',
-            12 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-multicolor/src/Field',
-            13 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-multicolor/src',
-            14 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-typography/src/Field',
-            15 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field-typography/src',
         ),
         'Kirki\\Data\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/data-option/src',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/data-option/src',
         ),
         'Kirki\\Compatibility\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/compatibility/src',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/compatibility/src',
         ),
         'Kirki\\' => 
         array (
@@ -661,35 +599,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
             26 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-panels/src',
             27 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-sections/src',
             28 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/url-getter/src',
-            29 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-base/src',
-            30 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-checkbox/src',
-            31 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-code/src',
-            32 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-color/src',
-            33 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-color-palette/src',
-            34 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-cropped-image/src',
-            35 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-custom/src',
-            36 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-dashicons/src',
-            37 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-date/src',
-            38 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-dimension/src',
-            39 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-editor/src',
-            40 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-generic/src',
-            41 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-image/src',
-            42 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-multicheck/src',
-            43 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-palette/src',
-            44 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-radio/src',
-            45 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-react-colorful/src',
-            46 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-react-select/src',
-            47 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-repeater/src',
-            48 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-select/src',
-            49 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-slider/src',
-            50 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-sortable/src',
-            51 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/control-upload/src',
-            52 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/field/src',
-            53 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/googlefonts/src',
-            54 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/l10n/src',
-            55 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-panels/src',
-            56 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/module-sections/src',
-            57 => __DIR__ . '/../..' . '/wp-content/mu-plugins/kirki/kirki-packages/url-getter/src',
         ),
         'JsonSchema\\' => 
         array (
@@ -698,7 +607,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'JobListings\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/job-listings/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/job-listings/source/php',
         ),
         'JmesPath\\' => 
         array (
@@ -809,7 +717,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'GdiAboutMe\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/gdi-modularity-my-pages-about-me/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/gdi-modularity-my-pages-about-me/source/php',
         ),
         'FontLib\\' => 
         array (
@@ -822,7 +729,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'EventManagerIntegration\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/api-event-manager-integration/source/php',
         ),
         'EasyReading\\' => 
         array (
@@ -834,7 +740,7 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         ),
         'Doctrine\\Inflector\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+            0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
         'Dflydev\\DotAccessData\\' => 
         array (
@@ -843,12 +749,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'CustomerFeedback\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/customer-feedback/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/customer-feedback/source/php',
         ),
         'CustomShortLinks\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/custom-short-links/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/custom-short-links/source/php',
         ),
         'ContentScheduler\\' => 
         array (
@@ -877,12 +781,10 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'BrokenLinkDetector\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/broken-link-detector/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/broken-link-detector/source/php',
         ),
         'BetterPostUi\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/better-post-ui/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/better-post-ui/source/php',
         ),
         'Aws\\' => 
         array (
@@ -891,7 +793,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AttatchmentRevisions\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/attachment-revisions/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/attachment-revisions/source/php',
         ),
         'Apix\\Log\\' => 
         array (
@@ -900,7 +801,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'ApiAlarmIntegration\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/api-alarm-integration/source/php',
         ),
         'Algolia\\AlgoliaSearch\\' => 
         array (
@@ -909,21 +809,14 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AlgoliaIndex\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php',
-        ),
-        'AlgoliaIndexTypesenseProvider\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php',
         ),
         'AlgoliaIndexModularityAddon\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-modularity-addon/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-modularity-addon/source/php',
         ),
         'AlgoliaIndexJsSearchpage\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php',
         ),
         'AcfService\\' => 
         array (
@@ -932,11 +825,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AcfOpenStreetMap\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php',
-        ),
-        'AcfIcon\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-icon-field/source/php',
         ),
         'AcfExportManager\\' => 
         array (
@@ -945,11 +833,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'APIVolunteerManagerIntegration\\' => 
         array (
             0 => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php',
-            1 => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php',
-        ),
-        'ACF\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src',
         ),
     );
 
@@ -964,16 +847,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
     );
 
     public static $classMap = array (
-        'ACF\\Blocks\\Bindings' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Blocks/Bindings.php',
-        'ACF\\Meta\\Comment' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Comment.php',
-        'ACF\\Meta\\MetaLocation' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/MetaLocation.php',
-        'ACF\\Meta\\Option' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Option.php',
-        'ACF\\Meta\\Post' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Post.php',
-        'ACF\\Meta\\Term' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/Term.php',
-        'ACF\\Meta\\User' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Meta/User.php',
-        'ACF\\Pro\\Forms\\WC_Order' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Pro/Forms/WC_Order.php',
-        'ACF\\Pro\\Meta\\WooOrder' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Pro/Meta/WooOrder.php',
-        'ACF\\Site_Health\\Site_Health' => __DIR__ . '/../..' . '/wp-content/plugins/advanced-custom-fields-pro/src/Site_Health/Site_Health.php',
         'APIVolunteerManagerIntegration\\Admin\\OptionsPage' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/Admin/OptionsPage.php',
         'APIVolunteerManagerIntegration\\App' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/App.php',
         'APIVolunteerManagerIntegration\\Bootstrap' => __DIR__ . '/../..' . '/wp-content/plugins/api-volunteer-manager-integration/source/php/Bootstrap.php',
@@ -1060,7 +933,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AWS\\CRT\\OptionValue' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AWS\\CRT\\Options' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AcfExportManager\\AcfExportManager' => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src/AcfExportManager.php',
-        'AcfIcon\\CacheBust' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-icon-field/source/php/CacheBust.php',
         'AcfOpenStreetMap\\CacheBust' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php/CacheBust.php',
         'AcfOpenStreetMap\\Lang' => __DIR__ . '/../..' . '/wp-content/mu-plugins/acf-openstreetmap-field/source/php/Lang.php',
         'AcfService\\AcfService' => __DIR__ . '/..' . '/helsingborg-stad/acfservice/src/AcfService.php',
@@ -1091,10 +963,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'AlgoliaIndexJsSearchpage\\UI\\Render' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/UI/Render.php',
         'AlgoliaIndexJsSearchpage\\UI\\RenderInterface' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-js-searchpage-addon/source/php/UI/RenderInterface.php',
         'AlgoliaIndexModularityAddon\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-modularity-addon/source/php/App.php',
-        'AlgoliaIndexTypesenseProvider\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/App.php',
-        'AlgoliaIndexTypesenseProvider\\Helper\\Options' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Helper/Options.php',
-        'AlgoliaIndexTypesenseProvider\\Provider\\Typesense\\TypesenseProvider' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Provider/Typesense/TypesenseProvider.php',
-        'AlgoliaIndexTypesenseProvider\\Provider\\Typesense\\TypesenseProviderFactory' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index-typesense-provider/source/php/Provider/Typesense/TypesenseProviderFactory.php',
         'AlgoliaIndex\\Admin\\Post' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Admin/Post.php',
         'AlgoliaIndex\\Admin\\Settings' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/Admin/Settings.php',
         'AlgoliaIndex\\App' => __DIR__ . '/../..' . '/wp-content/plugins/algolia-index/source/php/App.php',
@@ -2682,51 +2550,69 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Dflydev\\DotAccessData\\Exception\\InvalidPathException' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Exception/InvalidPathException.php',
         'Dflydev\\DotAccessData\\Exception\\MissingPathException' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Exception/MissingPathException.php',
         'Dflydev\\DotAccessData\\Util' => __DIR__ . '/..' . '/dflydev/dot-access-data/src/Util.php',
-        'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/CachedWordInflector.php',
-        'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/GenericLanguageInflectorFactory.php',
-        'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Inflector.php',
-        'Doctrine\\Inflector\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/InflectorFactory.php',
-        'Doctrine\\Inflector\\Language' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Language.php',
-        'Doctrine\\Inflector\\LanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/LanguageInflectorFactory.php',
-        'Doctrine\\Inflector\\NoopWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/NoopWordInflector.php',
-        'Doctrine\\Inflector\\Rules\\English\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/English/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\English\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/English/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\English\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/English/Rules.php',
-        'Doctrine\\Inflector\\Rules\\English\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/English/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\Esperanto\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Esperanto/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\Esperanto\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Esperanto/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\Esperanto\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Esperanto/Rules.php',
-        'Doctrine\\Inflector\\Rules\\Esperanto\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Esperanto/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\French\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/French/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\French\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/French/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\French\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/French/Rules.php',
-        'Doctrine\\Inflector\\Rules\\French\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/French/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/NorwegianBokmal/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/NorwegianBokmal/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/NorwegianBokmal/Rules.php',
-        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/NorwegianBokmal/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\Pattern' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Pattern.php',
-        'Doctrine\\Inflector\\Rules\\Patterns' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Patterns.php',
-        'Doctrine\\Inflector\\Rules\\Portuguese\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Portuguese/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\Portuguese\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Portuguese/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\Portuguese\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Portuguese/Rules.php',
-        'Doctrine\\Inflector\\Rules\\Portuguese\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Portuguese/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\Ruleset' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Ruleset.php',
-        'Doctrine\\Inflector\\Rules\\Spanish\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Spanish/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\Spanish\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Spanish/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\Spanish\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Spanish/Rules.php',
-        'Doctrine\\Inflector\\Rules\\Spanish\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Spanish/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\Substitution' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Substitution.php',
-        'Doctrine\\Inflector\\Rules\\Substitutions' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Substitutions.php',
-        'Doctrine\\Inflector\\Rules\\Transformation' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Transformation.php',
-        'Doctrine\\Inflector\\Rules\\Transformations' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Transformations.php',
-        'Doctrine\\Inflector\\Rules\\Turkish\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Turkish/Inflectible.php',
-        'Doctrine\\Inflector\\Rules\\Turkish\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Turkish/InflectorFactory.php',
-        'Doctrine\\Inflector\\Rules\\Turkish\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Turkish/Rules.php',
-        'Doctrine\\Inflector\\Rules\\Turkish\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Turkish/Uninflected.php',
-        'Doctrine\\Inflector\\Rules\\Word' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Word.php',
-        'Doctrine\\Inflector\\RulesetInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/RulesetInflector.php',
-        'Doctrine\\Inflector\\WordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/WordInflector.php',
+        'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/CachedWordInflector.php',
+        'Doctrine\\Inflector\\Camelizer' => __DIR__ . '/..' . '/doctrine/inflector/src/Camelizer.php',
+        'Doctrine\\Inflector\\Capitalizer' => __DIR__ . '/..' . '/doctrine/inflector/src/Capitalizer.php',
+        'Doctrine\\Inflector\\CaseConverter' => __DIR__ . '/..' . '/doctrine/inflector/src/CaseConverter.php',
+        'Doctrine\\Inflector\\Classifier' => __DIR__ . '/..' . '/doctrine/inflector/src/Classifier.php',
+        'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/GenericLanguageInflectorFactory.php',
+        'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/src/Inflector.php',
+        'Doctrine\\Inflector\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/InflectorFactory.php',
+        'Doctrine\\Inflector\\Language' => __DIR__ . '/..' . '/doctrine/inflector/src/Language.php',
+        'Doctrine\\Inflector\\LanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/LanguageInflectorFactory.php',
+        'Doctrine\\Inflector\\NoopWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/NoopWordInflector.php',
+        'Doctrine\\Inflector\\Pluralization' => __DIR__ . '/..' . '/doctrine/inflector/src/Pluralization.php',
+        'Doctrine\\Inflector\\Pluralizer' => __DIR__ . '/..' . '/doctrine/inflector/src/Pluralizer.php',
+        'Doctrine\\Inflector\\Rules\\English\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/English/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\English\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/English/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\English\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/English/Rules.php',
+        'Doctrine\\Inflector\\Rules\\English\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/English/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Esperanto\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Esperanto/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Esperanto\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Esperanto/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Esperanto\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Esperanto/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Esperanto\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Esperanto/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\French\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/French/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\French\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/French/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\French\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/French/Rules.php',
+        'Doctrine\\Inflector\\Rules\\French\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/French/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Italian\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Italian/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Italian\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Italian/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Italian\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Italian/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Italian\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Italian/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/NorwegianBokmal/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/NorwegianBokmal/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/NorwegianBokmal/Rules.php',
+        'Doctrine\\Inflector\\Rules\\NorwegianBokmal\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/NorwegianBokmal/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Pattern' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Pattern.php',
+        'Doctrine\\Inflector\\Rules\\Patterns' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Patterns.php',
+        'Doctrine\\Inflector\\Rules\\Portuguese\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Portuguese/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Portuguese\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Portuguese/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Portuguese\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Portuguese/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Portuguese\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Portuguese/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Ruleset' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Ruleset.php',
+        'Doctrine\\Inflector\\Rules\\Spanish\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Spanish/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Spanish\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Spanish/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Spanish\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Spanish/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Spanish\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Spanish/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Substitution' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Substitution.php',
+        'Doctrine\\Inflector\\Rules\\Substitutions' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Substitutions.php',
+        'Doctrine\\Inflector\\Rules\\Swedish\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Swedish/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Swedish\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Swedish/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Swedish\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Swedish/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Swedish\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Swedish/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Transformation' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Transformation.php',
+        'Doctrine\\Inflector\\Rules\\Transformations' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Transformations.php',
+        'Doctrine\\Inflector\\Rules\\Turkish\\Inflectible' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Turkish/Inflectible.php',
+        'Doctrine\\Inflector\\Rules\\Turkish\\InflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Turkish/InflectorFactory.php',
+        'Doctrine\\Inflector\\Rules\\Turkish\\Rules' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Turkish/Rules.php',
+        'Doctrine\\Inflector\\Rules\\Turkish\\Uninflected' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Turkish/Uninflected.php',
+        'Doctrine\\Inflector\\Rules\\Word' => __DIR__ . '/..' . '/doctrine/inflector/src/Rules/Word.php',
+        'Doctrine\\Inflector\\RulesetInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/RulesetInflector.php',
+        'Doctrine\\Inflector\\Singularizer' => __DIR__ . '/..' . '/doctrine/inflector/src/Singularizer.php',
+        'Doctrine\\Inflector\\Slugifier' => __DIR__ . '/..' . '/doctrine/inflector/src/Slugifier.php',
+        'Doctrine\\Inflector\\Tableizer' => __DIR__ . '/..' . '/doctrine/inflector/src/Tableizer.php',
+        'Doctrine\\Inflector\\Unaccenter' => __DIR__ . '/..' . '/doctrine/inflector/src/Unaccenter.php',
+        'Doctrine\\Inflector\\WordInflector' => __DIR__ . '/..' . '/doctrine/inflector/src/WordInflector.php',
         'Dompdf\\Adapter\\CPDF' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/CPDF.php',
         'Dompdf\\Adapter\\GD' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/GD.php',
         'Dompdf\\Adapter\\PDFLib' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/PDFLib.php',
@@ -6803,94 +6689,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Municipio\\Widget\\Source\\UtilityFields' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Widget/Source/UtilityFields.php',
         'Municipio\\Widget\\Source\\WidgetTemplate' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Widget/Source/WidgetTemplate.php',
         'Municipio\\Widget\\Widgets' => __DIR__ . '/../..' . '/wp-content/themes/municipio/library/Widget/Widgets.php',
-        'NestedPages\\Activation\\Activate' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Activation/Activate.php',
-        'NestedPages\\Activation\\Dependencies' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Activation/Dependencies.php',
-        'NestedPages\\Activation\\Updates\\CustomFieldsToHidden' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Activation/Updates/CustomFieldsToHidden.php',
-        'NestedPages\\Activation\\Updates\\Updates' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Activation/Updates/Updates.php',
-        'NestedPages\\Bootstrap' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Bootstrap.php',
-        'NestedPages\\Config\\AdminMenuSettings' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Config/AdminMenuSettings.php',
-        'NestedPages\\Config\\Settings' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Config/Settings.php',
-        'NestedPages\\Config\\SettingsRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Config/SettingsRepository.php',
-        'NestedPages\\Entities\\AdminCustomization\\AdminCustomizationBase' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminCustomization/AdminCustomizationBase.php',
-        'NestedPages\\Entities\\AdminCustomization\\AdminCustomizationFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminCustomization/AdminCustomizationFactory.php',
-        'NestedPages\\Entities\\AdminCustomization\\AdminMenuItems' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminCustomization/AdminMenuItems.php',
-        'NestedPages\\Entities\\AdminCustomization\\AdminMenuSanitization' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminCustomization/AdminMenuSanitization.php',
-        'NestedPages\\Entities\\AdminMenu\\AdminMenu' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/AdminMenu.php',
-        'NestedPages\\Entities\\AdminMenu\\AdminSubmenu' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/AdminSubmenu.php',
-        'NestedPages\\Entities\\AdminMenu\\AdminSubmenuDefault' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/AdminSubmenuDefault.php',
-        'NestedPages\\Entities\\AdminMenu\\AdminSubmenuExpander' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/AdminSubmenuExpander.php',
-        'NestedPages\\Entities\\AdminMenu\\BlockEditorLink' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/BlockEditorLink.php',
-        'NestedPages\\Entities\\AdminMenu\\EnabledMenus' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/AdminMenu/EnabledMenus.php',
-        'NestedPages\\Entities\\Confirmation\\ConfirmationFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Confirmation/ConfirmationFactory.php',
-        'NestedPages\\Entities\\Confirmation\\ConfirmationInterface' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Confirmation/ConfirmationInterface.php',
-        'NestedPages\\Entities\\Confirmation\\LinkDeletedConfirmation' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Confirmation/LinkDeletedConfirmation.php',
-        'NestedPages\\Entities\\Confirmation\\TrashConfirmation' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Confirmation/TrashConfirmation.php',
-        'NestedPages\\Entities\\Confirmation\\TrashRestoredConfirmation' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Confirmation/TrashRestoredConfirmation.php',
-        'NestedPages\\Entities\\DefaultList\\DefaultListFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/DefaultList/DefaultListFactory.php',
-        'NestedPages\\Entities\\DefaultList\\NestedViewLink' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/DefaultList/NestedViewLink.php',
-        'NestedPages\\Entities\\Listing\\Listing' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Listing/Listing.php',
-        'NestedPages\\Entities\\Listing\\ListingActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Listing/ListingActions.php',
-        'NestedPages\\Entities\\Listing\\ListingQuery' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Listing/ListingQuery.php',
-        'NestedPages\\Entities\\Listing\\ListingRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Listing/ListingRepository.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuActions.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuFrontEnd' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuFrontEnd.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuRemoveItem' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuRemoveItem.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuRepository.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuSync' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuSync.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuSyncListing' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuSyncListing.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuSyncMenu' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuSyncMenu.php',
-        'NestedPages\\Entities\\NavMenu\\NavMenuTrashActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/NavMenu/NavMenuTrashActions.php',
-        'NestedPages\\Entities\\PluginIntegration\\AdvancedCustomFields' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/AdvancedCustomFields.php',
-        'NestedPages\\Entities\\PluginIntegration\\DarkMode' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/DarkMode.php',
-        'NestedPages\\Entities\\PluginIntegration\\EditorialAccessManager' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/EditorialAccessManager.php',
-        'NestedPages\\Entities\\PluginIntegration\\IntegrationFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/IntegrationFactory.php',
-        'NestedPages\\Entities\\PluginIntegration\\WPML' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/WPML.php',
-        'NestedPages\\Entities\\PluginIntegration\\YoastSeo' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PluginIntegration/YoastSeo.php',
-        'NestedPages\\Entities\\PostType\\PostTypeCustomFields' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PostType/PostTypeCustomFields.php',
-        'NestedPages\\Entities\\PostType\\PostTypeRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PostType/PostTypeRepository.php',
-        'NestedPages\\Entities\\PostType\\RegisterPostTypes' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/PostType/RegisterPostTypes.php',
-        'NestedPages\\Entities\\Post\\PostCloner' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostCloner.php',
-        'NestedPages\\Entities\\Post\\PostDataFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostDataFactory.php',
-        'NestedPages\\Entities\\Post\\PostFactory' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostFactory.php',
-        'NestedPages\\Entities\\Post\\PostRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostRepository.php',
-        'NestedPages\\Entities\\Post\\PostSaveActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostSaveActions.php',
-        'NestedPages\\Entities\\Post\\PostTrashActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostTrashActions.php',
-        'NestedPages\\Entities\\Post\\PostUpdateRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PostUpdateRepository.php',
-        'NestedPages\\Entities\\Post\\PrivatePostParent' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/Post/PrivatePostParent.php',
-        'NestedPages\\Entities\\User\\UserCapabilities' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/User/UserCapabilities.php',
-        'NestedPages\\Entities\\User\\UserRepository' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Entities/User/UserRepository.php',
-        'NestedPages\\Form\\Events' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Events.php',
-        'NestedPages\\Form\\Listeners\\BaseHandler' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/BaseHandler.php',
-        'NestedPages\\Form\\Listeners\\BulkActions' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/BulkActions.php',
-        'NestedPages\\Form\\Listeners\\BulkEdit' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/BulkEdit.php',
-        'NestedPages\\Form\\Listeners\\CategoryFilter' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/CategoryFilter.php',
-        'NestedPages\\Form\\Listeners\\ClonePost' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ClonePost.php',
-        'NestedPages\\Form\\Listeners\\EmptyTrash' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/EmptyTrash.php',
-        'NestedPages\\Form\\Listeners\\GetTaxonomies' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/GetTaxonomies.php',
-        'NestedPages\\Form\\Listeners\\ListingSort' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ListingSort.php',
-        'NestedPages\\Form\\Listeners\\ManualMenuSync' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ManualMenuSync.php',
-        'NestedPages\\Form\\Listeners\\MenuSearch' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/MenuSearch.php',
-        'NestedPages\\Form\\Listeners\\NestToggle' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/NestToggle.php',
-        'NestedPages\\Form\\Listeners\\NewBeforeAfter' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/NewBeforeAfter.php',
-        'NestedPages\\Form\\Listeners\\NewChild' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/NewChild.php',
-        'NestedPages\\Form\\Listeners\\NewMenuItem' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/NewMenuItem.php',
-        'NestedPages\\Form\\Listeners\\PostSearch' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/PostSearch.php',
-        'NestedPages\\Form\\Listeners\\QuickEdit' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/QuickEdit.php',
-        'NestedPages\\Form\\Listeners\\QuickEditLink' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/QuickEditLink.php',
-        'NestedPages\\Form\\Listeners\\ResetAdminMenuSettings' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ResetAdminMenuSettings.php',
-        'NestedPages\\Form\\Listeners\\ResetSettings' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ResetSettings.php',
-        'NestedPages\\Form\\Listeners\\ResetUserPreferences' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ResetUserPreferences.php',
-        'NestedPages\\Form\\Listeners\\Search' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/Search.php',
-        'NestedPages\\Form\\Listeners\\Sort' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/Sort.php',
-        'NestedPages\\Form\\Listeners\\SyncMenu' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/SyncMenu.php',
-        'NestedPages\\Form\\Listeners\\ToggleStatusDisplay' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/ToggleStatusDisplay.php',
-        'NestedPages\\Form\\Listeners\\TrashWithChildren' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/TrashWithChildren.php',
-        'NestedPages\\Form\\Listeners\\WpmlTranslations' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Listeners/WpmlTranslations.php',
-        'NestedPages\\Form\\Validation\\Validation' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Form/Validation/Validation.php',
-        'NestedPages\\FrontEndBootstrap' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/FrontEndBootstrap.php',
-        'NestedPages\\Helpers' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Helpers.php',
-        'NestedPages\\Redirects' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/Redirects.php',
-        'NestedPages\\RedirectsFrontEnd' => __DIR__ . '/../..' . '/wp-content/plugins/wp-nested-pages/app/RedirectsFrontEnd.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -6958,84 +6756,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'PackageVersions\\Installer' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Installer.php',
         'PackageVersions\\Versions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Versions.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'Pressidium\\WP\\CookieConsent\\Admin\\Page' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Admin/Page.php',
-        'Pressidium\\WP\\CookieConsent\\Admin\\Settings\\Consent_Record' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Admin/Settings/Consent_Record.php',
-        'Pressidium\\WP\\CookieConsent\\Admin\\Settings\\Service_Provider' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Admin/Settings/Service_Provider.php',
-        'Pressidium\\WP\\CookieConsent\\Admin\\Settings\\Settings_API' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Admin/Settings/Settings_API.php',
-        'Pressidium\\WP\\CookieConsent\\Admin\\Settings\\Settings_Page' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Admin/Settings/Settings_Page.php',
-        'Pressidium\\WP\\CookieConsent\\Client\\Consent_Mode' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Client/Consent_Mode.php',
-        'Pressidium\\WP\\CookieConsent\\Client\\Cookie_Consent' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Client/Cookie_Consent.php',
-        'Pressidium\\WP\\CookieConsent\\Client\\Service_Provider' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Client/Service_Provider.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Blueprint' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Blueprint.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\CSV_Exporter' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/CSV_Exporter.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Column' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Column.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Database_Manager' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Database_Manager.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Exporter' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Exporter.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Raw' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Raw.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Schema' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Schema.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Table' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Table.php',
-        'Pressidium\\WP\\CookieConsent\\Database\\Tables\\Consents_Table' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Database/Tables/Consents_Table.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\ArgumentResolverInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/ArgumentResolverInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\ArgumentResolverTrait' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/ArgumentResolverTrait.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\ClassName' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/ClassName.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\ClassNameInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/ClassNameInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\ClassNameWithOptionalValue' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/ClassNameWithOptionalValue.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\RawArgument' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/RawArgument.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Argument\\RawArgumentInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Argument/RawArgumentInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Container' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Container.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ContainerAwareInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ContainerAwareInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ContainerAwareTrait' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ContainerAwareTrait.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Definition\\Definition' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Definition/Definition.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Definition\\DefinitionAggregate' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Definition/DefinitionAggregate.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Definition\\DefinitionAggregateInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Definition/DefinitionAggregateInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Definition\\DefinitionInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Definition/DefinitionInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Exception\\ContainerException' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Exception/ContainerException.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Exception\\NotFoundException' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Exception/NotFoundException.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Inflector\\Inflector' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Inflector/Inflector.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Inflector\\InflectorAggregate' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Inflector/InflectorAggregate.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Inflector\\InflectorAggregateInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Inflector/InflectorAggregateInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\Inflector\\InflectorInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/Inflector/InflectorInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ReflectionContainer' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ReflectionContainer.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ServiceProvider\\AbstractServiceProvider' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ServiceProvider/AbstractServiceProvider.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ServiceProvider\\BootableServiceProviderInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ServiceProvider/BootableServiceProviderInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ServiceProvider\\ServiceProviderAggregate' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ServiceProvider/ServiceProviderAggregate.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ServiceProvider\\ServiceProviderAggregateInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ServiceProvider/ServiceProviderAggregateInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\League\\Container\\ServiceProvider\\ServiceProviderInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/League/Container/ServiceProvider/ServiceProviderInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Container/ContainerExceptionInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Container\\ContainerInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Container/ContainerInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Container/NotFoundExceptionInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\AbstractLogger' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/AbstractLogger.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\InvalidArgumentException' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/InvalidArgumentException.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\LogLevel' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/LogLevel.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\LoggerAwareInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/LoggerAwareInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\LoggerAwareTrait' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/LoggerAwareTrait.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\LoggerInterface' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/LoggerInterface.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\LoggerTrait' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/LoggerTrait.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\NullLogger' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/NullLogger.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\Test\\DummyTest' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/Test/DummyTest.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/Test/LoggerInterfaceTest.php',
-        'Pressidium\\WP\\CookieConsent\\Dependencies\\Psr\\Log\\Test\\TestLogger' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Dependencies/Psr/Log/Test/TestLogger.php',
-        'Pressidium\\WP\\CookieConsent\\Emoji' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Emoji.php',
-        'Pressidium\\WP\\CookieConsent\\Feedback\\API' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Feedback/API.php',
-        'Pressidium\\WP\\CookieConsent\\Feedback\\Feedback' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Feedback/Feedback.php',
-        'Pressidium\\WP\\CookieConsent\\Feedback\\Feedback_API' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Feedback/Feedback_API.php',
-        'Pressidium\\WP\\CookieConsent\\Feedback\\Feedback_Exception' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Feedback/Feedback_Exception.php',
-        'Pressidium\\WP\\CookieConsent\\Feedback\\Service_Provider' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Feedback/Service_Provider.php',
-        'Pressidium\\WP\\CookieConsent\\Geo_Locator' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Geo_Locator.php',
-        'Pressidium\\WP\\CookieConsent\\Hooks\\Actions' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Hooks/Actions.php',
-        'Pressidium\\WP\\CookieConsent\\Hooks\\Filters' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Hooks/Filters.php',
-        'Pressidium\\WP\\CookieConsent\\Hooks\\Hooks_Manager' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Hooks/Hooks_Manager.php',
-        'Pressidium\\WP\\CookieConsent\\Logging\\File_Logger' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Logging/File_Logger.php',
-        'Pressidium\\WP\\CookieConsent\\Logging\\Logger' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Logging/Logger.php',
-        'Pressidium\\WP\\CookieConsent\\Logs' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Logs.php',
-        'Pressidium\\WP\\CookieConsent\\Migrator' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Migrator.php',
-        'Pressidium\\WP\\CookieConsent\\Options\\Options' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Options/Options.php',
-        'Pressidium\\WP\\CookieConsent\\Options\\WP_Options' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Options/WP_Options.php',
-        'Pressidium\\WP\\CookieConsent\\Plugin' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Plugin.php',
-        'Pressidium\\WP\\CookieConsent\\Sanitizer' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Sanitizer.php',
-        'Pressidium\\WP\\CookieConsent\\Settings' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Settings.php',
-        'Pressidium\\WP\\CookieConsent\\Upgrader' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Upgrader.php',
-        'Pressidium\\WP\\CookieConsent\\Utils' => __DIR__ . '/../..' . '/wp-content/plugins/pressidium-cookie-consent/includes/Utils.php',
         'Psr\\Clock\\ClockInterface' => __DIR__ . '/..' . '/psr/clock/src/ClockInterface.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
@@ -7128,10 +6848,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'SearchStatistics\\App' => __DIR__ . '/../..' . '/wp-content/plugins/wp-search-statistics/source/php/App.php',
         'SearchStatistics\\DashboardWidget' => __DIR__ . '/../..' . '/wp-content/plugins/wp-search-statistics/source/php/DashboardWidget.php',
         'SearchStatistics\\SearchLogger' => __DIR__ . '/../..' . '/wp-content/plugins/wp-search-statistics/source/php/SearchLogger.php',
-        'SimplifyAdminMenus\\AdminBarSettings' => __DIR__ . '/../..' . '/wp-content/plugins/simplify-admin-menus/app/AdminBarSettings.php',
-        'SimplifyAdminMenus\\AdminMenuSettings' => __DIR__ . '/../..' . '/wp-content/plugins/simplify-admin-menus/app/AdminMenuSettings.php',
-        'SimplifyAdminMenus\\AdminSettings' => __DIR__ . '/../..' . '/wp-content/plugins/simplify-admin-menus/app/AdminSettings.php',
-        'SimplifyAdminMenus\\ViteManifest' => __DIR__ . '/../..' . '/wp-content/plugins/simplify-admin-menus/app/ViteManifest.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Svg\\CssLength' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/CssLength.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
@@ -7406,7 +7122,6 @@ class ComposerStaticInitda4471a5d4c6bf0dcc3602b0091cf5b8
         'Symfony\\Component\\VarDumper\\Cloner\\Cursor' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/Cursor.php',
         'Symfony\\Component\\VarDumper\\Cloner\\Data' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/Data.php',
         'Symfony\\Component\\VarDumper\\Cloner\\DumperInterface' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/DumperInterface.php',
-        'Symfony\\Component\\VarDumper\\Cloner\\Internal\\NoDefault' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/Internal/NoDefault.php',
         'Symfony\\Component\\VarDumper\\Cloner\\Stub' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/Stub.php',
         'Symfony\\Component\\VarDumper\\Cloner\\VarCloner' => __DIR__ . '/..' . '/symfony/var-dumper/Cloner/VarCloner.php',
         'Symfony\\Component\\VarDumper\\Command\\Descriptor\\CliDescriptor' => __DIR__ . '/..' . '/symfony/var-dumper/Command/Descriptor/CliDescriptor.php',

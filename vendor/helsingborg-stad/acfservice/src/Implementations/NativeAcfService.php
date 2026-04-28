@@ -105,9 +105,26 @@ class NativeAcfService implements AcfService
     /**
      * @inheritDoc
      */
+    public function acfGetField(int|string $id = 0): array
+    {
+        return acf_get_field($id);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function acfGetFields(string|array $parent): array
     {
         return acf_get_fields($parent);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function acfValidateValue($value, $field, $input): bool
+    {
+        return acf_validate_value($value, $field, $input);
     }
 
     /**
