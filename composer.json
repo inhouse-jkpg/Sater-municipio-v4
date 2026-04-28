@@ -35,10 +35,7 @@
     "merge-plugin": {
       "ignore-duplicates": false,
       "include": [
-        "composer.local.json",
-        "wp-content/plugins/*/composer.json",
-        "wp-content/mu-plugins/*/composer.json",
-        "wp-content/themes/*/composer.json"
+        "composer.local.json"
       ],
       "merge-dev": false,
       "merge-extra": false,
