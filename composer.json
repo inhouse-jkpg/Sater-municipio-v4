@@ -16,6 +16,9 @@
       "php-http/discovery": true,
       "wikimedia/composer-merge-plugin": true
     },
+    "platform": {
+      "php": "8.2.0"
+    },
     "sort-packages": true
   },
   "description": "Deployment of the Municipio Platform.",
@@ -49,6 +52,7 @@
   },
   "license": "MIT",
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "name": "municipio-se/municipio-deployment",
   "repositories": [
     {
@@ -141,11 +145,13 @@
     "municipio-se/modularity-noticeboard": "1.1.0",
     "php": "^8.0",
     "php-http/curl-client": "2.x-dev#f3eb48d266341afec0229a7a37a03521d3646b81",
+    "php-http/client-common": "^2.0",
     "php-http/discovery": "1.15.3",
     "php-http/message": "1.x-dev#a1c3b1e24d07f986c6867bf632ffa168e4eeaaef",
     "php-http/mock-client": "1.5.2",
     "pragmarx/ia-arr": "7.3.3",
     "psr/log": "1.1.4",
+    "symfony/options-resolver": "^7.0",
     "symfony/http-client": "5.4.x-dev#d77d8e212cde7b5c4a64142bf431522f19487c28",
     "symfony/http-client-contracts": "2.5.x-dev#48ef1d0a082885877b664332b9427662065a360c",
     "symfony/polyfill-php80": "1.x-dev#0cc9dd0f17f61d8131e7df6b84bd344899fe2608",
