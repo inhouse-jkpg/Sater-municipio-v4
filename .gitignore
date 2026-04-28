@@ -4,6 +4,8 @@
 /wp-content/uploads/
 /wp-content/upgrade/
 /wp-content/plugins/advanced-custom-fields-pro/
+/wp-content/plugins/*
+!/wp-content/plugins/local_*/
 **/node_modules/
 .DS_Store
 auth.json
