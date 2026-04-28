@@ -1,0 +1,109 @@
+services:
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME}-wordpress
+    depends_on:
+      - db
+      - redis
+      - mailpit
+    env_file:
+      - .env
+    environment:
+      PHP_IDE_CONFIG: "serverName=${SITE_URL:-localhost}"
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
+    volumes:
+      - .:/var/www/html
+      - ./.docker/config:/var/www/html/config:ro
+    restart: always
+    networks:
+      - app-net
+
+  db:
+    image: ${DB_IMAGE:-mariadb:10.6}
+    container_name: ${APP_NAME}-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      # Avoid MYSQL_USER=root (image creates root already and will error).
+      # Use a dedicated app user for WordPress.
+      MYSQL_USER: ${DB_APP_USER:-wp}
+      MYSQL_PASSWORD: ${DB_APP_PASSWORD:-wp}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    restart: always
+    networks:
+      - app-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: ${APP_NAME}-redis
+    command: [ "redis-server", "--appendonly", "no", "--save", "" ]
+    restart: always
+    networks:
+      - app-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    container_name: ${APP_NAME}-phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "${PMA_PORT:-8080}:80"
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 100M
+      PMA_USER: "${DB_USER}"
+      PMA_PASSWORD: "${DB_PASSWORD}"
+    restart: always
+    networks:
+      - app-net
+
+  nginx:
+    image: nginx:latest
+    container_name: ${APP_NAME}-nginx
+    depends_on:
+      - wordpress
+      - phpmyadmin
+      - mailpit
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      VIRTUAL_HOST: "${SITE_URL:-localhost}"
+    restart: always
+    networks:
+      - app-net
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: ${APP_NAME}-mailpit
+    ports:
+      - "1025:1025"
+      - "${MAILPIT_PORT:-8025}:8025"
+    volumes:
+      - ./mailpit/data:/data
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    restart: always
+    networks:
+      - app-net
+
+volumes:
+  db_data:
+
+networks:
+  app-net:
+    name: ${APP_NAME}-network
