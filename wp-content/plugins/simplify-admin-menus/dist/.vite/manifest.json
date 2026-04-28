@@ -1,0 +1,11 @@
+{
+  "resources/assets/js/admin.js": {
+    "file": "js/admin.omTgtK_j.js",
+    "name": "admin",
+    "src": "resources/assets/js/admin.js",
+    "isEntry": true,
+    "css": [
+      "css/admin.g8v1__4k.css"
+    ]
+  }
+}

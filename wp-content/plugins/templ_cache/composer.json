@@ -1,0 +1,17 @@
+{
+    "name": "templ/templ_cache",
+    "authors": [
+        {
+            "name": "Templ",
+            "email": "support@templ.io"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "test": [
+          "phpunit"
+        ]
+      }
+}

@@ -1,4 +1,3 @@
-#!/bin/php
 <?php
 /**
  * This script is meant to be run from github actions and not locally.
@@ -12,9 +11,10 @@
  * 
  */
 
-// Only allow run from cli.
+// If this file is ever included in a web request (for example via auto_prepend_file),
+// do not kill the request. Only run the build logic for CLI.
 if (php_sapi_name() !== 'cli') {
-    exit(0);
+    return;
 }
 
 // Directories to search for build script in.
@@ -39,11 +39,19 @@ $removables = [
     'composer.json',
     'composer.local.json',
     'post-install.php',
-    'composer.lock',
     'images',
     'README.md',
+    'README-local.md',
+    'PRODUCTION-DEPLOY.md',
     'guide',
     'db',
+    '.docker',
+    'Dockerfile',
+    'docker-compose.yml',
+    'nginx',
+    'mailpit',
+    'certs-setup.sh',
+    '.env.example',
     '.devcontainer',
     '.vscode',
     'install.html',

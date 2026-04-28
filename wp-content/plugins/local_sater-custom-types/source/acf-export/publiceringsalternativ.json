@@ -1,0 +1,91 @@
+    {
+        "key": "group_58ad74e18f041",
+        "title": "Publiceringsalternativ",
+        "fields": [
+            {
+                "multiple": 0,
+                "allow_null": 1,
+                "choices": {
+                    "1": "Barn & utbildning",
+                    "2": "St\u00f6d & omsorg",
+                    "3": "G\u00f6ra och uppleva",
+                    "4": "Bygga, bo & milj\u00f6",
+                    "5": "Trafik & infrastruktur",
+                    "6": "N\u00e4ringsliv & arbete",
+                    "7": "Kommun & demokrati"
+                },
+                "default_value": [],
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "return_format": "value",
+                "key": "field_58ad752600812",
+                "label": "Filtreringsalternativ",
+                "name": "filter_alternatives",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": 0,
+                "message": "",
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": "",
+                "key": "field_58adad7e992cc",
+                "label": "Klistra till toppen",
+                "name": "isSticky",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "default_value": 1,
+                "message": "",
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": "",
+                "key": "field_58adadc0992cd",
+                "label": "Exkludera fr\u00e5n startsidan",
+                "name": "exclude_from_startpage",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "news"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }

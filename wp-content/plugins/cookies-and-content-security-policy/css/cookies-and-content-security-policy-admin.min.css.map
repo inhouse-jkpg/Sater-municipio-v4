@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,yCAA0C,CACzC,MAAM,CAAE,MAAM,CACd,UAAU,CAAE,IAAI,CAChB,MAAM,CAAE,iBAAiB,CACzB,iBAAiB,CAAE,GAAG,CACtB,UAAU,CAAE,0BACM,CACf,OAAO,CAAE,QAAQ,CAKnB,uGAAM,CACL,OAAO,CAAE,KAAK,CACd,UAAU,CAAE,GAAG",
+"sources": ["../scss/cookies-and-content-security-policy-admin.scss"],
+"names": [],
+"file": "cookies-and-content-security-policy-admin.min.css"
+}

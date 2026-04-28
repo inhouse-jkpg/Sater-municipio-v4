@@ -1,32 +1,20 @@
 
 /config/*
-/wp-content/*
-!/wp-content/plugins/cookies-and-content-security-policy-vars.php
-!/wp-content/advanced-cache.php
-!/wp-content/object-cache.php
-!/wp-content/php-error.php
-!/wp-content/sunrise.php
-/wp-content/mu-plugins/*
-!/wp-content/mu-plugins
-!/wp-content/mu-plugins/loader.php
-!/wp-content/mu-plugins/xmlrpc.php
-!/wp-content/mu-plugins/custom-events-order
-!/wp-content/mu-plugins/custom-events-order/custom-events-order.php
-/vendor/
 /wp/
+/wp-content/uploads/
+/wp-content/upgrade/
+**/node_modules/
 .DS_Store
 auth.json
 db/*.sql
+*.log
+.claude/
 # Devcontainer
 .htaccess
 .devcontainer/.env
 !/.devcontainer/config/.htaccess
-*.pem
-*.key
-*.crt
-franken/Caddyfile
-db/db.sqlite
-.secrets
-.claude/settings.local.json
-.composer-merge-active
-composer.*.bkup
+
+# Runtime/cache artifacts
+/wp-content/litespeed/
+/wp-content/.defender-security-quarantine/
+/wp-content/uploads_backup/

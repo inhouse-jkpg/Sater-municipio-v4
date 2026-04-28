@@ -1,0 +1,210 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity Recommend\n"
+"POT-Creation-Date: 2022-05-25 09:41+0200\n"
+"PO-Revision-Date: 2022-05-25 09:42+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: modularity-recommend.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/AcfFields/php/recommended.php:6
+msgid "Recommendations"
+msgstr "Rekommenderat"
+
+#: source/php/AcfFields/php/recommended.php:10
+msgid "Add links"
+msgstr "Lägg till länkar"
+
+#: source/php/AcfFields/php/recommended.php:21
+msgid ""
+"This module enables you to add static quicklinks to enable recommended links."
+msgstr ""
+"Den här modulen gör att du kan lägga till statiska rekommenderade länkar. "
+
+#: source/php/AcfFields/php/recommended.php:27
+msgid "Link list"
+msgstr "Länklista"
+
+#: source/php/AcfFields/php/recommended.php:42
+msgid "Add new recommendation"
+msgstr "Lägg till en ny rekommenderad länk"
+
+#: source/php/AcfFields/php/recommended.php:46
+msgid "Label"
+msgstr "Etikett\t"
+
+#: source/php/AcfFields/php/recommended.php:65
+msgid "Target"
+msgstr "Länkmål"
+
+#: source/php/AcfFields/php/recommended.php:87
+msgid "Display as"
+msgstr "Visa som"
+
+#: source/php/AcfFields/php/recommended.php:99
+msgid "Button"
+msgstr "Knapp"
+
+#: source/php/AcfFields/php/recommended.php:100
+msgid "Card"
+msgstr "Kort"
+
+#: source/php/AcfFields/php/recommended.php:104
+msgid "button"
+msgstr ""
+
+#: source/php/AcfFields/php/recommended.php:111
+msgid "Max number of autosuggested recommendations"
+msgstr "Maximalt antal föreslagna länkar"
+
+#: source/php/AcfFields/php/recommended.php:123
+#: source/php/AcfFields/php/recommended.php:125
+msgid "items"
+msgstr "antal"
+
+#: source/php/AcfFields/php/recommended.php:132
+#: source/php/Admin/Settings.php:24
+msgid "RekAI"
+msgstr "RekAI"
+
+#: source/php/AcfFields/php/recommended.php:135
+msgid "Settings specific to RekAI."
+msgstr "Inställningar för RekAI."
+
+#: source/php/AcfFields/php/recommended.php:147
+msgid "Include pages"
+msgstr "Inkludera sidor"
+
+#: source/php/AcfFields/php/recommended.php:150
+msgid ""
+"Controls whether only pages under a particular branch of the site should be "
+"displayed. Leave blank to include all pages."
+msgstr ""
+"Styr om endast sidor under en viss gren av webbplatsen ska visas. Lämna tomt "
+"för att inkludera alla sidor."
+
+#: source/php/AcfFields/php/recommended.php:167
+msgid "Exclude pages"
+msgstr "Exkludera sidor"
+
+#: source/php/AcfFields/php/recommended.php:170
+msgid "Controls whether certain pages should be excluded from viewing."
+msgstr "Styr om vissa sidor ska exkluderas från visning."
+
+#: source/php/AcfFields/php/recommended.php:187
+msgid "Filter from current page"
+msgstr "Filtrera från aktuell sida"
+
+#: source/php/AcfFields/php/recommended.php:190
+msgid "Automatically filter recommendations based on the current url."
+msgstr ""
+"Filtrera rekommendationer automatiskt baserat på den aktuella webbadressen."
+
+#: source/php/AcfFields/php/recommended.php:206
+msgid "Url level"
+msgstr "URL-nivå"
+
+#: source/php/AcfFields/php/recommended.php:209
+msgid ""
+"Controls whether only pages below the current url path should be recommended "
+"from a certain level."
+msgstr ""
+"Styr om sidor under den nuvarande webbadressen ska rekommenderas från en "
+"viss nivå."
+
+#: source/php/AcfFields/php/recommended.php:235
+msgid "Advanced options"
+msgstr "Avancerade inställningar"
+
+#: source/php/AcfFields/php/recommended.php:238
+msgid "Add custom options in valid JSON format."
+msgstr "Lägg till anpassade inställningar i JSON-format."
+
+#: source/php/AcfFields/php/recommended.php:247
+msgid "{ \"key\": \"value\" }"
+msgstr ""
+
+#: source/php/AcfFields/php/settings.php:6
+msgid "RekAI Settings"
+msgstr "RekAI Inställningar"
+
+#: source/php/AcfFields/php/settings.php:10
+msgid "Enable RekAI Automatic Recommendations"
+msgstr "Slå på automatiska rekommendationer"
+
+#: source/php/AcfFields/php/settings.php:13
+msgid ""
+"You must have an account @ rekAI service in order to use this functionality. "
+"Please contact https://rek.ai/ directly with your inquiry."
+msgstr ""
+"Du behöver ett konto hos RekAI för att använda den här funktionaliteten. "
+"Vänligen kontakta https://rek.ai/ direkt, för att få tillgång till tjänsten."
+
+#: source/php/AcfFields/php/settings.php:29
+msgid "Script url"
+msgstr "Adress för rekAI script"
+
+#: source/php/AcfFields/php/settings.php:32
+msgid "Add your RekAI Script url here, eg: https://static.rekai.se/[nnnn].js"
+msgstr ""
+"Ange din rek.ai skript-adress här. Format: https://static.rekai.se/[nnnn].js "
+
+#: source/php/Admin/Settings.php:23
+msgctxt "ACF"
+msgid "RekAI"
+msgstr "RekAI"
+
+#: source/php/Module/Recommend.php:18 source/php/Module/Recommend.php:19
+msgid "Recommend"
+msgstr "Rekommenderat"
+
+#: source/php/Module/Recommend.php:20
+msgid "Recommend view for links."
+msgstr "Rekommenderade länkar. "
+
+#: source/php/Module/Recommend.php:47
+msgid ""
+"No static links provided to recommendation module. AI suggestion is off."
+msgstr ""
+"Inga länkar inlagda. Ange några länkar för att visa rekommenderade länkar "
+"lista. "
+
+#. Plugin Name of the plugin/theme
+msgid "Modularity Recommend"
+msgstr "Modularity Rekommenderat"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/modularity-recommend"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Display Recommended links, static or AI generated links from RekAI."
+msgstr "Visar rekommenderade länkar. Statiska eller autogenererade via rekAI. "
+
+#. Author of the plugin/theme
+msgid "Sebastian Thulin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/sebastianthulin"
+msgstr ""
+
+#~ msgid ""
+#~ "An automatic function to simplify so that the recommendations are "
+#~ "filtered based on the current url."
+#~ msgstr ""
+#~ "En automatisk funktion för att förenkla så att rekommendationerna "
+#~ "filtreras utifrån den nuvarande URL:n."

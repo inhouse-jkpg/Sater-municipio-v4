@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "mediaflow/video",
+  "version": "0.1.0",
+  "title": "Mediaflow Video Embed",
+  "category": "embed",
+  "description": "Embed a Mediaflow video.",
+  "supports": {
+    "customClassName": false,
+    "className": false,
+    "html": false
+  },
+  "textdomain": "mediaflow",
+  "editorScript": "file:./index.js",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "source": "html"
+    },
+    "id": {
+      "type": "integer"
+    }
+  }
+}
