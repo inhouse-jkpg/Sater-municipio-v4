@@ -37,7 +37,7 @@ Track execution here. Tick each box as work completes. Detailed descriptions of 
 - [x] 3.2 Pin or fork each `dev-master` reference to a specific version or SHA
 
 ### Phase 4 — Branch Strategy *(1 hr)*
-- [ ] 4.1 Remove `master` from `deploy-production.yml` trigger branches
+- [x] 4.1 Remove `master` from `deploy-production.yml` trigger branches
 - [ ] 4.2 Create `production` branch from current `master` and push
 - [ ] 4.3 Verify GitHub "Sync fork" on `master` does not trigger any deploy workflow
 - [ ] 4.4 Document branch rules (master / production / stage) in repo README
@@ -53,11 +53,11 @@ Track execution here. Tick each box as work completes. Detailed descriptions of 
 - [ ] 5.8 Confirm disabled intranet workflows do not block the Actions UI (they are commented out because there are no intranet branches in use)
 
 ### Phase 6 — Root-Level Docker Setup *(3.5 hrs, independent of production track)*
-- [ ] 6.1 Create root-level `Dockerfile` (PHP 8.3-fpm, pinned extensions, Composer)
-- [ ] 6.2 Create root-level `docker-compose.yml` with nginx, php-fpm, mariadb, phpmyadmin
-- [ ] 6.3 Create `nginx/default.conf` matching production multisite rewrite rules
-- [ ] 6.4 Create `.env.example` with safe local defaults
-- [ ] 6.5 Verify `docker-compose up` brings the site up and DB seeds correctly
+- [x] 6.1 Create root-level `Dockerfile` (PHP 8.3-fpm, pinned extensions, Composer)
+- [x] 6.2 Create root-level `docker-compose.yml` with nginx, php-fpm, mariadb, phpmyadmin
+- [x] 6.3 Create `nginx/default.conf` matching production multisite rewrite rules
+- [x] 6.4 Create `.env.example` with safe local defaults
+- [x] 6.5 Verify `docker-compose up` brings the site up and DB seeds correctly
 
 ### Wrap-up
 - [ ] Update project documentation
