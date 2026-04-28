@@ -1,1 +1,0 @@
-<div class="u-display--block u-padding__y--{{$amount/2}}"></div>
