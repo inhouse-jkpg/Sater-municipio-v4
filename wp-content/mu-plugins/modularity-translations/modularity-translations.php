@@ -66,6 +66,11 @@ function Sater_Modularity_LoadBundledAddonTextdomains(): void
         'modularity-contact-banner',
         $base . '/modularity-contact-banner-' . $locale . '.mo'
     );
+
+    Sater_Modularity_LoadTextdomainFromFile(
+        'mod-my-pages',
+        $base . '/mod-my-pages-' . $locale . '.mo'
+    );
 }
 
 // Included via `mu-plugins/loader.php` during `muplugins_loaded`, so load immediately.
