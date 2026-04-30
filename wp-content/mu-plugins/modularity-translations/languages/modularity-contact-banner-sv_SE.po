@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity Contact Banner 3.2.2\n"
+"POT-Creation-Date: 2026-04-30 00:00+0000\n"
+"PO-Revision-Date: 2026-04-30 00:00+0000\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Modularity Contact Banner"
+msgstr "Modularity kontaktbanner"
+
+msgid "Display Options"
+msgstr "Visningsalternativ"
+
+msgid "Main Content"
+msgstr "Huvudinnehåll"
+
+msgid "Open Hours"
+msgstr "Öppettider"
+
+msgid "Main content"
+msgstr "Huvudinnehåll"
+
+msgid "Header - Business hours"
+msgstr "Rubrik - Öppettider"
+
+msgid "Enter business hours header"
+msgstr "Ange rubrik för öppettider"
+
+msgid "Hours list"
+msgstr "Lista med tider"
+
+msgid "Add Row"
+msgstr "Lägg till rad"
+
+msgid "Weekdays"
+msgstr "Vardagar"
+
+msgid "Hours from"
+msgstr "Tid från"
+
+msgid "Hours to"
+msgstr "Tid till"
+
+msgid "Abnormalities - Business hours"
+msgstr "Avvikelser - Öppettider"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Leave empty if you don't want to use this option"
+msgstr "Lämna tomt om du inte vill använda detta alternativ"
+
+msgid "Link"
+msgstr "Länk"
+
+msgid "Call to action icon list"
+msgstr "Lista med ikoner för call to action"
+
+msgid "Add item"
+msgstr "Lägg till objekt"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Icon"
+msgstr "Ikon"
+
+msgid "Content"
+msgstr "Innehåll"
+
+msgid "Label - Call to action"
+msgstr "Etikett - Call to action"
+
+msgid "URL - Call to action"
+msgstr "URL - Call to action"
+
+msgid "onClick - Call to action"
+msgstr "onClick - Call to action"
+
+msgid "Enter javascript"
+msgstr "Ange JavaScript"
+

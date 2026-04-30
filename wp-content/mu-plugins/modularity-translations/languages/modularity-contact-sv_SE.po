@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity Contact translations\n"
+"POT-Creation-Date: 2026-04-30 00:00+0000\n"
+"PO-Revision-Date: 2026-04-30 00:00+0000\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Contact banner"
+msgstr "Kontaktbanner"
+
+msgid "Contact banners"
+msgstr "Kontaktbanners"
+
+msgid "Banner displaying contact details"
+msgstr "Banner som visar kontaktuppgifter"
+
