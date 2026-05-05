@@ -1,7 +1,11 @@
 @if ($posts)
     <div class="o-grid">
         @foreach ($posts as $post)
-            <div class="{{ $gridColumnClass }}">
+            @php
+                $isEventsArchive = !is_admin() && (is_post_type_archive('events') || is_post_type_archive('event'));
+                $resolvedGridColumnClass = $isEventsArchive ? 'o-grid-12 o-grid-6@md o-grid-6@lg' : $gridColumnClass;
+            @endphp
+            <div class="{{ $resolvedGridColumnClass }}">
                 @php
                     // Hämta start_datum från postens metadata
                     $startDatum = get_field('start_datum', $post->id);
@@ -9,11 +13,13 @@
 
                     // Block/Image reads top-level imageAlt, not image['alt'] (component-library Block).
                     $blockImageAlt = apply_filters('sater_events_post_grid_block_image_alt', null, $post);
+
+                    $resolvedRatio = $isEventsArchive ? '16:9' : ($archiveProps->format == 'tall' ? '12:16' : '1:1');
                 @endphp
                 @block([
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
-                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '1:1',
+                    'ratio' => $resolvedRatio,
                     'meta' => $post->termsUnlinked,
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
                     'imageAlt' => $blockImageAlt,
@@ -21,7 +27,9 @@
                         'src' => $post->imageContract,
                         'backgroundColor' => 'secondary'
                     ] : [
-                        'src' => $archiveProps->format == 'tall' ? $post->images['thumbnail3:4']['src'] ?? false : $post->images['thumbnail16:9']['src'] ?? false,
+                        'src' => ($archiveProps->format == 'tall' && !$isEventsArchive)
+                            ? ($post->images['thumbnail3:4']['src'] ?? false)
+                            : ($post->images['thumbnail16:9']['src'] ?? false),
                         'alt' => $post->images['thumbnail16:9']['alt'] ?? '' ? $post->images['thumbnail16:9']['alt'] ?? '' : $post->postTitle,
                         'backgroundColor' => 'secondary'
                     ],
