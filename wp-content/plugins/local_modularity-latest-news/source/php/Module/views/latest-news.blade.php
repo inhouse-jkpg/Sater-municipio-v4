@@ -86,10 +86,16 @@
                             $image_alt = $image_alt ? $image_alt : $post->post_title;
                             ?>
                             <div class="c-card__image c-card__image--secondary">
-                                <?php if ($image) :?>
-                                    <div class="c-card__image-background " style="background-image:url('<?php echo $image[0] ?>');"></div>
+                                <?php if ($image) : ?>
+                                    <div class="c-card__image-background " style="background-image:url('<?php echo esc_url($image[0]); ?>');"></div>
                                 <?php else : ?>
-                                    <figure class="image-placeholder" aria-label="Placeholder image"></figure>
+                                    <?php
+                                    $ph_url_raw = (string) apply_filters('sater_events_placeholder_image_url', '');
+                                    $ph_url_raw = $ph_url_raw !== '' ? set_url_scheme($ph_url_raw) : '';
+                                    ?>
+                                    <?php if ($ph_url_raw !== '') : ?>
+                                        <div class="c-card__image-background " style="background-image:url('<?php echo esc_url($ph_url_raw); ?>');"></div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>

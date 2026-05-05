@@ -93,10 +93,18 @@
                             $image_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
                             $image_alt = $image_alt ? $image_alt : $post->post_title;
                             ?>
-                            <?php if ($image) :?>
-                                <img src="<?php echo $image[0] ?>" alt="<?php echo $image_alt ?>" class="box-image" />
+                            <?php if ($image) : ?>
+                                <img src="<?php echo $image[0]; ?>" alt="<?php echo esc_attr($image_alt); ?>" class="box-image" />
                             <?php else : ?>
-                                <figure class="image-placeholder"></figure>
+                                <?php
+                                $placeholder_url = (string) apply_filters('sater_events_placeholder_image_url', '');
+                                $placeholder_alt = (string) apply_filters('sater_events_placeholder_image_alt', $post->post_title, $post->ID);
+                                ?>
+                                <?php if ($placeholder_url !== '') : ?>
+                                    <img src="<?php echo esc_url($placeholder_url); ?>" alt="<?php echo esc_attr($placeholder_alt); ?>" class="box-image" />
+                                <?php else : ?>
+                                    <figure class="image-placeholder"></figure>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
 
