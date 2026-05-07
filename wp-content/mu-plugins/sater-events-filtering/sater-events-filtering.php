@@ -24,6 +24,13 @@ final class Sater_Events_Filtering
     {
         // Ensure Municipio archive filters are visible on event archive
         add_filter('Municipio/Archive/showFilter', [$this, 'forceShowFilters'], 20);
+        // Force events archive to use the same "cards" design as /nyheter.
+        add_filter('Municipio/Template/events/archive/viewData', [$this, 'forceEventsArchiveCardsViewData'], 20, 2);
+        add_filter('Municipio/Template/event/archive/viewData', [$this, 'forceEventsArchiveCardsViewData'], 20, 2);
+
+        // Ensure archive dates for events use the event meta field (so cards show correct dates).
+        add_filter('theme_mod_archive_events_date_field', static fn() => 'start_datum', 20);
+        add_filter('theme_mod_archive_event_date_field', static fn() => 'start_datum', 20);
 
         // Fallback featured image for events if editors forget to set one.
         // Needed for modules that call get_post_thumbnail_id() directly (e.g. "Latest events").
@@ -609,6 +616,25 @@ final class Sater_Events_Filtering
         }
 
         return false;
+    }
+
+    /**
+     * Municipio chooses the archive partial based on `$template` in view data.
+     * For events we want the same output as Nyheter: `post-newsitem` (includes excerpt).
+     *
+     * @param array $viewData Current view data passed to Blade.
+     * @param string $template Current template identifier (from controller/customizer).
+     * @return array
+     */
+    public function forceEventsArchiveCardsViewData(array $viewData, string $template): array
+    {
+        if (is_admin() || !$this->isEventsArchiveView()) {
+            return $viewData;
+        }
+
+        $viewData['template'] = 'cards';
+
+        return $viewData;
     }
 
     /**

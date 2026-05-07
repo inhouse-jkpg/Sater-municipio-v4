@@ -3,9 +3,8 @@
         @foreach ($posts as $post)
             @php
                 $isEventsArchive = !is_admin() && (is_post_type_archive('events') || is_post_type_archive('event'));
-                $resolvedGridColumnClass = $isEventsArchive ? 'o-grid-12 o-grid-6@md o-grid-6@lg' : $gridColumnClass;
             @endphp
-            <div class="{{ $resolvedGridColumnClass }}">
+            <div class="{{ $gridColumnClass }}">
                 @php
                     // Hämta start_datum från postens metadata
                     $startDatum = get_field('start_datum', $post->id);
@@ -13,13 +12,11 @@
 
                     // Block/Image reads top-level imageAlt, not image['alt'] (component-library Block).
                     $blockImageAlt = apply_filters('sater_events_post_grid_block_image_alt', null, $post);
-
-                    $resolvedRatio = $isEventsArchive ? '16:9' : ($archiveProps->format == 'tall' ? '12:16' : '1:1');
                 @endphp
                 @block([
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
-                    'ratio' => $resolvedRatio,
+                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '1:1',
                     'meta' => $post->termsUnlinked,
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
                     'imageAlt' => $blockImageAlt,
