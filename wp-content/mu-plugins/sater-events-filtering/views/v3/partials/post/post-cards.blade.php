@@ -7,7 +7,7 @@
 
                     // For events: attach an end timestamp so Card.components.date can show a range.
                     $endRaw = $isEventsArchive ? (string) get_field('slut_datum', $post->id) : '';
-                    $endTs  = $endRaw !== '' ? strtotime($endRaw) : null;
+                    $endTs  = $endRaw !== '' ? apply_filters('sater_events_event_datetime_to_timestamp', null, $endRaw) : null;
                 @endphp
 
                 @card([

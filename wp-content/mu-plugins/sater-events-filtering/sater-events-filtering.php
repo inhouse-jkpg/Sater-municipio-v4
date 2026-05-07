@@ -32,6 +32,10 @@ final class Sater_Events_Filtering
         add_filter('theme_mod_archive_events_date_field', static fn() => 'start_datum', 20);
         add_filter('theme_mod_archive_event_date_field', static fn() => 'start_datum', 20);
 
+        // Parse event datetime meta in site timezone to avoid DST/UTC shifts (eg. +2h).
+        add_filter('Municipio/DecoratePostObject', [$this, 'decoratePostObjectForEventsTimezone'], 20, 1);
+        add_filter('sater_events_event_datetime_to_timestamp', [$this, 'eventDatetimeToTimestamp'], 20, 2);
+
         // Fallback featured image for events if editors forget to set one.
         // Needed for modules that call get_post_thumbnail_id() directly (e.g. "Latest events").
         add_filter('post_thumbnail_id', [$this, 'fallbackFeaturedImageId'], 10, 2);
@@ -635,6 +639,94 @@ final class Sater_Events_Filtering
         $viewData['template'] = 'cards';
 
         return $viewData;
+    }
+
+    /**
+     * Convert an event datetime string (Y-m-d H:i) to a timestamp in site timezone.
+     *
+     * @param int|null $current Current value (usually null).
+     * @param string $value Datetime string from meta (e.g. "2026-05-22 07:00").
+     */
+    public function eventDatetimeToTimestamp($current, string $value): ?int
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return is_numeric($current) ? (int) $current : null;
+        }
+
+        if (!function_exists('wp_timezone')) {
+            return strtotime($value) ?: (is_numeric($current) ? (int) $current : null);
+        }
+
+        $tz = wp_timezone();
+
+        foreach (['Y-m-d H:i:s', 'Y-m-d H:i'] as $fmt) {
+            $dt = \DateTimeImmutable::createFromFormat($fmt, $value, $tz);
+            if ($dt instanceof \DateTimeImmutable) {
+                $errors = \DateTimeImmutable::getLastErrors();
+                $hasErrors = is_array($errors) && (!empty($errors['warning_count']) || !empty($errors['error_count']));
+                if (!$hasErrors) {
+                    return $dt->getTimestamp();
+                }
+            }
+        }
+
+        // Fallback to strtotime in PHP default timezone.
+        return strtotime($value) ?: (is_numeric($current) ? (int) $current : null);
+    }
+
+    /**
+     * Override Municipio archive timestamp for events by parsing start_datum as site-local time.
+     * Prevents DST / timezone shifts when formatting with wp_date().
+     */
+    public function decoratePostObjectForEventsTimezone($postObject)
+    {
+        if (!$postObject || !is_object($postObject) || !method_exists($postObject, 'getId') || !method_exists($postObject, 'getPostType')) {
+            return $postObject;
+        }
+
+        $pt = (string) $postObject->getPostType();
+        if ($pt !== 'events' && $pt !== 'event') {
+            return $postObject;
+        }
+
+        $base = $postObject;
+
+        return new class($base, $this) implements \Municipio\PostObject\PostObjectInterface {
+            public function __construct(
+                private \Municipio\PostObject\PostObjectInterface $inner,
+                private \Sater_Events_Filtering $plugin
+            ) {
+            }
+
+            public function getArchiveDateTimestamp(): ?int
+            {
+                $raw = get_post_meta($this->inner->getId(), 'start_datum', true);
+                $raw = is_string($raw) ? $raw : '';
+                $ts = apply_filters('sater_events_event_datetime_to_timestamp', null, $raw);
+                if (is_numeric($ts) && (int) $ts > 0) {
+                    return (int) $ts;
+                }
+
+                return $this->inner->getArchiveDateTimestamp();
+            }
+
+            // Delegate everything else
+            public function getId(): int { return $this->inner->getId(); }
+            public function getTitle(): string { return $this->inner->getTitle(); }
+            public function getPermalink(): string { return $this->inner->getPermalink(); }
+            public function getCommentCount(): int { return $this->inner->getCommentCount(); }
+            public function getPostType(): string { return $this->inner->getPostType(); }
+            public function getIcon(): ?\Municipio\PostObject\Icon\IconInterface { return $this->inner->getIcon(); }
+            public function getBlogId(): int { return $this->inner->getBlogId(); }
+            public function getPublishedTime(bool $gmt = false): int { return $this->inner->getPublishedTime($gmt); }
+            public function getModifiedTime(bool $gmt = false): int { return $this->inner->getModifiedTime($gmt); }
+            public function getArchiveDateFormat(): string { return $this->inner->getArchiveDateFormat(); }
+            public function getSchemaProperty(string $property): mixed { return $this->inner->getSchemaProperty($property); }
+            public function getSchema(): \Municipio\Schema\BaseType { return $this->inner->getSchema(); }
+            public function getTerms(array $taxonomies): array { return $this->inner->getTerms($taxonomies); }
+            public function __get(string $key): mixed { return $this->inner->__get($key); }
+        };
     }
 
     /**
