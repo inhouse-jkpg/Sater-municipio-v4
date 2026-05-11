@@ -9,7 +9,7 @@ add_filter('posts_orderby', function ($orderby, $query) {
         return $orderby;
     }
     global $wpdb;
-    return "(SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = {$wpdb->posts}.ID AND meta_key = 'start_datum' LIMIT 1) ASC";
+    return "(SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = {$wpdb->posts}.ID AND meta_key = 'start_datum' LIMIT 1) ASC, {$wpdb->posts}.ID ASC";
 }, 10, 2);
 
 add_filter('posts_where', function ($where, $query) {

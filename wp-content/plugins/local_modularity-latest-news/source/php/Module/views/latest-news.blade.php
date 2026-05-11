@@ -31,10 +31,12 @@
             'posts_per_page'=> $numberOfItems,
         );
 
-        //sorterar på startdatum
+        //sorterar på startdatum (with stable tiebreaker)
         $args['meta_key'] = 'start_datum';
-        $args['orderby'] = 'meta_value';
-        $args['order'] = 'ASC';
+        $args['orderby'] = array(
+            'meta_value' => 'ASC',
+            'ID'         => 'ASC',
+        );
 
         // Match /evenemang upcoming logic:
         // - Keep events visible until slut_datum has passed
@@ -48,11 +50,25 @@
                 'value'   => $nowYmdHi,
                 'compare' => '>=',
             ),
+            // Treat empty slut_datum as "missing" too (ACF often saves empty string).
+            array(
+                'key'     => 'slut_datum',
+                'value'   => '',
+                'compare' => '=',
+            ),
             array(
                 'relation' => 'AND',
                 array(
-                    'key'     => 'slut_datum',
-                    'compare' => 'NOT EXISTS',
+                    'relation' => 'OR',
+                    array(
+                        'key'     => 'slut_datum',
+                        'compare' => 'NOT EXISTS',
+                    ),
+                    array(
+                        'key'     => 'slut_datum',
+                        'value'   => '',
+                        'compare' => '=',
+                    ),
                 ),
                 array(
                     'key'     => 'start_datum',
