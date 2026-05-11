@@ -23,10 +23,28 @@ add_filter('posts_where', function ($where, $query) {
         return $where;
     }
     global $wpdb;
-    $today = date('Y-m-d');
+    // Keep events visible until their end date has passed.
+    // If an event is missing slut_datum, fall back to start_datum.
+    $now  = function_exists('current_time') ? current_time('Y-m-d H:i') : date('Y-m-d H:i');
+    $date = function_exists('current_time') ? current_time('Y-m-d') : date('Y-m-d');
     $where .= $wpdb->prepare(
-        " AND {$wpdb->posts}.ID IN (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'start_datum' AND meta_value >= %s)",
-        $today
+        " AND (
+            {$wpdb->posts}.ID IN (
+                SELECT post_id FROM {$wpdb->postmeta}
+                WHERE meta_key = 'slut_datum' AND meta_value >= %s
+            )
+            OR (
+                {$wpdb->posts}.ID NOT IN (
+                    SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'slut_datum'
+                )
+                AND {$wpdb->posts}.ID IN (
+                    SELECT post_id FROM {$wpdb->postmeta}
+                    WHERE meta_key = 'start_datum' AND meta_value >= %s
+                )
+            )
+        )",
+        $now,
+        $date
     );
     return $where;
 }, 10, 2);
