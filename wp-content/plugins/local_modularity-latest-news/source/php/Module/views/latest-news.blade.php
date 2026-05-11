@@ -36,6 +36,32 @@
         $args['orderby'] = 'meta_value';
         $args['order'] = 'ASC';
 
+        // Match /evenemang upcoming logic:
+        // - Keep events visible until slut_datum has passed
+        // - If slut_datum is missing, fall back to start_datum >= today
+        $nowYmdHi = function_exists('current_time') ? current_time('Y-m-d H:i') : date('Y-m-d H:i');
+        $todayYmd = function_exists('current_time') ? current_time('Y-m-d') : date('Y-m-d');
+        $upcomingMetaQuery = array(
+            'relation' => 'OR',
+            array(
+                'key'     => 'slut_datum',
+                'value'   => $nowYmdHi,
+                'compare' => '>=',
+            ),
+            array(
+                'relation' => 'AND',
+                array(
+                    'key'     => 'slut_datum',
+                    'compare' => 'NOT EXISTS',
+                ),
+                array(
+                    'key'     => 'start_datum',
+                    'value'   => $todayYmd,
+                    'compare' => '>=',
+                ),
+            ),
+        );
+
         //if true, filtrera på modulens valda kategori
         if($filteringByCategorie){
             $args['tax_query'] = array(
@@ -44,27 +70,12 @@
                 'field'    => 'term_id',
                 'terms'    => array($eventcategory)
             ));
-            $args['meta_query'] = array(
-                array(
-                'key'     => 'slut_datum',
-                'value'   => date('Y-m-d'),
-                'compare' => '>',
-                ));
+            $args['meta_query'] = $upcomingMetaQuery;
 
         }elseif($isFrontPage){
-            $args['meta_query'] = array(
-            array(
-                'key'     => 'slut_datum',
-                'value'   => date('Y-m-d'),
-                'compare' => '>',
-            ));
+            $args['meta_query'] = $upcomingMetaQuery;
         } else {
-            $args['meta_query'] = array(
-            array(
-                'key'     => 'slut_datum',
-                'value'   => date('Y-m-d'),
-                'compare' => '>',
-                ));
+            $args['meta_query'] = $upcomingMetaQuery;
         }
 
         $posts = get_posts($args);
