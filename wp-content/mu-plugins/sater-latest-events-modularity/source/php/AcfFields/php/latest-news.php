@@ -5,7 +5,7 @@ if (function_exists('acf_add_local_field_group')) {
 
     acf_add_local_field_group(array(
     'key' => 'group_61ea7a87e8e9e',
-    'title' => __('Latest posts', 'modularity-latest-posts'),
+    'title' => __('Senaste evenemang', 'modularity-latest-news'),
     'fields' => array(
         1 => array(
             'key' => 'field_58cba012e6407',

@@ -13,9 +13,9 @@ class LatestNews extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __("Latest events", 'modularity-latest-news');
-        $this->namePlural = __("Latest events", 'modularity-latest-news');
-        $this->description = __("Shows latest events, either up to four events or all events", 'modularity-latest-news');
+        $this->nameSingular = __('Senaste evenemang', 'modularity-latest-news');
+        $this->namePlural = __('Senaste evenemang', 'modularity-latest-news');
+        $this->description = __('Visar kommande evenemang. Antal och kolumner styrs i modulens inställningar.', 'modularity-latest-news');
     }
 
     /**
