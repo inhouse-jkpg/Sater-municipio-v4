@@ -18,7 +18,8 @@ if (! defined('WPINC')) {
 }
 
 define('MODULARITYLATEST_NEWS_PATH', plugin_dir_path(__FILE__));
-define('MODULARITYLATEST_NEWS_URL', plugins_url('', __FILE__));
+// plugin_dir_url works for regular plugins and for packages under mu-plugins.
+define('MODULARITYLATEST_NEWS_URL', plugin_dir_url(__FILE__));
 define('MODULARITYLATEST_NEWS_TEMPLATE_PATH', MODULARITYLATEST_NEWS_PATH . 'templates/');
 define('MODULARITYLATEST_NEWS_VIEW_PATH', MODULARITYLATEST_NEWS_PATH . 'views/');
 define('MODULARITYLATEST_NEWS_MODULE_VIEW_PATH', plugin_dir_path(__FILE__) . 'source/php/Module/views');
