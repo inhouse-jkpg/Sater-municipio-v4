@@ -1,15 +1,13 @@
 <?php
 
 /**
- * Plugin Name:       Modularity Latest Events
- * Plugin URI:        https://github.com/helsingborg-stad/modularity-latest-news
- * Description:       Display Latest Events
+ * Plugin Name: Säter Latest Events (Modularity)
+ * Description: Modularity-modul som listar kommande evenemang (samma logik som evenemangsarkivet).
  * Version: 1.0.0
- * Author:            Niklas Holmgren
- * Author URI:        #
- * License:           MIT
- * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       mod-latest-news
+ * Author: Säter kommun
+ * License: MIT
+ * License URI: https://opensource.org/licenses/MIT
+ * Text Domain: mod-latest-news
  */
 
  // Protect agains direct file access
