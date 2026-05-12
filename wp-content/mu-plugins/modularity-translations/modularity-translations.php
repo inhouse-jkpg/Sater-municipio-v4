@@ -106,7 +106,7 @@ function Sater_Municipio_IsSwedishLocale(string $locale): bool
 }
 
 /**
- * Full Swedish labels for the `news` CPT (matches Säter plugin + theme overrides).
+ * Full Swedish labels for the `news` CPT (Säter CPT + Municipio dynamic duplicate).
  *
  * Municipio dynamic post types use sprintf(__('All %s', 'municipio'), $englishName), which yields
  * "Alla News" when the UI name in ACF is "News" and the locale is Swedish.
