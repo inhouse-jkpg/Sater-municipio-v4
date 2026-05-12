@@ -37,7 +37,7 @@ class News
 
         // Set other options for Custom Post Type
     	$args = array(
-    		'label'               => __( 'news' ),
+    		'label'               => __( 'Nyheter' ),
     		'description'         => __( 'Nyheter'),
     		'labels'              => $labels,
     		// Features this CPT supports in Post Editor
