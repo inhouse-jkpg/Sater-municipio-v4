@@ -68,6 +68,9 @@ final class Sater_Events_Filtering
         // Must use Municipio/viewPaths (not Municipio/blade/view_paths): the latter is merged
         // AFTER theme paths, so theme post-grid.blade.php always wins and our override never loads.
         add_filter('Municipio/viewPaths', [$this, 'prependMunicipioViewPaths'], 1);
+        // render_blade_view() builds paths as [ ComponentLibrary internal, ...Municipio paths ].
+        // CL wins first match for Card.components.date; prepend our views/v3 first.
+        add_filter('ComponentLibrary/ViewPaths', [$this, 'prependComponentLibraryViewPathsFirst'], 1);
         add_action('admin_menu', [$this, 'registerPlaceholderSettingsPage']);
         add_action('admin_init', [$this, 'registerPlaceholderSettings']);
         add_action('admin_enqueue_scripts', [$this, 'enqueuePlaceholderSettingsAssets']);
@@ -162,6 +165,31 @@ final class Sater_Events_Filtering
 
         // Append LAST so prependLocation puts it FIRST in the Blade finder's path list.
         return array_merge($filtered, [$root]);
+    }
+
+    /**
+     * Put this plugin's views/v3 first so overrides (e.g. Card.components.date) beat vendor ComponentLibrary.
+     *
+     * @param array<int, string> $viewPaths Paths passed to ComponentLibrary\Init after merge.
+     * @return array<int, string>
+     */
+    public function prependComponentLibraryViewPathsFirst(array $viewPaths): array
+    {
+        $root = $this->pluginViewV3Root();
+        if ($root === '' || !is_dir($root)) {
+            return $viewPaths;
+        }
+
+        $filtered = array_values(array_filter(
+            $viewPaths,
+            static function ($path) use ($root): bool {
+                return rtrim((string) $path, '/\\') !== $root;
+            }
+        ));
+
+        array_unshift($filtered, $root);
+
+        return $filtered;
     }
 
     public function registerPlaceholderSettingsPage(): void

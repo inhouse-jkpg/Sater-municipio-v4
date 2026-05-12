@@ -138,8 +138,9 @@
  
                             <?php
                             $startDate = get_field('start_datum', $post->ID);
-                            $endDate = get_field('slut_datum', $post->ID);
-                            $multipleDates = date_i18n('d F Y', strtotime($startDate)) == date_i18n('d F Y', strtotime($endDate));
+                            $endDate   = get_field('slut_datum', $post->ID);
+                            $startTs   = !empty($startDate) ? strtotime((string) $startDate) : false;
+                            $endTs     = !empty($endDate) ? strtotime((string) $endDate) : false;
                             ?>
                             <span class="c-typography c-card__date c-typography__variant--meta" data-uid="664cade7216aa">
                                 <span style="width: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" class="c-icon c-icon--date-range c-icon--material c-icon--material-date_range material-icons c-icon--size-sm" role="img" aria-label="Ikon: Kalender" alt="Ikon: Kalender" data-nosnippet="" data-uid="664cade72160e">
@@ -148,19 +149,24 @@
                                     </span>
                                 </span>
                                 <span style="margin-top: 2px">
-                                    <?php if( $multipleDates ) { ?>
-                                        <?php if ( !empty( $startDate ) ){
-                                            echo  date_i18n('d', strtotime( $startDate )) . ' ' . date_i18n('M', strtotime( $startDate )) . ' ' . date_i18n('Y', strtotime( $startDate )) . ' ' . date_i18n('H:i', strtotime( $startDate )) . ' - ' . date_i18n('H:i', strtotime( $endDate ));
-                                        } ?>
-                                    <?php } else { ?>
-                                        <?php if ( !empty( $startDate ) ){
-                                            echo  date_i18n('d', strtotime( $startDate )) . ' ' . date_i18n('M', strtotime( $startDate )) . ' ' . date_i18n('Y', strtotime( $startDate )) . ' ' . date_i18n('H:i', strtotime( $startDate ));
-                                        } ?>
-
-                                        <?php if ( !empty( $endDate ) ){
-                                            echo ' - ' . date_i18n('d', strtotime( $endDate )) . ' ' . date_i18n('M', strtotime( $endDate )) . ' ' . date_i18n('Y', strtotime( $endDate )) . ' ' . date_i18n('H:i', strtotime( $endDate ));
-                                        } ?>
-                                    <?php } ?>
+                                    <?php
+                                    $ndash = html_entity_decode('&ndash;', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                                    if ($startTs && $endTs) {
+                                        $sameDay = date_i18n('Y-m-d', $startTs) === date_i18n('Y-m-d', $endTs);
+                                        if ($sameDay) {
+                                            echo esc_html(
+                                                date_i18n('j M Y', $startTs) . ' '
+                                                . date_i18n('H.i', $startTs) . $ndash . date_i18n('H.i', $endTs)
+                                            );
+                                        } else {
+                                            echo esc_html(
+                                                date_i18n('j M Y H.i', $startTs) . ' ' . $ndash . ' ' . date_i18n('j M Y H.i', $endTs)
+                                            );
+                                        }
+                                    } elseif ($startTs) {
+                                        echo esc_html(date_i18n('j M Y H.i', $startTs));
+                                    }
+                                    ?>
                                 </span>
                             </span>
 

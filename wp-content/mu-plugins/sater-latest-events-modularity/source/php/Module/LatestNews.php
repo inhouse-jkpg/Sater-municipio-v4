@@ -11,6 +11,13 @@ class LatestNews extends \Modularity\Module
     public $slug = 'latest-news';
     public $supports = array();
 
+    /**
+     * Modularity wraps module output in a fragment cache (wp object cache; Redis here).
+     * The parent default is 7 days (\Modularity\Module::$cacheTtl), so Blade changes
+     * do not appear until the entry expires or Redis is flushed.
+     */
+    public $cacheTtl = 0;
+
     public function init()
     {
         $this->nameSingular = __('Senaste evenemang', 'modularity-latest-news');

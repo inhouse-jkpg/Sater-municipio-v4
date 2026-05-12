@@ -17,16 +17,16 @@
         @php
             $sameDay = wp_date('Y-m-d', $startTs) === wp_date('Y-m-d', $endTs);
 
-            // Requested rules:
-            // - Single day: "6 maj 2026 13.00-16.00"
-            // - Multi day:  "6 maj 2026 13.00 - 8 maj 2026 14.00"
+            // Svenska skrivregler: kort tankstreck (U+2013), inte bindestreck.
+            // - Endags: "6 maj 2026 13.00–16.00" (tider utan mellanrum kring tankstreck)
+            // - Flerdags: "6 maj 2026 13.00 – 8 maj 2026 14.00" (mellanrum kring tankstreck)
             $dateOnly  = wp_date('j M Y', $startTs);
             $startTime = wp_date('H.i', $startTs);
             $endTime   = wp_date('H.i', $endTs);
 
             $formatted = $sameDay
-                ? ($dateOnly . ' ' . $startTime . '-' . $endTime)
-                : (wp_date('j M Y H.i', $startTs) . ' - ' . wp_date('j M Y H.i', $endTs));
+                ? ($dateOnly . ' ' . $startTime . '–' . $endTime)
+                : (wp_date('j M Y H.i', $startTs) . ' – ' . wp_date('j M Y H.i', $endTs));
         @endphp
 
         {{ $formatted }}

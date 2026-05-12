@@ -190,6 +190,10 @@ function Sater_Municipio_TranslationOverrides(string $translation, string $text,
         return 'Rensa filter';
     }
 
+    if ($text === 'Select') {
+        return 'Välj';
+    }
+
     return $translation;
 }
 
