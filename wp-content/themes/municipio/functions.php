@@ -62,8 +62,12 @@ add_filter('register_post_type_args', 'change_labels', 10, 2);
 
 function change_labels($args, $post_type) {
     if ($post_type === 'news') {
+        $args['label'] = 'Nyheter';
         $args['labels']['name'] = 'Nyheter';
         $args['labels']['singular_name'] = 'Nyhet';
+        $args['labels']['menu_name'] = 'Nyheter';
+        $args['labels']['name_admin_bar'] = 'Nyhet';
+        $args['labels']['all_items'] = 'Alla nyheter';
         $args['labels']['add_new'] = 'Lägg till Nyhet';
         $args['labels']['add_new_item'] = 'Lägg till Nyhet';
         $args['labels']['edit_item'] = 'Redigera Nyhet';
