@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Modularity translations loader
- * Description: Load Modularity-related textdomains early and ship Swedish translations for select add-ons.
+ * Description: Load Modularity-related textdomains early and ship Swedish translations for select add-ons (incl. modularity-latest-news).
  *
  * @category WordPress
  * @package  Sater
@@ -71,6 +71,22 @@ function Sater_Modularity_LoadBundledAddonTextdomains(): void
         'mod-my-pages',
         $base . '/mod-my-pages-' . $locale . '.mo'
     );
+
+    // Säter Latest Events (Modularity) – source lives in mu-plugins; explicit load for stage/prod.
+    Sater_Modularity_LoadTextdomainFromFile(
+        'modularity-latest-news',
+        $base . '/modularity-latest-news-' . $locale . '.mo'
+    );
+    if (
+        function_exists('is_textdomain_loaded')
+        && !is_textdomain_loaded('modularity-latest-news')
+        && str_starts_with(strtolower((string) $locale), 'sv')
+    ) {
+        Sater_Modularity_LoadTextdomainFromFile(
+            'modularity-latest-news',
+            $base . '/modularity-latest-news-sv_SE.mo'
+        );
+    }
 }
 
 // Included via `mu-plugins/loader.php` during `muplugins_loaded`, so load immediately.

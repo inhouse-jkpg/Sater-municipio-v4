@@ -7,7 +7,7 @@
  * Author: Säter kommun
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
- * Text Domain: mod-latest-news
+ * Text Domain: modularity-latest-news
  */
 
  // Protect agains direct file access

@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Säter Latest Events (Modularity)\n"
+"POT-Creation-Date: 2026-05-11 00:00+0000\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: LatestNews.php + ACF field group
+msgid "Senaste evenemang"
+msgstr "Senaste evenemang"
+
+#: LatestNews.php
+msgid "Visar kommande evenemang. Antal och kolumner styrs i modulens inställningar."
+msgstr "Visar kommande evenemang. Antal och kolumner styrs i modulens inställningar."
+
+#: ACF
+msgid "Antal objekt"
+msgstr "Antal objekt"
+
+#: ACF
+msgid "Antal kolumner"
+msgstr "Antal kolumner"
+
+#: ACF
+msgid "Filtrera på kategori"
+msgstr "Filtrera på kategori"
+
+#: ACF
+msgid "Evenemangskategori"
+msgstr "Evenemangskategori"
