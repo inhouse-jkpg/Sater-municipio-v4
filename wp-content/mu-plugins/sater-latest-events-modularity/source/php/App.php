@@ -37,12 +37,16 @@ class App
      */
     public function addViewPaths($array)
     {
-        // If child theme is active, insert plugin view path after child views path.
+        // Templates live under source/php/Module/views (not the empty "views/" folder).
+        $path = MODULARITYLATEST_NEWS_MODULE_VIEW_PATH;
+        if (!is_dir($path)) {
+            return $array;
+        }
+
         if (is_child_theme()) {
-            array_splice($array, 2, 0, array(MODULARITYLATEST_NEWS_VIEW_PATH));
+            array_splice($array, 2, 0, array($path));
         } else {
-            // Add view path first in the list if child theme is not active.
-            array_unshift($array, MODULARITYLATEST_NEWS_VIEW_PATH);
+            array_unshift($array, $path);
         }
 
         return $array;

@@ -3,10 +3,12 @@
         @foreach ($posts as $post)
             <div class="{{ $gridColumnClass }}">
                 @php
-                    $isEventsArchive = !is_admin() && (is_post_type_archive('events') || is_post_type_archive('event'));
+                    $eventPt = method_exists($post, 'getPostType') ? (string) $post->getPostType() : '';
+                    $isEventPost = !is_admin()
+                        && in_array($eventPt, ['events', 'event'], true);
 
-                    // For events: attach an end timestamp so Card.components.date can show a range.
-                    $endRaw = $isEventsArchive ? (string) get_field('slut_datum', $post->id) : '';
+                    // For events anywhere (archive, front page lists, etc.): end timestamp for Card.components.date range.
+                    $endRaw = $isEventPost ? (string) get_field('slut_datum', $post->id) : '';
                     $endTs  = $endRaw !== '' ? apply_filters('sater_events_event_datetime_to_timestamp', null, $endRaw) : null;
                 @endphp
 
@@ -21,7 +23,7 @@
                     'date' => [
                         'timestamp' => $post->getArchiveDateTimestamp(),
                         'format'    => $post->getArchiveDateFormat(),
-                        'endTimestamp' => $isEventsArchive ? $endTs : null,
+                        'endTimestamp' => $isEventPost ? $endTs : null,
                     ],
                     'dateBadge' => $post->getArchiveDateFormat() == 'date-badge',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
