@@ -92,7 +92,7 @@ class Button extends \ComponentLibrary\Component\BaseController
     /**
      * Sanitize the href attribute
      * 
-     * This will format phone numbers and emails correctly
+     * This will format phone numbers correctly (mailto: only strips whitespace)
      * 
      * @param string $href  The href attribute
      * 
@@ -104,8 +104,11 @@ class Button extends \ComponentLibrary\Component\BaseController
             return '';
         }
         $scheme = parse_url($href, PHP_URL_SCHEME);
+        $value = substr($href, strlen($scheme) + 1);
+
         return match ($scheme) {
-            'tel', 'mailto' => $scheme . ':' . preg_replace('/\s+|-/', '', substr($href, strlen($scheme) + 1)),
+            'mailto' => $scheme . ':' . preg_replace('/\s+/', '', $value),
+            'tel' => $scheme . ':' . preg_replace('/\s+|-/', '', $value),
             default => $href,
         };
     }
