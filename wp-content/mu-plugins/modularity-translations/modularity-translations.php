@@ -126,7 +126,6 @@ function Sater_Modularity_GetSwedishNewsCptLabels(): array
         'new_item'           => 'Ny nyhet',
         'edit_item'          => 'Redigera nyhet',
         'update_item'        => 'Uppdatera nyhet',
-        'view_item'          => 'Granska nyhet',
         'search_items'       => 'Sök: Nyhet',
         'parent_item_colon'  => 'Föräldra nyhet',
         'not_found'          => 'Inga nyheter hittades',
