@@ -1,26 +1,7 @@
-<?php
-/**
- * Full Posts "Data source" field group (production snapshot with Manual input).
- *
- * Registered on acf/init to override stock Modularity 6.85.0 exports.
- *
- * @package Sater
- */
+<?php 
 
-declare(strict_types=1);
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
- * Register the complete field group locally (overrides Modularity's export).
- */
-function sater_posts_manual_input_register_posts_source_field_group(): void
-{
-    if (!function_exists('acf_add_local_field_group')) {
-        return;
-    }
+if (function_exists('acf_add_local_field_group')) {
 
     acf_add_local_field_group(array(
     'key' => 'group_571dfaabc3fc5',
@@ -606,5 +587,6 @@ function sater_posts_manual_input_register_posts_source_field_group(): void
     'acfe_form' => 0,
     'acfe_meta' => '',
     'acfe_note' => '',
-    ));
+));
+
 }
