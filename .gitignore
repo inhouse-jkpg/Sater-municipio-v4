@@ -12,6 +12,9 @@ auth.json
 db/*.sql
 *.log
 .claude/
+mailpit/
+nginx/ssl/
+/.vscode/
 # Devcontainer
 .htaccess
 .devcontainer/.env
