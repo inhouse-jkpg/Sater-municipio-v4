@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Modularity Posts: Manual input data source
  * Description: Restores Posts "Manual input" ACF fields removed from upstream Modularity. Survives Composer deploy.
- * Version: 2.3.0
+ * Version: 2.5.0
  * Author: Municipio SE
  * License: MIT
  * Requires PHP: 8.0
@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
 const SATER_POSTS_SOURCE_GROUP_KEY = 'group_571dfaabc3fc5';
 const SATER_POSTS_SOURCE_FIELD_KEY = 'field_571dfaafe6984';
 const SATER_POSTS_DATA_REPEATER_KEY = 'field_576258d3110b0';
-const SATER_POSTS_DISPLAY_AS_FIELD_KEY = 'field_571dfd4c0d9d9';
 const SATER_POSTS_DISPLAY_AS_DEFAULT = 'expandable-list';
 
 /** image_select keys => template slug (mod-posts-displau.php) */
@@ -46,27 +45,49 @@ const SATER_POSTS_DISPLAY_AS_VALID_SLUGS = [
 ];
 
 /**
- * Register production "Data source" field group (includes Manual input).
+ * Admin only: register field group and patch DB-synced group.
+ * Modularity already imports mod-posts-source on plugins_loaded; duplicating that on
+ * every frontend request was the main performance hit.
  */
-add_action(
-    'acf/init',
-    static function (): void {
-        if (!function_exists('acf_add_local_field_group')) {
-            return;
-        }
+if (is_admin()) {
+    add_action(
+        'acf/init',
+        static function (): void {
+            if (!function_exists('acf_add_local_field_group')) {
+                return;
+            }
 
-        if (function_exists('acf_remove_local_field_group')) {
-            acf_remove_local_field_group(SATER_POSTS_SOURCE_GROUP_KEY);
-        }
+            if (function_exists('acf_remove_local_field_group')) {
+                acf_remove_local_field_group(SATER_POSTS_SOURCE_GROUP_KEY);
+            }
 
-        require_once __DIR__ . '/mod-posts-source.php';
-    },
-    20
-);
+            require_once __DIR__ . '/mod-posts-source.php';
+        },
+        20
+    );
+
+    add_filter('acf/load_field_group', 'sater_posts_manual_input_patch_field_group', 99, 1);
+
+    add_filter(
+        'Municipio/Admin/Acf/PrefillIconChoice',
+        static function (array $fieldNames): array {
+            $fieldNames[] = 'item_icon';
+
+            return $fieldNames;
+        }
+    );
+}
 
 /**
- * Patch DB-synced field group when ACF loads it from the database.
- *
+ * Frontend + admin: skip ExpandableListTemplate (the_content) for manual input modules.
+ */
+add_filter('acf/load_value/name=posts_display_as', 'sater_posts_manual_input_filter_display_as_value', 99, 3);
+
+add_filter('Modularity/Module/Posts/template', 'sater_posts_manual_input_filter_posts_template', 0, 2);
+add_filter('Modularity/Module/Posts/template', 'sater_posts_manual_input_guard_posts_template', 999, 2);
+add_filter('Modularity/Display/mod-posts/viewData', 'sater_posts_manual_input_filter_view_data', 99, 1);
+
+/**
  * @param array<string, mixed>|false $fieldGroup
  * @return array<string, mixed>|false
  */
@@ -104,23 +125,49 @@ function sater_posts_manual_input_patch_field_group($fieldGroup)
     }
 
     if (!$hasRepeater && function_exists('acf_get_field')) {
-        $repeater = acf_get_field(SATER_POSTS_DATA_REPEATER_KEY);
-        if (is_array($repeater)) {
-            $fieldGroup['fields'][] = $repeater;
+        static $repeaterField = null;
+
+        if ($repeaterField === null) {
+            $repeaterField = acf_get_field(SATER_POSTS_DATA_REPEATER_KEY) ?: false;
+        }
+
+        if (is_array($repeaterField)) {
+            $fieldGroup['fields'][] = $repeaterField;
         }
     }
 
     return $fieldGroup;
 }
 
-add_filter('acf/load_field_group', 'sater_posts_manual_input_patch_field_group', 99, 1);
+/**
+ * @param int $moduleId
+ */
+function sater_posts_manual_input_get_data_source(int $moduleId): string
+{
+    static $cache = [];
+
+    if ($moduleId < 1) {
+        return '';
+    }
+
+    if (!array_key_exists($moduleId, $cache)) {
+        $cache[$moduleId] = (string) get_post_meta($moduleId, 'posts_data_source', true);
+    }
+
+    return $cache[$moduleId];
+}
 
 /**
- * Resolve posts_display_as to a real Blade slug.
- *
- * @param mixed $value   Raw meta / ACF value.
- * @param int   $postId  mod-posts post ID.
- * @return string
+ * @param int $postId
+ */
+function sater_posts_manual_input_is_mod_posts(int $postId): bool
+{
+    return $postId > 0 && get_post_type($postId) === 'mod-posts';
+}
+
+/**
+ * @param mixed $value
+ * @param int   $postId
  */
 function sater_posts_manual_input_resolve_display_as($value, int $postId = 0): string
 {
@@ -153,40 +200,51 @@ function sater_posts_manual_input_resolve_display_as($value, int $postId = 0): s
 /**
  * @param mixed $value
  * @param mixed $postId
- * @param mixed $field
  * @return mixed
  */
 function sater_posts_manual_input_filter_display_as_value($value, $postId = 0, $field = null)
 {
     $id = is_numeric($postId) ? (int) $postId : 0;
 
-    // Manual input uses fake WP_Post rows (ID 0). Skipping getTemplateData() in Posts::template()
-    // avoids Municipio preparePostObject(); accordion is built in viewData from the "data" repeater.
-    if ($id > 0 && function_exists('get_field') && get_field('posts_data_source', $id) === 'input') {
+    if (!sater_posts_manual_input_is_mod_posts($id)) {
+        return $value;
+    }
+
+    if (sater_posts_manual_input_get_data_source($id) === 'input') {
         return '';
     }
 
     return sater_posts_manual_input_resolve_display_as($value, $id);
 }
 
-add_filter('acf/load_value/name=posts_display_as', 'sater_posts_manual_input_filter_display_as_value', 99, 3);
-add_filter('acf/load_value/key=' . SATER_POSTS_DISPLAY_AS_FIELD_KEY, 'sater_posts_manual_input_filter_display_as_value', 99, 3);
-
 /**
- * Build accordion rows from the Manual input repeater (ACF field "data").
- *
- * @param int $moduleId mod-posts post ID.
- * @return array<int, array<string, mixed>>
+ * @param object|null $module
  */
-function sater_posts_manual_input_build_accordion_from_repeater(int $moduleId): array
+function sater_posts_manual_input_module_uses_manual_input($module): bool
 {
-    if ($moduleId < 1 || !function_exists('get_field')) {
-        return [];
+    if (!is_object($module) || empty($module->ID)) {
+        return false;
     }
 
-    $rows = get_field('data', $moduleId);
-    if (!is_array($rows)) {
-        return [];
+    if (($module->data['posts_data_source'] ?? null) === 'input') {
+        return true;
+    }
+
+    return sater_posts_manual_input_get_data_source((int) $module->ID) === 'input';
+}
+
+/**
+ * Build accordion once per module per request. No get_field(), transients, or wp_kses_post.
+ *
+ * @param array<int|string, mixed> $rows
+ * @return array<int, array<string, mixed>>
+ */
+function sater_posts_manual_input_build_accordion(array $rows, int $moduleId): array
+{
+    static $built = [];
+
+    if (isset($built[$moduleId])) {
+        return $built[$moduleId];
     }
 
     $accordion = [];
@@ -202,9 +260,19 @@ function sater_posts_manual_input_build_accordion_from_repeater(int $moduleId): 
         }
 
         $content = (string) ($row['post_content'] ?? '');
+        if ($content !== '') {
+            $content = apply_filters(
+                'sater_posts_manual_input_accordion_item_content',
+                $content,
+                $row,
+                $moduleId,
+                (int) $index
+            );
+        }
+
         $item = [
             'heading' => $title,
-            'content' => $content !== '' ? apply_filters('the_content', $content) : '',
+            'content' => $content,
             'classList' => [],
             'attributeList' => ['data-js-item-id' => 'manual-' . $moduleId . '-' . $index],
         ];
@@ -219,26 +287,47 @@ function sater_posts_manual_input_build_accordion_from_repeater(int $moduleId): 
         $accordion[] = $item;
     }
 
+    $built[$moduleId] = $accordion;
+
     return $accordion;
 }
 
 /**
- * Fix template filename and sync display slug on the module instance.
- *
- * Do not call getTemplateData() here. A second run breaks manual-input posts because
- * preparePostObject expects WP_Post, not PostObjectInterface.
- *
+ * @param object|null $module
+ */
+function sater_posts_manual_input_prepare_manual_module($module): void
+{
+    if (!sater_posts_manual_input_module_uses_manual_input($module)) {
+        return;
+    }
+
+    $moduleId = (int) $module->ID;
+    $fields = is_array($module->fields ?? null) ? $module->fields : [];
+
+    if (!empty($fields['data']) && is_array($fields['data'])) {
+        $module->data['prepareAccordion'] = sater_posts_manual_input_build_accordion($fields['data'], $moduleId);
+    } elseif (!isset($module->data['prepareAccordion'])) {
+        $module->data['prepareAccordion'] = [];
+    }
+
+    $module->data['posts'] = [];
+    $module->data['allow_freetext_filtering'] = !empty($fields['allow_freetext_filtering']);
+}
+
+/**
  * @param mixed $template
  * @param mixed $module
  * @return mixed
  */
 function sater_posts_manual_input_filter_posts_template($template, $module = null)
 {
-    $postId = 0;
-    if (is_object($module) && isset($module->ID)) {
-        $postId = (int) $module->ID;
+    if (!sater_posts_manual_input_module_uses_manual_input($module)) {
+        return $template;
     }
 
+    sater_posts_manual_input_prepare_manual_module($module);
+
+    $postId = is_object($module) && isset($module->ID) ? (int) $module->ID : 0;
     $raw = '';
     if (is_object($module)) {
         $raw = $module->data['posts_display_as'] ?? $module->fields['posts_display_as'] ?? '';
@@ -252,6 +341,9 @@ function sater_posts_manual_input_filter_posts_template($template, $module = nul
     }
 
     $slug = sater_posts_manual_input_resolve_display_as($raw, $postId);
+    if ($slug === '') {
+        $slug = SATER_POSTS_DISPLAY_AS_DEFAULT;
+    }
 
     if (is_object($module)) {
         $module->data['posts_display_as'] = $slug;
@@ -263,11 +355,30 @@ function sater_posts_manual_input_filter_posts_template($template, $module = nul
     return $slug . '.blade.php';
 }
 
-add_filter('Modularity/Module/Posts/template', 'sater_posts_manual_input_filter_posts_template', 1, 2);
+/**
+ * @param mixed $template
+ * @param mixed $module
+ * @return mixed
+ */
+function sater_posts_manual_input_guard_posts_template($template, $module = null)
+{
+    if (!sater_posts_manual_input_module_uses_manual_input($module)) {
+        return $template;
+    }
+
+    if (!is_string($template)) {
+        return SATER_POSTS_DISPLAY_AS_DEFAULT . '.blade.php';
+    }
+
+    $stripped = preg_replace('/\.(blade\.php|php)$/', '', $template) ?? $template;
+    if ($stripped === '' || $stripped === '.blade' || $template === '.blade.php') {
+        return SATER_POSTS_DISPLAY_AS_DEFAULT . '.blade.php';
+    }
+
+    return $template;
+}
 
 /**
- * Supply accordion data for Manual input modules and guard against null.
- *
  * @param array<string, mixed> $data
  * @return array<string, mixed>
  */
@@ -276,11 +387,13 @@ function sater_posts_manual_input_filter_view_data(array $data): array
     $moduleId = (int) ($data['ID'] ?? 0);
 
     if (($data['posts_data_source'] ?? '') === 'input' && $moduleId > 0) {
-        $data['prepareAccordion'] = sater_posts_manual_input_build_accordion_from_repeater($moduleId);
+        if (!isset($data['prepareAccordion']) || !is_array($data['prepareAccordion'])) {
+            $fields = is_array($data['fields'] ?? null) ? $data['fields'] : [];
+            $rows = is_array($fields['data'] ?? null) ? $fields['data'] : [];
+            $data['prepareAccordion'] = sater_posts_manual_input_build_accordion($rows, $moduleId);
+        }
 
-        // expandable-list shows "Sök" when this key is missing; we skip getTemplateData() for manual input.
-        $allowSearch = function_exists('get_field') ? get_field('allow_freetext_filtering', $moduleId) : false;
-        $data['allow_freetext_filtering'] = !empty($allowSearch);
+        $data['posts'] = [];
     }
 
     if (!isset($data['prepareAccordion']) || !is_array($data['prepareAccordion'])) {
@@ -289,37 +402,3 @@ function sater_posts_manual_input_filter_view_data(array $data): array
 
     return $data;
 }
-
-add_filter('Modularity/Display/mod-posts/viewData', 'sater_posts_manual_input_filter_view_data', 99, 1);
-
-/**
- * Ensure posts_display_as is resolved before Posts::data() reads fields.
- *
- * @param mixed $value
- * @param mixed $postId
- * @param mixed $field
- * @return mixed
- */
-function sater_posts_manual_input_filter_posts_fields_on_load($value, $postId = 0, $field = null)
-{
-    if (!is_array($field)) {
-        return $value;
-    }
-
-    if (($field['name'] ?? '') === 'posts_display_as') {
-        return sater_posts_manual_input_filter_display_as_value($value, $postId, $field);
-    }
-
-    return $value;
-}
-
-add_filter('acf/load_value', 'sater_posts_manual_input_filter_posts_fields_on_load', 5, 3);
-
-add_filter(
-    'Municipio/Admin/Acf/PrefillIconChoice',
-    static function (array $fieldNames): array {
-        $fieldNames[] = 'item_icon';
-
-        return $fieldNames;
-    }
-);
