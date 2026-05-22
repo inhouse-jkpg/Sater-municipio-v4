@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Modularity Posts: Manual input data source
  * Description: Restores Posts "Manual input" ACF fields removed from upstream Modularity. Survives Composer deploy.
- * Version: 2.5.0
+ * Version: 2.5.1
  * Author: Municipio SE
  * License: MIT
  * Requires PHP: 8.0
@@ -68,14 +68,10 @@ if (is_admin()) {
 
     add_filter('acf/load_field_group', 'sater_posts_manual_input_patch_field_group', 99, 1);
 
-    add_filter(
-        'Municipio/Admin/Acf/PrefillIconChoice',
-        static function (array $fieldNames): array {
-            $fieldNames[] = 'item_icon';
-
-            return $fieldNames;
-        }
-    );
+    // Do NOT delegate item_icon to Municipio's PrefillIconChoice — that hook runs once per
+    // repeater row and rebuilds ~3 500 icon choices each time, causing multi-minute page loads.
+    // We handle it ourselves below with a static cache (built once per request).
+    add_filter('acf/load_field/name=item_icon', 'sater_posts_manual_input_load_icon_choices', 10, 1);
 }
 
 /**
@@ -376,6 +372,66 @@ function sater_posts_manual_input_guard_posts_template($template, $module = null
     }
 
     return $template;
+}
+
+/**
+ * Populate item_icon choices once per request.
+ *
+ * Municipio's PrefillIconChoice fires acf/load_field once per repeater row, rebuilding
+ * ~3 500 Material icon HTML strings each time. This replaces that with a static cache
+ * so the expensive build happens only on the first row.
+ *
+ * @param array<string, mixed> $field
+ * @return array<string, mixed>
+ */
+function sater_posts_manual_input_load_icon_choices(array $field): array
+{
+    static $choices = null;
+
+    if ($choices !== null) {
+        $field['choices'] = $choices;
+        return $field;
+    }
+
+    $built = ['' => __('None', 'municipio')];
+
+    if (class_exists('\Municipio\Helper\Icons')) {
+        $materialIcons = \Municipio\Helper\Icons::getIcons();
+        if (is_array($materialIcons)) {
+            foreach ($materialIcons as $icon) {
+                $icon = (string) $icon;
+                $built[$icon] =
+                    '<i class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float:left;">' .
+                    esc_html($icon) . '</i>' .
+                    '<span style="height:24px;display:inline-block;line-height:24px;margin-left:8px;">' .
+                    esc_html(str_replace('_', ' ', $icon)) . '</span>';
+            }
+        }
+    }
+
+    if (
+        class_exists('\ComponentLibrary\Helper\Icons') &&
+        class_exists('\ComponentLibrary\Cache\WpCache')
+    ) {
+        $customIcons = (new \ComponentLibrary\Helper\Icons(new \ComponentLibrary\Cache\WpCache()))->getIcons();
+        if (is_array($customIcons)) {
+            foreach ($customIcons as $key => $customIcon) {
+                if (str_contains((string) $key, 'Filled')) {
+                    continue;
+                }
+                $built[(string) $key] =
+                    '<span class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float:left;">' .
+                    esc_html((string) $customIcon) . '</span>' .
+                    '<span style="height:24px;display:inline-block;line-height:24px;margin-left:8px;">' .
+                    esc_html(str_replace('_', ' ', (string) $key)) . '</span>';
+            }
+        }
+    }
+
+    $choices = $built;
+    $field['choices'] = $choices;
+
+    return $field;
 }
 
 /**
