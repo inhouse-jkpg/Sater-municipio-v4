@@ -1,5 +1,6 @@
 /* Red header on .c-accordion.sater-miaf-accordion (manual input accordion). */
 
+.modularity-mod-manualinput .c-card,
 .modularity-mod-manualinput .c-card:hover {
 	border: unset !important;
 }
