@@ -1,0 +1,32 @@
+/* Red header on .c-accordion.sater-miaf-accordion (manual input accordion). */
+
+.modularity-mod-manualinput .c-card:hover {
+	border: unset !important;
+}
+
+.c-accordion.sater-miaf-accordion {
+	padding-top: unset !important;
+	padding-bottom: unset !important;
+}
+
+.c-accordion.sater-miaf-accordion .c-accordion__button-wrapper {
+	background-color: #7e001b !important;
+	color: #ffffff !important;
+	font-weight: 500 !important;
+	font-family: Poppins !important;
+	font-size: 1.125rem !important;
+	/* line-height: 1.33 !important; */
+}
+
+.c-accordion.sater-miaf-accordion .c-accordion__button-wrapper .c-accordion__button-column,
+.c-accordion.sater-miaf-accordion .c-accordion__button-wrapper .c-typography,
+.c-accordion.sater-miaf-accordion .c-accordion__button-wrapper .c-icon,
+.c-accordion.sater-miaf-accordion .c-accordion__button-wrapper .material-symbols {
+	color: #ffffff !important;
+}
+
+.c-accordion.sater-miaf-accordion .c-accordion__button:hover .c-accordion__button-wrapper,
+.c-accordion.sater-miaf-accordion .c-accordion__button:focus .c-accordion__button-wrapper {
+	background-color: #7e001b !important;
+	color: #ffffff !important;
+}
