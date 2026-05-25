@@ -17,7 +17,7 @@ Files here are loaded by `wp-config.php`:
 | `upload.php` | Upload limits |
 | `cron.php` | wp-cron enabled |
 | `multisite.php` | Multisite enabled, `DOMAIN_CURRENT_SITE = sater.test` |
-| `developer.php` | `WP_DEBUG`, `WP_HOME`, `WP_SITEURL` |
+| `developer.php` | `WP_DEBUG`, `WP_HOME`, `WP_SITEURL`, fragment cache off for local dev |
 | `cache.php` | Redis object cache points at the `redis` container |
 
 Optional files you can add for local feature work:

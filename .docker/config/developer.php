@@ -8,3 +8,6 @@ define('SAVEQUERIES', true);
 
 define('WP_HOME', 'https://sater.test');
 define('WP_SITEURL', 'https://sater.test/wp');
+
+define('MODULARITY_DISABLE_FRAGMENT_CACHE', true);
+define('MUNICIPIO_FRAGMENT_CACHE', false);
