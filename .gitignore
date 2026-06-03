@@ -1,4 +1,6 @@
 
+/docs/
+
 /config/*
 /wp/
 /wp-content/uploads/
@@ -6,6 +8,8 @@
 /wp-content/plugins/advanced-custom-fields-pro/
 /wp-content/plugins/*
 !/wp-content/plugins/local_*/
+!/wp-content/plugins/modularity/
+/wp-content/plugins/modularity/node_modules/
 **/node_modules/
 .DS_Store
 auth.json
