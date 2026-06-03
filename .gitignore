@@ -9,16 +9,7 @@
 /wp-content/plugins/*
 !/wp-content/plugins/local_*/
 !/wp-content/plugins/modularity/
-/wp-content/plugins/modularity/**
-!/wp-content/plugins/modularity/source/
-/wp-content/plugins/modularity/source/**
-!/wp-content/plugins/modularity/source/php/
-/wp-content/plugins/modularity/source/php/**
-!/wp-content/plugins/modularity/source/php/Module/
-/wp-content/plugins/modularity/source/php/Module/**
-!/wp-content/plugins/modularity/source/php/Module/Posts/
-/wp-content/plugins/modularity/source/php/Module/Posts/**
-!/wp-content/plugins/modularity/source/php/Module/Posts/Posts.php
+/wp-content/plugins/modularity/node_modules/
 **/node_modules/
 .DS_Store
 auth.json

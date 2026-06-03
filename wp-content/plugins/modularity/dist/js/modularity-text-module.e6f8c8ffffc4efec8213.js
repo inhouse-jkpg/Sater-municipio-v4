@@ -1,0 +1,2 @@
+(()=>{"use strict";document.addEventListener("DOMContentLoaded",(function(){setTimeout((function(){const e=document.querySelector("#mceu_0-open");e&&e.addEventListener("click",(()=>{setTimeout((function(){const t=e.closest(".mce-toolbar-grp"),o=document.querySelector(".mce-floatpanel");if(o&&t&&"fixed"===t.style.position){const t=window.scrollY,n=e.getBoundingClientRect();o.style.top=t+n.top-5+"px",o.style.left="0px"}}),100)}))}),1e3)}))})();
+//# sourceMappingURL=modularity-text-module.e6f8c8ffffc4efec8213.js.map
