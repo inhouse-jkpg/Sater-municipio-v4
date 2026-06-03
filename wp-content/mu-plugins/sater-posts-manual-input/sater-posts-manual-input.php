@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Modularity Posts: Manual input data source
  * Description: Restores Posts "Manual input" ACF fields removed from upstream Modularity. Survives Composer deploy.
- * Version: 2.5.1
+ * Version: 2.6.0
  * Author: Municipio SE
  * License: MIT
  * Requires PHP: 8.0
@@ -67,6 +67,10 @@ if (is_admin()) {
     );
 
     add_filter('acf/load_field_group', 'sater_posts_manual_input_patch_field_group', 99, 1);
+    add_filter('acf/load_field/key=' . SATER_POSTS_SOURCE_FIELD_KEY, 'sater_posts_manual_input_load_posts_data_source_field', 10, 1);
+
+    add_action('admin_notices', 'sater_posts_manual_input_render_admin_notices');
+    add_action('admin_enqueue_scripts', 'sater_posts_manual_input_admin_styles');
 
     // Do NOT delegate item_icon to Municipio's PrefillIconChoice — that hook runs once per
     // repeater row and rebuilds ~3 500 icon choices each time, causing multi-minute page loads.
@@ -105,13 +109,7 @@ function sater_posts_manual_input_patch_field_group($fieldGroup)
         }
 
         if (($field['key'] ?? '') === SATER_POSTS_SOURCE_FIELD_KEY) {
-            if (!isset($field['choices']) || !is_array($field['choices'])) {
-                $field['choices'] = [];
-            }
-            if (!isset($field['choices']['input'])) {
-                $field['choices']['input'] = __('Manual input', 'modularity');
-            }
-            $fieldGroup['fields'][$index] = $field;
+            $fieldGroup['fields'][$index] = sater_posts_manual_input_strip_manual_input_choice($field);
             continue;
         }
 
@@ -133,6 +131,104 @@ function sater_posts_manual_input_patch_field_group($fieldGroup)
     }
 
     return $fieldGroup;
+}
+
+function sater_posts_manual_input_retirement_message(): string
+{
+    return __(
+        'Manuell inmatning på Inlägg är avvecklad. Använd modulen Manuell inmatning med Visa som satt till Accordion för nytt manuell inmatning innehåll.',
+        'modularity'
+    );
+}
+
+/**
+ * @param array<string, mixed> $field
+ * @return array<string, mixed>
+ */
+function sater_posts_manual_input_strip_manual_input_choice(array $field): array
+{
+    if (isset($field['choices']) && is_array($field['choices'])) {
+        unset($field['choices']['input']);
+    }
+
+    $field['instructions'] = sater_posts_manual_input_retirement_message();
+
+    if (!isset($field['wrapper']) || !is_array($field['wrapper'])) {
+        $field['wrapper'] = [];
+    }
+
+    $existingClass = trim((string) ($field['wrapper']['class'] ?? ''));
+    $field['wrapper']['class'] = trim($existingClass . ' sater-posts-manual-input-retired-notice');
+
+    return $field;
+}
+
+function sater_posts_manual_input_admin_styles(string $hook): void
+{
+    if (!in_array($hook, ['post.php', 'post-new.php'], true)) {
+        return;
+    }
+
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || $screen->post_type !== 'mod-posts') {
+        return;
+    }
+
+    wp_register_style('sater-posts-manual-input-admin', false);
+    wp_enqueue_style('sater-posts-manual-input-admin');
+    wp_add_inline_style(
+        'sater-posts-manual-input-admin',
+        '.acf-field.sater-posts-manual-input-retired-notice > .acf-label .description,
+         .acf-field.sater-posts-manual-input-retired-notice > .acf-input .description {
+            color: #b32d2e;
+            font-weight: 600;
+        }
+        .notice.sater-posts-manual-input-retired-notice p {
+            color: #b32d2e;
+            font-weight: 600;
+        }'
+    );
+}
+
+/**
+ * @param array<string, mixed> $field
+ * @return array<string, mixed>
+ */
+function sater_posts_manual_input_load_posts_data_source_field($field)
+{
+    if (!is_array($field)) {
+        return $field;
+    }
+
+    return sater_posts_manual_input_strip_manual_input_choice($field);
+}
+
+function sater_posts_manual_input_render_admin_notices(): void
+{
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || $screen->base !== 'post' || $screen->post_type !== 'mod-posts') {
+        return;
+    }
+
+    $post = get_post();
+    if (!$post instanceof WP_Post) {
+        return;
+    }
+
+    echo '<div class="notice notice-error sater-posts-manual-input-retired-notice"><p><strong>';
+    echo esc_html(sater_posts_manual_input_retirement_message());
+    echo '</strong></p></div>';
+
+    if (sater_posts_manual_input_get_data_source((int) $post->ID) !== 'input') {
+        return;
+    }
+
+    echo '<div class="notice notice-warning"><p>';
+    echo esc_html__(
+        'Äldre modul – visas fortfarande på webbplatsen. Vid större ändringar, överväg att flytta till Manuell inmatning.',
+        'modularity'
+    );
+    echo '</p></div>';
 }
 
 /**

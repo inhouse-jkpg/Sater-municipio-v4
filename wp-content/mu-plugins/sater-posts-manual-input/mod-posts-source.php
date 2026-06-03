@@ -13,12 +13,15 @@ if (function_exists('acf_add_local_field_group')) {
             'name' => 'posts_data_source',
             'aria-label' => '',
             'type' => 'select',
-            'instructions' => '',
+            'instructions' => __(
+                'Manuell inmatning på Inlägg är avvecklad. Använd modulen Manuell inmatning med Visa som satt till Accordion för nytt manuell inmatning innehåll.',
+                'modularity'
+            ),
             'required' => 1,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
-                'class' => '',
+                'class' => 'sater-posts-manual-input-retired-notice',
                 'id' => '',
             ),
             'choices' => array(
@@ -26,7 +29,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'children' => __('Child posts', 'modularity'),
                 'manual' => __('Manually picked posts', 'modularity'),
                 'schematype' => __('Schema type', 'modularity'),
-                'input' => __('Manual input', 'modularity'),
             ),
             'default_value' => false,
             'return_format' => 'value',
