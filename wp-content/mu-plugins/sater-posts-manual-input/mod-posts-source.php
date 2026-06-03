@@ -432,7 +432,7 @@ if (function_exists('acf_add_local_field_group')) {
                     'tabs' => 'all',
                     'toolbar' => 'full',
                     'media_upload' => 1,
-                    'delay' => 1,
+                    'delay' => 0,
                     'parent_repeater' => 'field_576258d3110b0',
                 ),
                 2 => array(

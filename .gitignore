@@ -6,6 +6,13 @@
 /wp-content/plugins/advanced-custom-fields-pro/
 /wp-content/plugins/*
 !/wp-content/plugins/local_*/
+# Säter override: Modularity Posts manual-input performance (Composer still installs rest of plugin)
+!/wp-content/plugins/modularity/
+!/wp-content/plugins/modularity/source/
+!/wp-content/plugins/modularity/source/php/
+!/wp-content/plugins/modularity/source/php/Module/
+!/wp-content/plugins/modularity/source/php/Module/Posts/
+!/wp-content/plugins/modularity/source/php/Module/Posts/Posts.php
 **/node_modules/
 .DS_Store
 auth.json
