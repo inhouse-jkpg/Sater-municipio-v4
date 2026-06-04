@@ -1,0 +1,67 @@
+.sater-mediaflow-video-id-field,
+.sater-mediaflow-video-embed-field,
+.sater-mediaflow-video-injected.acf-field {
+  display: none;
+}
+
+.acf-field[data-key="field_57454c24d44d8"]
+  ~ .sater-mediaflow-video-injected.acf-field,
+.acf-field[data-key="field_sater_mediaflow_video_message"] {
+  display: block;
+}
+
+.sater-mediaflow-video-actions {
+  margin: 0 0 12px;
+}
+
+.sater-mediaflow-video-preview {
+  background: #f0f0f1;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.sater-mediaflow-video-preview iframe {
+  max-width: 100%;
+}
+
+.sater-mediaflow-video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100100;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.sater-mediaflow-video-modal {
+  position: relative;
+  flex: 1;
+  margin: 24px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sater-mediaflow-video-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px 10px;
+}
+
+.sater-mediaflow-video-modal-selector {
+  flex: 1;
+  min-height: 0;
+  min-height: 600px;
+}
+
+.sater-mediaflow-video-modal-selector .mediaflow-file-selector,
+.sater-mediaflow-video-modal-selector.mediaflow-file-selector {
+  height: 100%;
+  min-height: 600px;
+}
