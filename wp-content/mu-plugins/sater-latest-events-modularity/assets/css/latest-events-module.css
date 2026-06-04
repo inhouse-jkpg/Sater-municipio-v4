@@ -1,0 +1,33 @@
+/**
+ * Prevent card text from overflowing grid columns (common with left sidebar:
+ * main column is narrow and flex items default to min-width: auto).
+ */
+.o-grid-auto .sater-latest-events__grid {
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+}
+
+.sater-latest-events__grid > [class*="o-grid-"] {
+	min-width: 0;
+}
+
+.sater-latest-events__grid .c-card {
+	min-width: 0;
+	max-width: 100%;
+}
+
+.sater-latest-events__grid .c-card__heading,
+.sater-latest-events__grid .c-card__date,
+.sater-latest-events__grid .c-card__content {
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+.sater-latest-events__grid .c-card__date {
+	flex-wrap: wrap;
+}
+
+.sater-latest-events__grid .c-card__image-container {
+	min-width: 0;
+}
