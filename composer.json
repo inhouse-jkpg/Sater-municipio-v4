@@ -77,6 +77,7 @@
     "enshrined/svg-sanitize": "dev-master#c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
     "firebase/php-jwt": "6.11.1",
     "helsingborg-stad/acf-openstreetmap-field": "0.79.10",
+    "helsingborg-stad/acf-select-image-field": "1.6.1",
     "helsingborg-stad/acf-ux-collapse": "2.0.6",
     "helsingborg-stad/active-directory-api-wp-integration": "3.1.0",
     "helsingborg-stad/algolia-index": "3.2.3",
