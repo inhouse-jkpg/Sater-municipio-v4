@@ -199,7 +199,7 @@ function sater_purge_news_caches_on_status_change(string $newStatus, string $old
     $isVisible = in_array($newStatus, $visibleStatuses, true);
 
     if ($wasVisible || $isVisible) {
-        sater_purge_news_listing_modules();
+        sater_schedule_news_cache_purge();
     }
 }
 
@@ -209,7 +209,25 @@ function sater_purge_news_caches_after_scheduled_unpublish(int $postId, string $
         return;
     }
 
-    sater_purge_news_listing_modules();
+    sater_schedule_news_cache_purge();
+}
+
+/**
+ * Defer the heavy purge to shutdown so the editor's publish request returns
+ * immediately. The module-usage scan and PURGE requests then run after the
+ * response is flushed to the client.
+ */
+function sater_schedule_news_cache_purge(): void
+{
+    static $scheduled = false;
+
+    if ($scheduled) {
+        return;
+    }
+
+    $scheduled = true;
+
+    add_action('shutdown', 'sater_purge_news_listing_modules', 0);
 }
 
 function sater_disable_latest_news_events_fragment_cache(): void
@@ -240,13 +258,19 @@ function sater_get_module_cache_group(): string
 
 function sater_purge_news_listing_modules(): void
 {
+    // Release the HTTP response before the expensive scan when running on shutdown.
+    if (function_exists('fastcgi_finish_request')) {
+        fastcgi_finish_request();
+    }
+
     $cacheGroup = sater_get_module_cache_group();
     $moduleIds = sater_get_news_listing_module_ids();
 
     foreach ($moduleIds as $moduleId) {
         wp_cache_delete($moduleId, $cacheGroup);
-        sater_purge_pages_using_module($moduleId);
     }
+
+    sater_purge_pages_using_modules($moduleIds);
 }
 
 /**
@@ -290,24 +314,33 @@ function sater_get_news_listing_module_ids(): array
     return array_values(array_unique($moduleIds));
 }
 
-function sater_purge_pages_using_module(int $moduleId): void
+/**
+ * @param int[] $moduleIds
+ */
+function sater_purge_pages_using_modules(array $moduleIds): void
 {
-    if (!class_exists(\Modularity\ModuleManager::class)) {
+    if ($moduleIds === [] || !class_exists(\Modularity\ModuleManager::class)) {
         return;
     }
 
-    $usage = \Modularity\ModuleManager::getModuleUsage($moduleId);
+    $pageIds = [];
 
-    if (!is_array($usage) || $usage === []) {
-        return;
-    }
+    foreach ($moduleIds as $moduleId) {
+        $usage = \Modularity\ModuleManager::getModuleUsage($moduleId);
 
-    foreach ($usage as $page) {
-        if (!isset($page->post_id)) {
+        if (!is_array($usage)) {
             continue;
         }
 
-        $permalink = get_the_permalink((int) $page->post_id);
+        foreach ($usage as $page) {
+            if (isset($page->post_id)) {
+                $pageIds[(int) $page->post_id] = true;
+            }
+        }
+    }
+
+    foreach (array_keys($pageIds) as $pageId) {
+        $permalink = get_the_permalink($pageId);
 
         if (!is_string($permalink) || $permalink === '') {
             continue;
