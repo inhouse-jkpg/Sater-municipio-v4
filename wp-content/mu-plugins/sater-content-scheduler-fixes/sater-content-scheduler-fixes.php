@@ -21,7 +21,6 @@ const SATER_UNPUBLISH_DEFAULT_ACTION = 'draft';
 add_action('save_post', 'sater_reschedule_unpublish_after_content_scheduler', 5);
 add_action(SATER_UNPUBLISH_HOOK, 'sater_unpublish_post', 5, 2);
 add_action('transition_post_status', 'sater_purge_news_caches_on_status_change', 10, 3);
-add_action('save_post', 'sater_purge_news_caches_on_save', 110);
 add_action(SATER_UNPUBLISH_HOOK, 'sater_purge_news_caches_after_scheduled_unpublish', 20, 2);
 add_action('init', 'sater_disable_latest_news_events_fragment_cache', 20);
 
@@ -31,7 +30,7 @@ add_action('init', 'sater_disable_latest_news_events_fragment_cache', 20);
  */
 function sater_reschedule_unpublish_after_content_scheduler(int $postId): void
 {
-    if (wp_is_post_revision($postId)) {
+    if (wp_is_post_revision($postId) || get_post_type($postId) !== SATER_NEWS_POST_TYPE) {
         return;
     }
 
@@ -188,22 +187,20 @@ function sater_clear_unpublish_cron_for_post(int $postId): void
 
 function sater_purge_news_caches_on_status_change(string $newStatus, string $oldStatus, WP_Post $post): void
 {
-    if ($post->post_type !== SATER_NEWS_POST_TYPE || $newStatus === $oldStatus) {
+    if ($post->post_type !== SATER_NEWS_POST_TYPE) {
         return;
     }
 
-    if ($oldStatus === 'publish' || $newStatus === 'publish' || $oldStatus === 'future' || $newStatus === 'future') {
+    // Only news that is (or was) visible in listings can affect cached output.
+    // Covers: publishing, scheduling, going live, editing a live post, and unpublishing.
+    // Skips: opening the editor (auto-draft), draft edits, and autosaves.
+    $visibleStatuses = ['publish', 'future'];
+    $wasVisible = in_array($oldStatus, $visibleStatuses, true);
+    $isVisible = in_array($newStatus, $visibleStatuses, true);
+
+    if ($wasVisible || $isVisible) {
         sater_purge_news_listing_modules();
     }
-}
-
-function sater_purge_news_caches_on_save(int $postId): void
-{
-    if (wp_is_post_revision($postId) || get_post_type($postId) !== SATER_NEWS_POST_TYPE) {
-        return;
-    }
-
-    sater_purge_news_listing_modules();
 }
 
 function sater_purge_news_caches_after_scheduled_unpublish(int $postId, string $action = SATER_UNPUBLISH_DEFAULT_ACTION): void
