@@ -49,7 +49,7 @@ if (is_admin()) {
     add_action('admin_notices', 'sater_mediaflow_video_admin_notices');
 }
 
-add_action('wp_enqueue_scripts', 'sater_mediaflow_video_enqueue_frontend_assets');
+add_action('wp_enqueue_scripts', 'sater_mediaflow_video_maybe_enqueue_frontend_assets_early', 20);
 
 add_filter('Modularity/Display/mod-video/viewData', 'sater_mediaflow_video_filter_view_data', 10, 1);
 add_filter('Modularity/Block/Data', 'sater_mediaflow_video_filter_block_data', 10, 3);
@@ -188,7 +188,11 @@ function sater_mediaflow_video_apply_mediaflow_embed(array $data): array
     $iframe = sater_mediaflow_video_normalize_embed($embed);
     $posterUrl = sater_mediaflow_video_resolve_custom_poster_url($data, $postId);
 
-    if ($posterUrl !== false && $iframe !== '') {
+    $hasPoster = $posterUrl !== false && $iframe !== '';
+
+    sater_mediaflow_video_maybe_enqueue_frontend_assets($hasPoster);
+
+    if ($hasPoster) {
         $data['image'] = $posterUrl;
         $embedId = !empty($data['id']) ? (string) $data['id'] : 'embed-' . wp_unique_id();
         $data['id'] = $embedId;
@@ -287,34 +291,235 @@ function sater_mediaflow_video_normalize_embed(string $embed): string
 }
 
 /**
+ * @return int
+ */
+function sater_mediaflow_video_get_page_context_post_id(): int
+{
+    if (class_exists(\Modularity\Helper\Wp::class)) {
+        $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
+
+        if (is_numeric($archiveSlug)) {
+            return (int) $archiveSlug;
+        }
+    }
+
+    global $post;
+
+    if ($post instanceof WP_Post) {
+        return (int) $post->ID;
+    }
+
+    if (class_exists(\Municipio\Helper\CurrentPostId::class)) {
+        $postId = \Municipio\Helper\CurrentPostId::get();
+
+        if (is_numeric($postId)) {
+            return (int) $postId;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * @param mixed $placeholder
+ * @return bool
+ */
+function sater_mediaflow_video_placeholder_is_set(mixed $placeholder): bool
+{
+    if (is_array($placeholder) && !empty($placeholder['id'])) {
+        return (int) $placeholder['id'] > 0;
+    }
+
+    return is_numeric($placeholder) && (int) $placeholder > 0;
+}
+
+/**
+ * @param array<int, array<string, mixed>> $blocks
+ * @return bool
+ */
+function sater_mediaflow_video_blocks_contain_mediaflow(array $blocks): bool
+{
+    foreach ($blocks as $block) {
+        if (($block['blockName'] ?? '') === 'acf/video') {
+            if (($block['attrs']['data']['type'] ?? '') === SATER_VIDEO_TYPE_MEDIAFLOW) {
+                return true;
+            }
+        }
+
+        if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+            if (sater_mediaflow_video_blocks_contain_mediaflow($block['innerBlocks'])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param array<int, array<string, mixed>> $blocks
+ * @return bool
+ */
+function sater_mediaflow_video_blocks_need_poster_assets(array $blocks): bool
+{
+    foreach ($blocks as $block) {
+        if (($block['blockName'] ?? '') === 'acf/video') {
+            $blockData = $block['attrs']['data'] ?? [];
+
+            if (($blockData['type'] ?? '') === SATER_VIDEO_TYPE_MEDIAFLOW
+                && sater_mediaflow_video_placeholder_is_set($blockData['placeholder_image'] ?? null)
+            ) {
+                return true;
+            }
+        }
+
+        if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+            if (sater_mediaflow_video_blocks_need_poster_assets($block['innerBlocks'])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param int $postId
+ * @return bool
+ */
+function sater_mediaflow_video_page_has_mediaflow(int $postId): bool
+{
+    $moduleSidebars = get_post_meta($postId, 'modularity-modules', true);
+
+    if (is_array($moduleSidebars)) {
+        foreach ($moduleSidebars as $sidebar) {
+            if (!is_array($sidebar)) {
+                continue;
+            }
+
+            foreach ($sidebar as $module) {
+                if (!is_array($module)) {
+                    continue;
+                }
+
+                $modulePostId = (int) ($module['postid'] ?? 0);
+
+                if ($modulePostId <= 0 || get_post_type($modulePostId) !== 'mod-video') {
+                    continue;
+                }
+
+                if (get_post_meta($modulePostId, 'type', true) === SATER_VIDEO_TYPE_MEDIAFLOW) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    $post = get_post($postId);
+
+    if (!$post instanceof WP_Post || $post->post_content === '' || !has_blocks($post->post_content)) {
+        return false;
+    }
+
+    return sater_mediaflow_video_blocks_contain_mediaflow(parse_blocks($post->post_content));
+}
+
+/**
+ * @param int $postId
+ * @return bool
+ */
+function sater_mediaflow_video_page_needs_poster_assets(int $postId): bool
+{
+    $moduleSidebars = get_post_meta($postId, 'modularity-modules', true);
+
+    if (is_array($moduleSidebars)) {
+        foreach ($moduleSidebars as $sidebar) {
+            if (!is_array($sidebar)) {
+                continue;
+            }
+
+            foreach ($sidebar as $module) {
+                if (!is_array($module)) {
+                    continue;
+                }
+
+                $modulePostId = (int) ($module['postid'] ?? 0);
+
+                if ($modulePostId <= 0 || get_post_type($modulePostId) !== 'mod-video') {
+                    continue;
+                }
+
+                if (get_post_meta($modulePostId, 'type', true) !== SATER_VIDEO_TYPE_MEDIAFLOW) {
+                    continue;
+                }
+
+                if (sater_mediaflow_video_placeholder_is_set(get_field('placeholder_image', $modulePostId))) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    $post = get_post($postId);
+
+    if (!$post instanceof WP_Post || $post->post_content === '' || !has_blocks($post->post_content)) {
+        return false;
+    }
+
+    return sater_mediaflow_video_blocks_need_poster_assets(parse_blocks($post->post_content));
+}
+
+/**
  * @return void
  */
-function sater_mediaflow_video_enqueue_frontend_assets(): void
+function sater_mediaflow_video_maybe_enqueue_frontend_assets_early(): void
 {
-    $version = '1.0.8';
+    if (is_admin()) {
+        return;
+    }
 
-    wp_enqueue_style(
-        'sater-mediaflow-video-frontend',
-        SATER_MEDIAFLOW_VIDEO_URL . 'assets/css/frontend.css',
-        [],
-        $version
-    );
+    $postId = sater_mediaflow_video_get_page_context_post_id();
 
-    wp_add_inline_style(
-        'sater-mediaflow-video-frontend',
-        '.sater-mediaflow-poster{position:absolute;inset:0;z-index:2;height:100%;cursor:pointer}'
-        . '.sater-mediaflow-poster__image{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}'
-        . '.sater-mediaflow-play{position:absolute;top:50%;left:50%;z-index:3;display:block;width:72px;height:72px;border-radius:50%;background:rgba(0,0,0,.65);transform:translate(-50%,-50%);pointer-events:none}'
-        . '.sater-mediaflow-play::before{content:"";position:absolute;top:50%;left:54%;width:0;height:0;border-style:solid;border-width:14px 0 14px 24px;border-color:transparent transparent transparent #fff;transform:translate(-50%,-50%)}'
-    );
+    if ($postId <= 0 || !sater_mediaflow_video_page_has_mediaflow($postId)) {
+        return;
+    }
 
-    wp_enqueue_script(
-        'sater-mediaflow-video-frontend',
-        SATER_MEDIAFLOW_VIDEO_URL . 'assets/js/frontend.js',
-        [],
-        $version,
-        true
+    sater_mediaflow_video_maybe_enqueue_frontend_assets(
+        sater_mediaflow_video_page_needs_poster_assets($postId)
     );
+}
+
+/**
+ * @param bool $needsPosterJs
+ * @return void
+ */
+function sater_mediaflow_video_maybe_enqueue_frontend_assets(bool $needsPosterJs = false): void
+{
+    static $cssEnqueued = false;
+    static $jsEnqueued = false;
+
+    $version = '1.0.9';
+
+    if (!$cssEnqueued) {
+        wp_enqueue_style(
+            'sater-mediaflow-video-frontend',
+            SATER_MEDIAFLOW_VIDEO_URL . 'assets/css/frontend.css',
+            [],
+            $version
+        );
+        $cssEnqueued = true;
+    }
+
+    if ($needsPosterJs && !$jsEnqueued) {
+        wp_enqueue_script(
+            'sater-mediaflow-video-frontend',
+            SATER_MEDIAFLOW_VIDEO_URL . 'assets/js/frontend.js',
+            [],
+            $version,
+            true
+        );
+        $jsEnqueued = true;
+    }
 }
 
 /**
