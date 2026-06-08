@@ -65,3 +65,8 @@
   height: 100%;
   min-height: 600px;
 }
+
+/* Hide the duplicate bottom metabox - picker under Typ is sufficient */
+#acf-group_sater_mediaflow_video_mod {
+  display: none !important;
+}
