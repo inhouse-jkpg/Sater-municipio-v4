@@ -1,26 +1,48 @@
+# Environment & secrets
+.env
+auth.json
+.devcontainer/.env
 
+# Editor & dev tooling
+/.vscode/
+.DS_Store
+
+# Documentation
+/docs/
+
+# Configuration
 /config/*
+
+# WordPress core
 /wp/
+
+# WordPress content
 /wp-content/uploads/
 /wp-content/upgrade/
+/wp-content/uploads_backup/
+
+# WordPress plugins (track local_* and modularity only)
 /wp-content/plugins/advanced-custom-fields-pro/
 /wp-content/plugins/*
 !/wp-content/plugins/local_*/
-**/node_modules/
-.DS_Store
-auth.json
-db/*.sql
-*.log
-.claude/
-mailpit/
-nginx/ssl/
-/.vscode/
-# Devcontainer
-.htaccess
-.devcontainer/.env
-!/.devcontainer/config/.htaccess
+!/wp-content/plugins/modularity/
+/wp-content/plugins/modularity/node_modules/
 
-# Runtime/cache artifacts
+# WordPress runtime & cache
 /wp-content/litespeed/
 /wp-content/.defender-security-quarantine/
-/wp-content/uploads_backup/
+
+# Dependencies
+**/node_modules/
+
+# Local services & infrastructure
+mailpit/
+nginx/ssl/
+db/*.sql
+
+# Web server
+.htaccess
+!/.devcontainer/config/.htaccess
+
+# Logs
+*.log

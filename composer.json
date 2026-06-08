@@ -53,6 +53,11 @@
   "license": "MIT",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Modularity\\": "wp-content/plugins/modularity/source/php/"
+    }
+  },
   "name": "municipio-se/municipio-deployment",
   "repositories": [
     {
@@ -72,6 +77,7 @@
     "enshrined/svg-sanitize": "dev-master#c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
     "firebase/php-jwt": "6.11.1",
     "helsingborg-stad/acf-openstreetmap-field": "0.79.10",
+    "helsingborg-stad/acf-select-image-field": "1.6.1",
     "helsingborg-stad/acf-ux-collapse": "2.0.6",
     "helsingborg-stad/active-directory-api-wp-integration": "3.1.0",
     "helsingborg-stad/algolia-index": "3.2.3",
@@ -98,7 +104,6 @@
     "helsingborg-stad/media-usage": "3.0.7",
     "helsingborg-stad/miniorange-saml-20-single-sign-on": "5.2.4",
     "helsingborg-stad/mod-my-pages": "1.0.6",
-    "helsingborg-stad/modularity": "6.85.0",
     "helsingborg-stad/modularity-contact-banner": "3.2.2",
     "helsingborg-stad/modularity-entryscape": "4.0.1",
     "helsingborg-stad/modularity-form-builder": "3.4.11",

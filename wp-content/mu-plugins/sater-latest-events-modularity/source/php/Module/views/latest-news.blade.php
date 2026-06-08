@@ -1,198 +1,92 @@
-<?php if ( $objectType == 'events' ) { ?>
-    <div class="o-grid" aria-labelledby="mod-posts-77846-label">
-        <?php if (!$hideTitle && !empty($post_title)) : ?>
-            <div class="grid-xs-12">
-                <h2><?php echo $post_title; ?></h2>
+@if (($objectType ?? 'events') === 'events')
+    <div class="o-grid sater-latest-events__grid" @if (!empty($ID) && empty($hideTitle) && !empty($post_title)) aria-labelledby="mod-latest-news-{{ $ID }}-label" @endif>
+        @if (empty($hideTitle) && !empty($post_title))
+            <div class="o-grid-12@md">
+                <h2 @if (!empty($ID)) id="mod-latest-news-{{ $ID }}-label" @endif>{{ $post_title }}</h2>
             </div>
-        <?php endif;
+        @endif
 
-        $isFrontPage = is_front_page();
+        @if (!empty($posts))
+            @foreach ($posts as $post)
+                @php
+                    $image = class_exists(\Municipio\Helper\Post::class)
+                        ? \Municipio\Helper\Post::getFeaturedImage($post->ID, [520, 390])
+                        : false;
+                    $hasPlaceholder = false;
 
-        switch ($numberOfColumns) {
-            case 1:
-                $numberOfColumns = "o-grid-12@md";
-                break;
-            case 2:
-                $numberOfColumns = "o-grid-6@md";
-                break;
-            case 3:
-                $numberOfColumns = "o-grid-4@md";
-                break;
-            case 4:
-                $numberOfColumns = "o-grid-3@md";
-                break;
-            default:
-                $numberOfColumns = "o-grid-3@md";
-        }
+                    if (empty($image) || empty($image['src'])) {
+                        $placeholderUrl = (string) apply_filters('sater_events_placeholder_image_url', '');
+                        $placeholderUrl = $placeholderUrl !== '' ? set_url_scheme($placeholderUrl) : '';
 
+                        if ($placeholderUrl !== '') {
+                            $image = [
+                                'src' => $placeholderUrl,
+                                'alt' => (string) $post->post_title,
+                            ];
+                        } else {
+                            $hasPlaceholder = true;
+                            $image = null;
+                        }
+                    }
 
-        $args = array(
-            'post_type' => $objectType,
-            'posts_per_page'=> $numberOfItems,
-        );
+                    $startRaw = (string) get_field('start_datum', $post->ID);
+                    $endRaw   = (string) get_field('slut_datum', $post->ID);
+                    $startTs  = $startRaw !== ''
+                        ? apply_filters('sater_events_event_datetime_to_timestamp', null, $startRaw)
+                        : null;
+                    $endTs    = $endRaw !== ''
+                        ? apply_filters('sater_events_event_datetime_to_timestamp', null, $endRaw)
+                        : null;
 
-        //sorterar på startdatum (with stable tiebreaker)
-        $args['meta_key'] = 'start_datum';
-        $args['orderby'] = array(
-            'meta_value' => 'ASC',
-            'ID'         => 'ASC',
-        );
+                    $excerpt = '';
+                    $extended = get_extended($post->post_content);
+                    if (!empty($extended['main'])) {
+                        $excerpt = wp_trim_words(
+                            wp_strip_all_tags(strip_shortcodes($extended['main'])),
+                            30,
+                            null
+                        );
+                    }
+                @endphp
 
-        // Match /evenemang upcoming logic:
-        // - Keep events visible until slut_datum has passed
-        // - If slut_datum is missing, fall back to start_datum >= today
-        $nowYmdHi = function_exists('current_time') ? current_time('Y-m-d H:i') : date('Y-m-d H:i');
-        $todayYmd = function_exists('current_time') ? current_time('Y-m-d') : date('Y-m-d');
-        $upcomingMetaQuery = array(
-            'relation' => 'OR',
-            array(
-                'key'     => 'slut_datum',
-                'value'   => $nowYmdHi,
-                'compare' => '>=',
-            ),
-            // Treat empty slut_datum as "missing" too (ACF often saves empty string).
-            array(
-                'key'     => 'slut_datum',
-                'value'   => '',
-                'compare' => '=',
-            ),
-            array(
-                'relation' => 'AND',
-                array(
-                    'relation' => 'OR',
-                    array(
-                        'key'     => 'slut_datum',
-                        'compare' => 'NOT EXISTS',
-                    ),
-                    array(
-                        'key'     => 'slut_datum',
-                        'value'   => '',
-                        'compare' => '=',
-                    ),
-                ),
-                array(
-                    'key'     => 'start_datum',
-                    'value'   => $todayYmd,
-                    'compare' => '>=',
-                ),
-            ),
-        );
+                <div class="{{ $gridColumnClass }}">
+                    @card([
+                        'link' => get_permalink($post->ID),
+                        'heading' => apply_filters('the_title', $post->post_title),
+                        'content' => $excerpt,
+                        'image' => $image,
+                        'ratio' => '4:3',
+                        'classList' => ['u-height--100', 'sater-latest-events__card'],
+                        'context' => ['module.latest-news', 'module.latest-news.events'],
+                        'containerAware' => true,
+                        'hasPlaceholder' => $hasPlaceholder,
+                        'date' => $startTs ? [
+                            'timestamp' => $startTs,
+                            'endTimestamp' => $endTs,
+                        ] : null,
+                    ])
+                    @endcard
+                </div>
+            @endforeach
+        @endif
 
-        //if true, filtrera på modulens valda kategori
-        if($filteringByCategorie){
-            $args['tax_query'] = array(
-            array(
-                'taxonomy' => 'evenemangskategorier',
-                'field'    => 'term_id',
-                'terms'    => array($eventcategory)
-            ));
-            $args['meta_query'] = $upcomingMetaQuery;
-
-        }elseif($isFrontPage){
-            $args['meta_query'] = $upcomingMetaQuery;
-        } else {
-            $args['meta_query'] = $upcomingMetaQuery;
-        }
-
-        $posts = get_posts($args);
-
-        if( ! empty( $posts ) ) {
-            foreach ($posts as $post) :  ?>
-                <div class="<?php echo $numberOfColumns; ?>">
-                    <a href="<?php echo get_permalink($post->ID); ?>" class="c-card u-height--100 c-card--default c-card--has-image c-card--image-first c-card--has-footer c-card--action c-card--ratio-4-3 c-card--none c-card--flat"  data-observe-resizes="" data-uid="664cade720fa0">
-                        <div class="box-image-container">
-                            <?php $image = null;
-                            $image = wp_get_attachment_image_src(
-                                get_post_thumbnail_id($post->ID), 'archives'
-                                // apply_filters('modularity/image/posts/index',
-                                //     municipio_to_aspect_ratio('16:9', array(800,600)),
-                                //     false
-                                // )
-                            );
-                            $image_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
-                            $image_alt = $image_alt ? $image_alt : $post->post_title;
-                            ?>
-                            <div class="c-card__image c-card__image--secondary">
-                                <?php if ($image) : ?>
-                                    <div class="c-card__image-background " style="background-image:url('<?php echo esc_url($image[0]); ?>');"></div>
-                                <?php else : ?>
-                                    <?php
-                                    $ph_url_raw = (string) apply_filters('sater_events_placeholder_image_url', '');
-                                    $ph_url_raw = $ph_url_raw !== '' ? set_url_scheme($ph_url_raw) : '';
-                                    ?>
-                                    <?php if ($ph_url_raw !== '') : ?>
-                                        <div class="c-card__image-background " style="background-image:url('<?php echo esc_url($ph_url_raw); ?>');"></div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-    
-                        <div class="c-card__body">
-                            <div class="c-group c-group--horizontal c-group--justify-content-space-between c-group--align-items-start" data-uid="664cade721207">
-                                <div class="c-group c-group--vertical" data-uid="664cade721186">
-                                    <h2 class="c-typography c-card__heading c-typography__variant--h3" data-uid="664cade7210ea">
-                                        <?php echo apply_filters('the_title', $post->post_title); ?>
-                                    </h2>
-                                </div>
-                            </div>
- 
-                            <?php
-                            $startDate = get_field('start_datum', $post->ID);
-                            $endDate   = get_field('slut_datum', $post->ID);
-                            $startTs   = !empty($startDate) ? strtotime((string) $startDate) : false;
-                            $endTs     = !empty($endDate) ? strtotime((string) $endDate) : false;
-                            ?>
-                            <span class="c-typography c-card__date c-typography__variant--meta" data-uid="664cade7216aa">
-                                <span style="width: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" class="c-icon c-icon--date-range c-icon--material c-icon--material-date_range material-icons c-icon--size-sm" role="img" aria-label="Ikon: Kalender" alt="Ikon: Kalender" data-nosnippet="" data-uid="664cade72160e">
-                                    <span data-nosnippet="" translate="no" aria-hidden="true">
-                                            date_range
-                                    </span>
-                                </span>
-                                <span style="margin-top: 2px">
-                                    <?php
-                                    $ndash = html_entity_decode('&ndash;', ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                                    if ($startTs && $endTs) {
-                                        $sameDay = date_i18n('Y-m-d', $startTs) === date_i18n('Y-m-d', $endTs);
-                                        if ($sameDay) {
-                                            echo esc_html(
-                                                date_i18n('j M Y', $startTs) . ' '
-                                                . date_i18n('H.i', $startTs) . $ndash . date_i18n('H.i', $endTs)
-                                            );
-                                        } else {
-                                            echo esc_html(
-                                                date_i18n('j M Y H.i', $startTs) . ' ' . $ndash . ' ' . date_i18n('j M Y H.i', $endTs)
-                                            );
-                                        }
-                                    } elseif ($startTs) {
-                                        echo esc_html(date_i18n('j M Y H.i', $startTs));
-                                    }
-                                    ?>
-                                </span>
-                            </span>
-
-                            <p class="c-typography c-card__content c-typography__variant--p" data-uid="664cade721753">
-                                <?php echo isset(get_extended($post->post_content)['main']) ? apply_filters('the_excerpt', wp_trim_words(wp_strip_all_tags(strip_shortcodes(get_extended($post->post_content)['main'])), 30, null)) : ''; ?>
-                            </p>
-                        </div>
-                    </a>
-                </div><?php
-            endforeach;
-        } ?>
-
-        
-        <div class="grid-lg-12">
+        <div class="o-grid-12@md">
             <div class="t-read-more-section u-display--flex u-align-content--center u-margin__y--4">
-                <a class="c-button u-flex-grow--1@xs u-margin__x--auto c-button__filled c-button__filled--secondary c-button--md" target="_top" type="button" href="<?php echo get_post_type_archive_link($objectType); ?>" aria-label="Visa mer" data-uid="665d7420ccb0d">   
-                    <span class="c-button__label">         
-                            <span class="c-button__label-text ">
-                                Evenemangskalender
-                            </span>
-                    </span> 
-                </a>            
+                @button([
+                    'text' => __('Evenemangskalender', 'modularity-latest-news'),
+                    'href' => get_post_type_archive_link('events'),
+                    'color' => 'secondary',
+                    'style' => 'filled',
+                    'size' => 'md',
+                    'classList' => ['u-flex-grow--1@xs', 'u-margin__x--auto'],
+                    'attributeList' => [
+                        'target' => '_top',
+                        'type' => 'button',
+                        'aria-label' => __('Visa mer', 'modularity-latest-news'),
+                    ],
+                ])
+                @endbutton
             </div>
         </div>
     </div>
-<?php } ?>
-
-
-
+@endif

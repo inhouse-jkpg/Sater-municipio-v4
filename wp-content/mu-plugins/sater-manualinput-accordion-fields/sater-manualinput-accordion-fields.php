@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Manual Input: Accordion FAQ fields
  * Description: Shows link, image, and icon on Manuell inmatning accordion rows (Posts-style FAQ) and renders them on the frontend.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Municipio SE
  * License: MIT
  * Requires PHP: 8.0
@@ -240,10 +240,6 @@ function sater_manualinput_accordion_patch_repeater_sub_fields(array $field): ar
             ],
         ];
         return $field;
-    }
-
-    if (($field['name'] ?? '') === 'content') {
-        $field['delay'] = 1;
     }
 
     return $field;
