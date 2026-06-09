@@ -33,7 +33,7 @@
                     ])
                         @if (!empty($contact['administration_unit']))
                             @typography([
-                                'element' => 'span',
+                                'element' => 'div',
                                 'variant' => 'byline',
                                 'classList' => ['c-signature__title', 'c-signature__unit'],
                             ])
