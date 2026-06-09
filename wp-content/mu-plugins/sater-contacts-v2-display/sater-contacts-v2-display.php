@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Kontakter v2 display
  * Description: Visar jobbtitel före förvaltning/sektor på egna rader i Modularity Kontakter v2.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Säter kommun
  * Requires PHP: 8.0
  */
@@ -31,9 +31,11 @@ function sater_contacts_v2_external_view_paths(array $paths): array
 
     $modularityViews = MODULARITY_PATH . 'source/php/Module/Contacts/views';
 
+    // Blade prepends paths in array order; the last entry is searched first.
+    // Put Modularity first so Säter's cards.blade.php wins, with Modularity as fallback for components.*.
     $paths['mod-contacts'] = [
-        SATER_CONTACTS_V2_VIEWS_DIR,
         $modularityViews,
+        SATER_CONTACTS_V2_VIEWS_DIR,
     ];
 
     return $paths;
