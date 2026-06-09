@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Säter Modularity Video: Mediaflow
  * Description: Adds Mediaflow video selection to the Modularity Video module (mod-video).
- * Version: 1.0.1
+ * Version: 1.0.3
  * Author: Säter kommun
  * License: MIT
  * Requires PHP: 8.0
@@ -32,23 +32,24 @@ function sater_mediaflow_video_is_available(): bool
     return function_exists('mediaflow_get_access_token');
 }
 
+add_action('acf/init', static function (): void {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    require_once SATER_MEDIAFLOW_VIDEO_PATH . 'acf-fields.php';
+    sater_mediaflow_video_register_field_group();
+}, 25);
+
+add_filter('acf/load_field_group', 'sater_mediaflow_video_patch_field_group', 99, 1);
+add_filter('acf/load_field/key=' . SATER_VIDEO_TYPE_FIELD_KEY, 'sater_mediaflow_video_patch_type_field', 10, 1);
 if (is_admin()) {
-    add_action('acf/init', static function (): void {
-        if (!function_exists('acf_add_local_field_group')) {
-            return;
-        }
-
-        require_once SATER_MEDIAFLOW_VIDEO_PATH . 'acf-fields.php';
-        sater_mediaflow_video_register_field_group();
-    }, 25);
-
-    add_filter('acf/load_field_group', 'sater_mediaflow_video_patch_field_group', 99, 1);
-    add_filter('acf/load_field/key=' . SATER_VIDEO_TYPE_FIELD_KEY, 'sater_mediaflow_video_patch_type_field', 10, 1);
-
     add_action('admin_enqueue_scripts', 'sater_mediaflow_video_enqueue_admin_assets', 100);
     add_action('acf/save_post', 'sater_mediaflow_video_sync_usage', 20);
     add_action('admin_notices', 'sater_mediaflow_video_admin_notices');
 }
+
+add_action('wp_enqueue_scripts', 'sater_mediaflow_video_maybe_enqueue_frontend_assets_early', 20);
 
 add_filter('Modularity/Display/mod-video/viewData', 'sater_mediaflow_video_filter_view_data', 10, 1);
 add_filter('Modularity/Block/Data', 'sater_mediaflow_video_filter_block_data', 10, 3);
@@ -150,6 +151,10 @@ function sater_mediaflow_video_filter_block_data(array $viewData, array $block, 
         $viewData['mediaflow_embed'] = $blockData['mediaflow_embed'];
     }
 
+    if (empty($viewData['placeholder_image']) && !empty($blockData['placeholder_image'])) {
+        $viewData['placeholder_image'] = $blockData['placeholder_image'];
+    }
+
     return sater_mediaflow_video_apply_mediaflow_embed($viewData);
 }
 
@@ -159,23 +164,362 @@ function sater_mediaflow_video_filter_block_data(array $viewData, array $block, 
  */
 function sater_mediaflow_video_apply_mediaflow_embed(array $data): array
 {
+    $postId = isset($data['ID']) && is_numeric($data['ID']) ? (int) $data['ID'] : 0;
+
+    if ($postId > 0 && get_post_type($postId) === 'mod-video') {
+        $data['type'] = (string) get_post_meta($postId, 'type', true);
+        $data['mediaflow_embed'] = (string) get_post_meta($postId, 'mediaflow_embed', true);
+    }
+
     if (($data['type'] ?? '') !== SATER_VIDEO_TYPE_MEDIAFLOW) {
         return $data;
     }
 
-    $embed = $data['mediaflow_embed'] ?? '';
+    $embed = trim((string) ($data['mediaflow_embed'] ?? ''));
 
-    if ($embed === '' && !empty($data['ID']) && is_numeric($data['ID'])) {
-        $embed = (string) get_field('mediaflow_embed', (int) $data['ID']);
+    if ($embed === '' && $postId > 0) {
+        $embed = trim((string) get_field('mediaflow_embed', $postId));
     }
 
-    $embed = trim($embed);
+    if ($embed === '') {
+        return $data;
+    }
 
-    if ($embed !== '') {
-        $data['embedCode'] = $embed;
+    $iframe = sater_mediaflow_video_normalize_embed($embed);
+    $posterUrl = sater_mediaflow_video_resolve_custom_poster_url($data, $postId);
+
+    $hasPoster = $posterUrl !== false && $iframe !== '';
+
+    sater_mediaflow_video_maybe_enqueue_frontend_assets($hasPoster);
+
+    if ($hasPoster) {
+        $data['image'] = $posterUrl;
+        $embedId = !empty($data['id']) ? (string) $data['id'] : 'embed-' . wp_unique_id();
+        $data['id'] = $embedId;
+        $data['embedCode'] = sater_mediaflow_video_build_poster_embed($iframe, $embedId, $posterUrl);
+    } else {
+        $data['image'] = false;
+        $data['embedCode'] = $iframe;
     }
 
     return $data;
+}
+
+/**
+ * Resolve Affischbild only when the editor explicitly selected placeholder_image.
+ *
+ * @param array<string, mixed> $data
+ * @param int $postId
+ * @return string|false
+ */
+function sater_mediaflow_video_resolve_custom_poster_url(array $data, int $postId): string|false
+{
+    $placeholder = $data['placeholder_image'] ?? null;
+
+    if (empty($placeholder) && $postId > 0) {
+        $placeholder = get_field('placeholder_image', $postId);
+    }
+
+    $attachmentId = 0;
+
+    if (is_array($placeholder) && !empty($placeholder['id'])) {
+        $attachmentId = (int) $placeholder['id'];
+    } elseif (is_numeric($placeholder)) {
+        $attachmentId = (int) $placeholder;
+    }
+
+    if ($attachmentId <= 0) {
+        return false;
+    }
+
+    $src = wp_get_attachment_image_src($attachmentId, [1140, 641]);
+
+    if (!is_array($src) || empty($src[0])) {
+        return false;
+    }
+
+    return $src[0];
+}
+
+/**
+ * @param string $iframe Normalized iframe markup.
+ * @param string $embedId Unique DOM id for the deferred embed template.
+ * @param string $posterUrl Poster image URL.
+ * @return string
+ */
+function sater_mediaflow_video_build_poster_embed(string $iframe, string $embedId, string $posterUrl): string
+{
+    $playButton = '<span class="sater-mediaflow-play" role="presentation" aria-hidden="true"></span>';
+
+    return sprintf(
+        '<div class="sater-mediaflow-poster" data-embed-id="%1$s"><img src="%2$s" class="sater-mediaflow-poster__image" alt="">%4$s</div><script type="text/template" id="%1$s">%3$s</script>',
+        esc_attr($embedId),
+        esc_url($posterUrl),
+        $iframe,
+        $playButton
+    );
+}
+
+/**
+ * Extract a clean iframe from Mediaflow's wrapper markup.
+ *
+ * @param string $embed Raw embed HTML from Mediaflow.
+ * @return string
+ */
+function sater_mediaflow_video_normalize_embed(string $embed): string
+{
+    if (!preg_match('/<iframe\b[^>]*\bsrc=["\']([^"\']+)["\'][^>]*>/i', $embed, $m)) {
+        return $embed;
+    }
+
+    $src = html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    if (str_starts_with($src, '//')) {
+        $src = 'https:' . $src;
+    }
+
+    $title = 'Mediaflow video';
+    if (preg_match('/\btitle=["\']([^"\']*)["\']/', $m[0], $t) && $t[1] !== '') {
+        $title = html_entity_decode($t[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    return sprintf(
+        '<iframe src="%s" title="%s" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy" style="border:0"></iframe>',
+        esc_url($src),
+        esc_attr($title)
+    );
+}
+
+/**
+ * @return int
+ */
+function sater_mediaflow_video_get_page_context_post_id(): int
+{
+    if (class_exists(\Modularity\Helper\Wp::class)) {
+        $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
+
+        if (is_numeric($archiveSlug)) {
+            return (int) $archiveSlug;
+        }
+    }
+
+    global $post;
+
+    if ($post instanceof WP_Post) {
+        return (int) $post->ID;
+    }
+
+    if (class_exists(\Municipio\Helper\CurrentPostId::class)) {
+        $postId = \Municipio\Helper\CurrentPostId::get();
+
+        if (is_numeric($postId)) {
+            return (int) $postId;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * @param mixed $placeholder
+ * @return bool
+ */
+function sater_mediaflow_video_placeholder_is_set(mixed $placeholder): bool
+{
+    if (is_array($placeholder) && !empty($placeholder['id'])) {
+        return (int) $placeholder['id'] > 0;
+    }
+
+    return is_numeric($placeholder) && (int) $placeholder > 0;
+}
+
+/**
+ * @param array<int, array<string, mixed>> $blocks
+ * @return bool
+ */
+function sater_mediaflow_video_blocks_contain_mediaflow(array $blocks): bool
+{
+    foreach ($blocks as $block) {
+        if (($block['blockName'] ?? '') === 'acf/video') {
+            if (($block['attrs']['data']['type'] ?? '') === SATER_VIDEO_TYPE_MEDIAFLOW) {
+                return true;
+            }
+        }
+
+        if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+            if (sater_mediaflow_video_blocks_contain_mediaflow($block['innerBlocks'])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param array<int, array<string, mixed>> $blocks
+ * @return bool
+ */
+function sater_mediaflow_video_blocks_need_poster_assets(array $blocks): bool
+{
+    foreach ($blocks as $block) {
+        if (($block['blockName'] ?? '') === 'acf/video') {
+            $blockData = $block['attrs']['data'] ?? [];
+
+            if (($blockData['type'] ?? '') === SATER_VIDEO_TYPE_MEDIAFLOW
+                && sater_mediaflow_video_placeholder_is_set($blockData['placeholder_image'] ?? null)
+            ) {
+                return true;
+            }
+        }
+
+        if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+            if (sater_mediaflow_video_blocks_need_poster_assets($block['innerBlocks'])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param int $postId
+ * @return bool
+ */
+function sater_mediaflow_video_page_has_mediaflow(int $postId): bool
+{
+    $moduleSidebars = get_post_meta($postId, 'modularity-modules', true);
+
+    if (is_array($moduleSidebars)) {
+        foreach ($moduleSidebars as $sidebar) {
+            if (!is_array($sidebar)) {
+                continue;
+            }
+
+            foreach ($sidebar as $module) {
+                if (!is_array($module)) {
+                    continue;
+                }
+
+                $modulePostId = (int) ($module['postid'] ?? 0);
+
+                if ($modulePostId <= 0 || get_post_type($modulePostId) !== 'mod-video') {
+                    continue;
+                }
+
+                if (get_post_meta($modulePostId, 'type', true) === SATER_VIDEO_TYPE_MEDIAFLOW) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    $post = get_post($postId);
+
+    if (!$post instanceof WP_Post || $post->post_content === '' || !has_blocks($post->post_content)) {
+        return false;
+    }
+
+    return sater_mediaflow_video_blocks_contain_mediaflow(parse_blocks($post->post_content));
+}
+
+/**
+ * @param int $postId
+ * @return bool
+ */
+function sater_mediaflow_video_page_needs_poster_assets(int $postId): bool
+{
+    $moduleSidebars = get_post_meta($postId, 'modularity-modules', true);
+
+    if (is_array($moduleSidebars)) {
+        foreach ($moduleSidebars as $sidebar) {
+            if (!is_array($sidebar)) {
+                continue;
+            }
+
+            foreach ($sidebar as $module) {
+                if (!is_array($module)) {
+                    continue;
+                }
+
+                $modulePostId = (int) ($module['postid'] ?? 0);
+
+                if ($modulePostId <= 0 || get_post_type($modulePostId) !== 'mod-video') {
+                    continue;
+                }
+
+                if (get_post_meta($modulePostId, 'type', true) !== SATER_VIDEO_TYPE_MEDIAFLOW) {
+                    continue;
+                }
+
+                if (sater_mediaflow_video_placeholder_is_set(get_field('placeholder_image', $modulePostId))) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    $post = get_post($postId);
+
+    if (!$post instanceof WP_Post || $post->post_content === '' || !has_blocks($post->post_content)) {
+        return false;
+    }
+
+    return sater_mediaflow_video_blocks_need_poster_assets(parse_blocks($post->post_content));
+}
+
+/**
+ * @return void
+ */
+function sater_mediaflow_video_maybe_enqueue_frontend_assets_early(): void
+{
+    if (is_admin()) {
+        return;
+    }
+
+    $postId = sater_mediaflow_video_get_page_context_post_id();
+
+    if ($postId <= 0 || !sater_mediaflow_video_page_has_mediaflow($postId)) {
+        return;
+    }
+
+    sater_mediaflow_video_maybe_enqueue_frontend_assets(
+        sater_mediaflow_video_page_needs_poster_assets($postId)
+    );
+}
+
+/**
+ * @param bool $needsPosterJs
+ * @return void
+ */
+function sater_mediaflow_video_maybe_enqueue_frontend_assets(bool $needsPosterJs = false): void
+{
+    static $cssEnqueued = false;
+    static $jsEnqueued = false;
+
+    $version = '1.0.9';
+
+    if (!$cssEnqueued) {
+        wp_enqueue_style(
+            'sater-mediaflow-video-frontend',
+            SATER_MEDIAFLOW_VIDEO_URL . 'assets/css/frontend.css',
+            [],
+            $version
+        );
+        $cssEnqueued = true;
+    }
+
+    if ($needsPosterJs && !$jsEnqueued) {
+        wp_enqueue_script(
+            'sater-mediaflow-video-frontend',
+            SATER_MEDIAFLOW_VIDEO_URL . 'assets/js/frontend.js',
+            [],
+            $version,
+            true
+        );
+        $jsEnqueued = true;
+    }
 }
 
 /**
