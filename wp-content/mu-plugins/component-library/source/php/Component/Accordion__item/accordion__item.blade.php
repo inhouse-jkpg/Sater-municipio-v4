@@ -27,7 +27,7 @@
 
             {!!$afterHeading!!}
 
-            @icon(['icon' => $icon, 'size' => 'md', 'classList' => [$baseClass . '__icon', $baseClass . '__icon--' . $icon]])
+            @icon(['icon' => $icon, 'size' => 'md', 'decorative' => true, 'classList' => [$baseClass . '__icon', $baseClass . '__icon--' . $icon]])
             @endicon
         </div>
 

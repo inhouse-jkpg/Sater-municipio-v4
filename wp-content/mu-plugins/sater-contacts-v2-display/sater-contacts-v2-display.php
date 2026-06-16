@@ -16,6 +16,23 @@ if (!defined('ABSPATH')) {
 const SATER_CONTACTS_V2_VIEWS_DIR = __DIR__ . '/views';
 
 add_filter('/Modularity/externalViewPath', 'sater_contacts_v2_external_view_paths', 10, 1);
+add_action('wp_enqueue_scripts', 'sater_contacts_v2_enqueue_assets', 100);
+
+function sater_contacts_v2_enqueue_assets(): void
+{
+    $cssPath = __DIR__ . '/assets/contacts.css';
+
+    if (!file_exists($cssPath)) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'sater-contacts-v2-display',
+        plugin_dir_url(__FILE__) . 'assets/contacts.css',
+        [],
+        (string) filemtime($cssPath)
+    );
+}
 
 /**
  * Prioritize Säter cards view; fall back to Modularity for component partials.
