@@ -41,8 +41,6 @@ $removables = [
     'post-install.php',
     'images',
     'README.md',
-    'README-local.md',
-    'PRODUCTION-DEPLOY.md',
     'guide',
     'db',
     '.docker',
