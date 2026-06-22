@@ -1,0 +1,51 @@
+/**
+ * Säter A11y: Landscape header fixes
+ *
+ * WCAG 1.3.4 – Orientation
+ * Sticky header consumes too much of the viewport in landscape.
+ * Applied only to short landscape viewports (typical phone landscape).
+ */
+
+@media (orientation: landscape) and (max-height: 500px) {
+
+    /* Shrink the logotype height token to free vertical space. */
+    .c-header.c-header--sticky,
+    #site-header-flexible-upper.c-header--sticky,
+    #site-header-flexible-lower.c-header--sticky {
+        --c-header-logotype-height: 4;
+    }
+
+    /* Reduce the minimum row height of the flexible header. */
+    .c-header.c-header--flexible .c-header__main-upper-area,
+    .c-header.c-header--flexible .c-header__main-lower-area {
+        min-height: calc(var(--base, 8px) * 6);
+    }
+
+    /* Business header: trim decorative vertical padding. In landscape the
+       wide viewport width keeps the desktop spacer (24px) active even though
+       height is very short, making the red bar disproportionately tall. */
+    .c-header.c-header--business .c-header__menu.c-header__menu--primary {
+        padding-top: calc(var(--base, 8px) * 0.5);
+        padding-bottom: calc(var(--base, 8px) * 0.5);
+    }
+
+    /* Quick links: release the second sticky bar so it doesn't
+       stack on top of the primary sticky header. */
+    #quicklinks-header.c-header--sticky {
+        position: relative;
+        top: auto;
+    }
+
+    /* Animate hide/show triggered by header-scroll.js. */
+    .c-header.c-header--sticky,
+    #site-header-flexible-upper.c-header--sticky,
+    #site-header-flexible-lower.c-header--sticky {
+        transition: transform 0.2s ease;
+    }
+
+    .c-header.c-header--sticky.is-scrolled-away,
+    #site-header-flexible-upper.c-header--sticky.is-scrolled-away,
+    #site-header-flexible-lower.c-header--sticky.is-scrolled-away {
+        transform: translateY(-100%);
+    }
+}
