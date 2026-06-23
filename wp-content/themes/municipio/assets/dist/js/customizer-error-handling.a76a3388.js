@@ -1,2 +1,0 @@
-(()=>{"use strict";wp.customize&&document.addEventListener("DOMContentLoaded",(()=>{const e=document.getElementById("save");e&&e.addEventListener("click",(e=>{const t=wp.customize.control._value;console.log("Settings: ",wp.customize.settings),Object.keys(t).forEach((e=>{const o=t[e];o.setting&&o.setting.bind("error",(e=>{console.error("Customizer error message: ",e,"\nControl: ",o)}))}))}))}))})();
-//# sourceMappingURL=customizer-error-handling.a76a3388.js.map
