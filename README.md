@@ -109,6 +109,8 @@ The token is stored in `~/.composer/auth.json`, not in this repo.
 
 6. **Import the database and start Docker.** Place a sanitized dump in `db/` (any `.sql` filename; do not commit it). MariaDB imports from `db/` only on the **first** container start (empty DB volume). — *host*
 
+`docker compose up -d` waits for MariaDB to finish importing before starting WordPress (via a healthcheck on the `db` service). On a large dump the first start can take a few minutes.
+
 ```bash
 docker compose up -d
 ```
@@ -146,19 +148,41 @@ This creates `wp-content/themes/municipio/assets/dist/` (gitignored; not in the 
 
 10. **Rewrite production URLs in the database** to local. — *Docker*
 
-Adjust `sater.se` if your dump uses a different production host.
+Adjust `sater.se` / `sater.test` if your dump or local hostname differs.
+
+`wp search-replace` updates URL strings in options, posts, and meta. On a **multisite** install it does **not** update the domain/path columns in `mun_site` and `mun_blogs`. Those must match `.docker/config/multisite.php` (`DOMAIN_CURRENT_SITE`, `PATH_CURRENT_SITE`) or WordPress may show a misleading *"Error establishing a database connection"* even when the database is fine.
 
 ```bash
+# URL strings in content and options
 docker compose exec wordpress wp search-replace \
   'https://sater.se' 'https://sater.test' \
   --all-tables --allow-root
 
+docker compose exec wordpress wp search-replace \
+  'http://sater.se' 'https://sater.test' \
+  --all-tables --allow-root
+
+# Multisite domain columns (not covered by search-replace)
+docker compose exec db mariadb -uwp -pwp local -e "
+  UPDATE mun_site SET domain='sater.test', path='/' WHERE id=1;
+  UPDATE mun_blogs SET domain='sater.test' WHERE blog_id=1;
+  UPDATE mun_blogs SET domain='lathund.sater.test' WHERE blog_id=3;
+"
+
 docker compose exec wordpress wp cache flush --allow-root
+```
+
+If your dump has other sites in `mun_blogs`, add matching `UPDATE` lines (e.g. `subdomain.sater.test`). Check current values with:
+
+```bash
+docker compose exec db mariadb -uwp -pwp local -e \
+  "SELECT blog_id, domain, path FROM mun_blogs; SELECT id, domain, path FROM mun_site;"
 ```
 
 ### Local dev notes
 
 - These steps are **only for local development**. CI/production uses the deploy workflows, not this checklist.
+- `docker compose down -v` wipes the database volume. After any volume reset, wait for import to finish and **re-run step 10** (search-replace does not survive a re-import).
 - `composer install` (step 7) reads the pinned `composer.lock` and installs into `wp/`, `vendor/`, and `wp-content/`. It does not compile frontend assets.
 - Composer-managed `wp-content` (themes, platform mu-plugins) is gitignored. After steps 7–9, `git status` should stay clean except for your own `sater-*` changes.
 - Do **not** use `php build.php --cleanup` on your Mac; that flag is for CI deploy and removes dev files.
@@ -169,6 +193,7 @@ To import a different dump later, reset the DB volume and start again:
 docker compose down -v
 # add or replace the .sql file in db/
 docker compose up -d
+# wait for import to finish, then re-run step 10
 ```
 
 ### Services
