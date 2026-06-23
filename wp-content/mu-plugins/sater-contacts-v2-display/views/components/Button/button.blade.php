@@ -10,7 +10,7 @@
 
         @if($icon)
             <span class="{{$baseClass}}__label-icon {{ $classListIcon }}">
-                @icon(['icon' => $icon, 'size' => $size, 'attributeList' => ['aria-hidden' => 'true']])
+                @icon(['icon' => $icon, 'size' => $size, 'decorative' => true])
                 @endicon
             </span>
         @endif

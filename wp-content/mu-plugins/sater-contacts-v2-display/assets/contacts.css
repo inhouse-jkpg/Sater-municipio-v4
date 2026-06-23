@@ -84,6 +84,11 @@
     line-height: 1.25;
 }
 
+.sater-contacts-v2 .c-card--contact .c-signature__title {
+    display: block;
+    margin-top: calc(var(--base, 4px) * 0.2);
+}
+
 .sater-contacts-v2 .c-card--contact > .u-border__top--1 {
     border-top: 0 !important;
     display: flex;
