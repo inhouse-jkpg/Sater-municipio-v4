@@ -45,16 +45,22 @@ This Sater deployment is hardened for upstream independence: Composer dependenci
 - `stage` is always based on `production`. Cherry-picks from upstream are applied on `stage` for testing, never directly into `production`.
 - When `stage` drifts or needs a clean UAT snapshot, reset it from `production` and re-apply any in-flight cherry-picks.
 
-## Quick start
-1. Fork this repository. Enable github workflows on your newly created repository (gihub disables them due to security reasons on forks).
-2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/4.0).
-3. Do not sync or deploy from `master`. Use `stage` for testing and `production` for live deploys. When you need upstream changes, review what landed on `master` and cherry-pick into `stage`.
-
 ## Local development
 
-Spin the site up locally with Docker. The stack includes nginx, PHP-FPM, MariaDB, Redis, phpMyAdmin and Mailpit.
+This section is **local development only**. It is not the production deploy process. Production is built and deployed by GitHub Actions (see [Deploy overview](#deploy-overview) below).
+
+Spin the site up on your machine with Docker. The stack includes nginx, PHP-FPM, MariaDB, Redis, phpMyAdmin and Mailpit.
 
 Use the root-level `docker compose` setup. Do not use `.devcontainer/` for this project.
+
+**Where commands run**
+
+| Where | Used for |
+|-------|----------|
+| **Your Mac (host)** | Steps 3, 8, 9 — Composer auth token, `php build.php`, `npm run build` |
+| **Docker (`wordpress` container)** | Steps 7, 10 — `composer install`, `wp search-replace`, `wp cache flush` |
+
+The WordPress container does **not** have Node.js/npm. Do not run `php build.php` or `npm run build` inside Docker.
 
 ### Prerequisites
 
@@ -62,47 +68,100 @@ Use the root-level `docker compose` setup. Do not use `.devcontainer/` for this 
 - [mkcert](https://github.com/FiloSottile/mkcert) for local HTTPS certs
   - macOS: `brew install mkcert`
   - Linux: install `libnss3-tools` then mkcert from the releases page
-- [Node.js](https://nodejs.org/) on your host (for `php build.php` asset builds)
+- [Node.js](https://nodejs.org/) on your host (for steps 8–9)
 
-### Setup
+### Local setup (step by step)
+
+All steps below are for **local dev** after cloning this repo to your machine.
+
+1. **Clone the `production` branch** (do not use `master`). — *host*
 
 ```bash
-# 0. Clone the production branch (default clone checks out master — do not use that)
 git clone -b production <repository-url> .
 cd "Into your folder"
+```
 
-# 1. Copy env template
+2. **Copy the env template.** — *host*
+
+```bash
 cp .env.example .env
+```
 
-# 2. Generate local HTTPS certs (writes into nginx/ssl/)
+3. **Configure a GitHub token for Composer** (one-time on your Mac). Required before steps 8–9. Nested packages in the Municipio theme and several mu-plugins are downloaded from `helsingborg-stad/*` on GitHub. Create a token at https://github.com/settings/tokens/new with the `repo` scope if those packages are private. — *host*
+
+```bash
+composer config --global github-oauth.github.com YOUR_GITHUB_TOKEN
+```
+
+The token is stored in `~/.composer/auth.json`, not in this repo.
+
+4. **Generate local HTTPS certs** (writes into `nginx/ssl/`). — *host*
+
+```bash
 ./certs-setup.sh
+```
 
-# 3. Add hostnames to /etc/hosts (macOS/Linux) or
-#    C:\Windows\System32\drivers\etc\hosts (Windows, admin):
-#
-#       127.0.0.1 sater.test pma.sater.test mail.sater.test
+5. **Add local hostnames** to `/etc/hosts` (macOS/Linux) or `C:\Windows\System32\drivers\etc\hosts` (Windows, admin): — *host*
 
-# 4. Place a sanitized DB dump in db/ (any .sql filename; do not commit it)
-#    Then start Docker for the first time (MariaDB imports on first boot only):
+```
+127.0.0.1 sater.test pma.sater.test mail.sater.test
+```
+
+6. **Import the database and start Docker.** Place a sanitized dump in `db/` (any `.sql` filename; do not commit it). MariaDB imports from `db/` only on the **first** container start (empty DB volume). — *host*
+
+```bash
 docker compose up -d
+```
 
-# 5. Install WordPress core, PHP libraries, plugins, themes, and mu-plugins
+If you started Docker before adding the dump, reset the DB volume and start again:
+
+```bash
+docker compose down -v
+docker compose up -d
+```
+
+7. **Install WordPress core and PHP dependencies** (plugins, mu-plugins, theme packages via Composer). — *Docker*
+
+```bash
 docker compose exec wordpress composer install
+```
 
-# 6. Build plugin CSS/JS (many Modularity modules need this; run on your host)
+8. **Build plugin and mu-plugin assets.** Run on your **Mac from the project root**, not inside the container. — *host*
+
+```bash
 php build.php
+```
 
-# 7. Rewrite production URLs in the dump to local
+This runs each child `build.php` (`composer install`, `npm ci`, and similar). It does **not** compile the Municipio theme CSS/JS.
+
+9. **Build the Municipio theme CSS/JS (required).** Run on your **Mac**, not in Docker. Without this step the site loads unstyled and shows red errors: *"Assets not built"*. Step 8 only installs npm packages for the theme; you must run webpack separately. — *host*
+
+```bash
+cd wp-content/themes/municipio
+npm run build
+cd -
+```
+
+This creates `wp-content/themes/municipio/assets/dist/` (gitignored; not in the repo). Production CI builds differently (`php build.php --cleanup --install-npm` on the GitHub runner).
+
+10. **Rewrite production URLs in the database** to local. — *Docker*
+
+Adjust `sater.se` if your dump uses a different production host.
+
+```bash
 docker compose exec wordpress wp search-replace \
   'https://sater.se' 'https://sater.test' \
   --all-tables --allow-root
+
+docker compose exec wordpress wp cache flush --allow-root
 ```
 
-(Adjust `sater.se` if the production host is different, e.g. `www.sater.se`.)
+### Local dev notes
 
-`composer install` reads the pinned `composer.lock` and installs into `wp/`, `vendor/`, and `wp-content/`. It does not compile frontend assets.
-
-`php build.php` (without `--cleanup`) runs `npm run build` in plugins that ship a `build.php`. Do **not** use `--cleanup` locally; that flag is for CI deploy and removes dev files.
+- These steps are **only for local development**. CI/production uses the deploy workflows, not this checklist.
+- `composer install` (step 7) reads the pinned `composer.lock` and installs into `wp/`, `vendor/`, and `wp-content/`. It does not compile frontend assets.
+- Composer-managed `wp-content` (themes, platform mu-plugins) is gitignored. After steps 7–9, `git status` should stay clean except for your own `sater-*` changes.
+- Do **not** use `php build.php --cleanup` on your Mac; that flag is for CI deploy and removes dev files.
 
 To import a different dump later, reset the DB volume and start again:
 
