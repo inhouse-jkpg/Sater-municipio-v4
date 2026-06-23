@@ -1,3 +1,26 @@
+> [!CAUTION]
+> ## ⛔ Do not use the `master` branch for Säter
+>
+> **`master` is an old upstream mirror — not the Säter site.**  
+> A normal `git clone` checks out `master` by default. **That is the wrong codebase** for local Docker, Composer, and deploy work.
+>
+> ### ✅ Clone `production` instead
+>
+> ```bash
+> git clone -b production <repository-url> <your-folder>
+> cd <your-folder>
+> ```
+>
+> ### Already cloned on `master`?
+>
+> ```bash
+> git fetch origin
+> git checkout production
+> ```
+>
+> **Use `production` for local development and `stage` for UAT.**  
+> Do not develop on `master`. Do not deploy from `master`. Do not sync the fork into `master` for day-to-day work.
+
 <!-- SHIELDS -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
