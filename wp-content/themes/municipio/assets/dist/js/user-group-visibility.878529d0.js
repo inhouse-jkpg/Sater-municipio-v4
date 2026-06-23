@@ -1,2 +1,0 @@
-(()=>{"use strict";class t{constructor(t){window.addEventListener("currentPostStatus",(e=>{const n=e;n.detail&&"private"===n.detail?t.style.display="block":t.style.display="none"}))}}document.addEventListener("DOMContentLoaded",(function(){const e=document.querySelector("#user-group-visibility");e&&new t(e)}))})();
-//# sourceMappingURL=user-group-visibility.878529d0.js.map

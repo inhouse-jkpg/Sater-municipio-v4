@@ -5,9 +5,12 @@ services:
       dockerfile: Dockerfile
     container_name: ${APP_NAME}-wordpress
     depends_on:
-      - db
-      - redis
-      - mailpit
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      mailpit:
+        condition: service_started
     env_file:
       - .env
     environment:
@@ -35,6 +38,12 @@ services:
       - ./db:/docker-entrypoint-initdb.d:ro
     ports:
       - "${DB_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 120s
     restart: always
     networks:
       - app-net
@@ -52,7 +61,8 @@ services:
     platform: linux/amd64
     container_name: ${APP_NAME}-phpmyadmin
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "${PMA_PORT:-8080}:80"
     environment:
