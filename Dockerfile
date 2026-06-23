@@ -88,3 +88,10 @@ RUN apt-get update && apt-get install -y \
     apt-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY .docker/install-acf-pro.sh /usr/local/bin/install-acf-pro.sh
+COPY .docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/install-acf-pro.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["php-fpm"]

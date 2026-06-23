@@ -54,16 +54,23 @@ This Sater deployment is hardened for upstream independence: Composer dependenci
 
 Spin the site up locally with Docker. The stack includes nginx, PHP-FPM, MariaDB, Redis, phpMyAdmin and Mailpit.
 
+Use the root-level `docker compose` setup. Do not use `.devcontainer/` for this project.
+
 ### Prerequisites
 
 - Docker Desktop (or compatible Docker Engine + Compose v2)
 - [mkcert](https://github.com/FiloSottile/mkcert) for local HTTPS certs
   - macOS: `brew install mkcert`
   - Linux: install `libnss3-tools` then mkcert from the releases page
+- [Node.js](https://nodejs.org/) on your host (for `php build.php` asset builds)
 
-### One-time setup
+### Setup
 
 ```bash
+# 0. Clone the production branch (default clone checks out master — do not use that)
+git clone -b production <repository-url> .
+cd "Into your folder"
+
 # 1. Copy env template
 cp .env.example .env
 
@@ -74,25 +81,34 @@ cp .env.example .env
 #    C:\Windows\System32\drivers\etc\hosts (Windows, admin):
 #
 #       127.0.0.1 sater.test pma.sater.test mail.sater.test
-```
 
-### Database dump (do this before first boot)
-
-1. Get a sanitized dump from a teammate (do not commit it).
-2. Place it in the `db/` folder as `db/seed.sql` (any `.sql` filename works).
-3. **Then** start Docker for the first time:
-
-```bash
+# 4. Place a sanitized DB dump in db/ (any .sql filename; do not commit it)
+#    Then start Docker for the first time (MariaDB imports on first boot only):
 docker compose up -d
+
+# 5. Install WordPress core, PHP libraries, plugins, themes, and mu-plugins
+docker compose exec wordpress composer install
+
+# 6. Build plugin CSS/JS (many Modularity modules need this; run on your host)
+php build.php
+
+# 7. Rewrite production URLs in the dump to local
+docker compose exec wordpress wp search-replace \
+  'https://sater.se' 'https://sater.test' \
+  --all-tables --allow-root
 ```
 
-MariaDB imports `db/seed.sql` automatically on first boot only. If you start Docker without a dump, you get an empty database.
+(Adjust `sater.se` if the production host is different, e.g. `www.sater.se`.)
+
+`composer install` reads the pinned `composer.lock` and installs into `wp/`, `vendor/`, and `wp-content/`. It does not compile frontend assets.
+
+`php build.php` (without `--cleanup`) runs `npm run build` in plugins that ship a `build.php`. Do **not** use `--cleanup` locally; that flag is for CI deploy and removes dev files.
 
 To import a different dump later, reset the DB volume and start again:
 
 ```bash
 docker compose down -v
-# add or replace db/seed.sql
+# add or replace the .sql file in db/
 docker compose up -d
 ```
 
@@ -103,18 +119,6 @@ docker compose up -d
 | https://sater.test | WordPress |
 | https://pma.sater.test | phpMyAdmin |
 | https://mail.sater.test | Mailpit UI |
-
-### After seeding: rewrite URLs
-
-A production dump will contain production URLs. Rewrite them to `sater.test`:
-
-```bash
-docker compose exec wordpress wp search-replace \
-  'https://sater.se' 'https://sater.test' \
-  --all-tables --allow-root
-```
-
-(Adjust `sater.se` if the production host is different, e.g. `www.sater.se`.)
 
 ### Common commands
 
@@ -127,9 +131,6 @@ docker compose exec wordpress bash
 
 # run wp-cli
 docker compose exec wordpress wp plugin list --allow-root
-
-# run composer install (uses committed composer.lock)
-docker compose exec wordpress composer install
 
 # stop the stack (keep DB volume)
 docker compose down
@@ -144,7 +145,7 @@ Local nginx proxies any missing image/font/video file to production (`https://sa
 
 ### Secrets
 
-`.env` is gitignored. ACF Pro, Algolia, S3, SSO etc. can be added locally when you need those features; they are not required to boot the site.
+`.env` is gitignored. ACF Pro is installed automatically on wordpress container start from the zip URL in `.env.example` (override with `MUNICIPIO_ACF_PRO_DOWNLOAD_URL` if needed). Algolia, S3, SSO etc. can be added locally when you need those features; they are not required to boot the site.
 
 ### WordPress config (Docker only)
 
@@ -160,7 +161,7 @@ This deployment is hardened so upstream package or pipeline changes do not affec
 
 **Locked decisions:**
 
-- `vendor/` will be committed to git for full upstream independence
+- `vendor/` is gitignored; `composer.lock` is tracked and pins all PHP dependencies
 - Forks of `municipio-deploy` and `municipio-e2e-tests` are owned by us, not the client
 - Three-branch model: `master`, `production`, `stage`. `stage` is always based on `production` and serves as both client UAT and the integration branch where cherry-picks from `master` are tested before merging into `production`
 
@@ -169,7 +170,7 @@ This deployment is hardened so upstream package or pipeline changes do not affec
 - `composer.lock` is no longer stripped during deploy (`build.php`)
 - `composer.local.json` usage is guarded in CI (deploy fails if `"require"` is not empty)
 - `acf-export-manager` locked to exact version `1.0.12` across affected `composer.json` files
-- `/vendor/` and `composer.lock` removed from `.gitignore` (full vendor commit pending)
+- `/vendor/` is in `.gitignore`; run `composer install` locally and on CI
 - Deploy workflows point at our forked `municipio-deploy` action, with sub-actions pinned to commit SHAs
 - `composer install` runs on the GitHub Actions runner; the resulting `vendor/` is deployed to the server via rsync
 - Theme `dev-master` Composer references pinned to specific versions or SHAs

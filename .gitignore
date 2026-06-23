@@ -33,6 +33,7 @@ auth.json
 /wp-content/.defender-security-quarantine/
 
 # Dependencies
+/vendor/
 **/node_modules/
 
 # Local services & infrastructure
