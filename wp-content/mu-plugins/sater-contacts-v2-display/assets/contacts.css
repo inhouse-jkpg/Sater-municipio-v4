@@ -13,7 +13,7 @@
 .sater-contacts-v2 .c-card--contact:hover,
 .sater-contacts-v2 .c-card--contact:active,
 .sater-contacts-v2 .c-card--contact:visited {
-    border: 1px solid #d9d9d9 !important;
+    border: 1px solid #767676 !important;
     box-shadow: none !important;
     color: inherit !important;
     filter: none !important;
@@ -27,7 +27,7 @@
 
 .sater-contacts-v2 .c-card--contact {
     background: #fff;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #767676;
     border-radius: 0;
     box-shadow: none;
 }
@@ -38,7 +38,7 @@
 
 .sater-contacts-v2 .c-card--contact .c-signature {
     align-items: center;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #767676;
     display: flex !important;
     gap: calc(var(--base, 8px) * 1.75);
     margin: 0 !important;
@@ -87,6 +87,11 @@
 .sater-contacts-v2 .c-card--contact .c-signature__title {
     display: block;
     margin-top: calc(var(--base, 4px) * 0.2);
+}
+
+.sater-contacts-v2 .c-card--contact .sater-contacts-v2__other {
+    border-bottom: 1px solid #767676;
+    padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
 
 .sater-contacts-v2 .c-card--contact > .u-border__top--1 {
@@ -152,14 +157,14 @@
 
 .sater-contacts-v2 .c-card--contact-address {
     background: #f6e7eb;
-    border-color: #efc7cf;
+    border-color: #b56b7a;
 }
 
 .sater-contacts-v2 .c-card--contact-address:hover,
 .sater-contacts-v2 .c-card--contact-address:active,
 .sater-contacts-v2 .c-card--contact-address:visited {
     background: #f6e7eb !important;
-    border-color: #efc7cf !important;
+    border-color: #b56b7a !important;
 }
 
 .sater-contacts-v2 .c-card--contact-address > .c-card__body {
@@ -168,7 +173,7 @@
 }
 
 .sater-contacts-v2 .c-card--contact-address .c-signature {
-    border-bottom-color: #efc7cf;
+    border-bottom-color: #b56b7a;
     padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
 
@@ -185,6 +190,10 @@
     display: none;
 }
 
+.sater-contacts-v2 .c-card--contact-address .sater-contacts-v2__other {
+    border-bottom-color: #b56b7a;
+}
+
 .sater-contacts-v2 .c-card--contact-address .c-accordion {
     display: grid;
     gap: 0;
@@ -193,8 +202,8 @@
 }
 
 .sater-contacts-v2 .c-card--contact-address .c-accordion__section {
-    border-bottom: 1px solid #efc7cf;
-    border-right: 1px solid #efc7cf;
+    border-bottom: 1px solid #b56b7a;
+    border-right: 1px solid #b56b7a;
     border-top: 0 !important;
     padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
