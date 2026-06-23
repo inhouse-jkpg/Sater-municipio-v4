@@ -1,0 +1,3 @@
+interface ImageOverlayFactoryInterface {
+    create(): ImageOverlayDataInterface;
+}

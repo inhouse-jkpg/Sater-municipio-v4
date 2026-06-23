@@ -1,0 +1,90 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Acf OpenStreetMap Field 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ acf-openstreetmap-field\n"
+"POT-Creation-Date: 2025-03-24 11:01+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Domain: acf-openstreetmap-field\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/field.php:56
+msgid "Test"
+msgstr ""
+
+#: source/php/field.php:100 source/php/field.php:231
+msgid "Map style"
+msgstr ""
+
+#: source/php/field.php:215
+msgid "Default Latitude"
+msgstr ""
+
+#: source/php/field.php:216
+msgid "Set a default latitude"
+msgstr ""
+
+#: source/php/field.php:222
+msgid "Default Longitude"
+msgstr ""
+
+#: source/php/field.php:223
+msgid "Set a default longitude"
+msgstr ""
+
+#: source/php/field.php:232
+msgid "Default"
+msgstr ""
+
+#: source/php/field.php:233
+msgid "Dark"
+msgstr ""
+
+#: source/php/field.php:234
+msgid "Pale"
+msgstr ""
+
+#: source/php/field.php:235
+msgid "Color"
+msgstr ""
+
+#: source/php/field.php:236
+msgid "Start position"
+msgstr ""
+
+#: source/php/field.php:237
+msgid "Set map start position"
+msgstr ""
+
+#: source/php/field.php:238
+msgid "Allow layer filter"
+msgstr ""
+
+#: source/php/field.php:239
+msgid "Layer filter title"
+msgstr ""
+
+#: source/php/field.php:240 source/php/field.php:244
+msgid "Add layer"
+msgstr ""
+
+#: source/php/field.php:241
+msgid "Add layer group"
+msgstr ""
+
+#: source/php/field.php:242
+msgid "Add image overlay"
+msgstr ""
+
+#: source/php/field.php:243
+msgid "Add marker"
+msgstr ""

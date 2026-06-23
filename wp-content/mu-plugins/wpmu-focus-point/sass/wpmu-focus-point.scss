@@ -1,0 +1,30 @@
+tr.compat-field-focusX,
+tr.compat-field-focusY {
+    display: none;
+}
+
+.wpmu-focus-point__container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    img {
+        margin: 0 !important;
+    }
+
+    .wpmu-focus-point__image-wrapper {
+        height: 100%;
+        position: relative;
+    }
+
+    .wpmu-focus-point__marker {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border: 2px solid #2271b1;
+        background-color: rgba(34, 113, 177, 0.25);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+    }
+}

@@ -1,0 +1,3 @@
+interface EditImageOverlayDataInterface {
+    edit(): void;
+}
