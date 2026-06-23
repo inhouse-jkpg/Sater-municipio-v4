@@ -21,6 +21,14 @@ auth.json
 /wp-content/upgrade/
 /wp-content/uploads_backup/
 
+# WordPress mu-plugins (track custom code only; Composer installs the rest)
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins/sater-*/
+!/wp-content/mu-plugins/local_*/
+!/wp-content/mu-plugins/loader.php
+!/wp-content/mu-plugins/custom-events-order/
+!/wp-content/mu-plugins/modularity-translations/
+
 # WordPress themes (Composer-managed; built via build.php)
 /wp-content/themes/*
 !/wp-content/themes/index.php

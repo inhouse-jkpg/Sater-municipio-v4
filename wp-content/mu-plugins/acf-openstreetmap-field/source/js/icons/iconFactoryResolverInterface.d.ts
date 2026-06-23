@@ -1,3 +1,0 @@
-interface IconFactoryResolverInterface {
-    resolve(): IconFactoryInterface;
-}
