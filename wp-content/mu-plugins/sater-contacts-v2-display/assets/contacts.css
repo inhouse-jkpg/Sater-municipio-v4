@@ -7,13 +7,20 @@
 }
 
 .sater-contacts-v2 {
+    --sater-contacts-v2-border: #d9d9d9;
+    --sater-contacts-v2-address-border: #efc7cf;
     row-gap: calc(var(--base, 8px) * 2);
+}
+
+body.sater-contacts-v2--a11y-borders .sater-contacts-v2 {
+    --sater-contacts-v2-border: #767676;
+    --sater-contacts-v2-address-border: #b56b7a;
 }
 
 .sater-contacts-v2 .c-card--contact:hover,
 .sater-contacts-v2 .c-card--contact:active,
 .sater-contacts-v2 .c-card--contact:visited {
-    border: 1px solid #767676 !important;
+    border: 1px solid var(--sater-contacts-v2-border) !important;
     box-shadow: none !important;
     color: inherit !important;
     filter: none !important;
@@ -27,7 +34,7 @@
 
 .sater-contacts-v2 .c-card--contact {
     background: #fff;
-    border: 1px solid #767676;
+    border: 1px solid var(--sater-contacts-v2-border);
     border-radius: 0;
     box-shadow: none;
 }
@@ -38,7 +45,7 @@
 
 .sater-contacts-v2 .c-card--contact .c-signature {
     align-items: center;
-    border-bottom: 1px solid #767676;
+    border-bottom: 1px solid var(--sater-contacts-v2-border);
     display: flex !important;
     gap: calc(var(--base, 8px) * 1.75);
     margin: 0 !important;
@@ -90,7 +97,6 @@
 }
 
 .sater-contacts-v2 .c-card--contact .sater-contacts-v2__other {
-    border-bottom: 1px solid #767676;
     padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
 
@@ -157,14 +163,14 @@
 
 .sater-contacts-v2 .c-card--contact-address {
     background: #f6e7eb;
-    border-color: #b56b7a;
+    border-color: var(--sater-contacts-v2-address-border);
 }
 
 .sater-contacts-v2 .c-card--contact-address:hover,
 .sater-contacts-v2 .c-card--contact-address:active,
 .sater-contacts-v2 .c-card--contact-address:visited {
     background: #f6e7eb !important;
-    border-color: #b56b7a !important;
+    border-color: var(--sater-contacts-v2-address-border) !important;
 }
 
 .sater-contacts-v2 .c-card--contact-address > .c-card__body {
@@ -173,7 +179,7 @@
 }
 
 .sater-contacts-v2 .c-card--contact-address .c-signature {
-    border-bottom-color: #b56b7a;
+    border-bottom-color: var(--sater-contacts-v2-address-border);
     padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
 
@@ -191,7 +197,7 @@
 }
 
 .sater-contacts-v2 .c-card--contact-address .sater-contacts-v2__other {
-    border-bottom-color: #b56b7a;
+    border-bottom: 1px solid var(--sater-contacts-v2-address-border);
 }
 
 .sater-contacts-v2 .c-card--contact-address .c-accordion {
@@ -202,8 +208,8 @@
 }
 
 .sater-contacts-v2 .c-card--contact-address .c-accordion__section {
-    border-bottom: 1px solid #b56b7a;
-    border-right: 1px solid #b56b7a;
+    border-bottom: 1px solid var(--sater-contacts-v2-address-border);
+    border-right: 1px solid var(--sater-contacts-v2-address-border);
     border-top: 0 !important;
     padding: calc(var(--base, 8px) * 2) calc(var(--base, 8px) * 2.5);
 }
