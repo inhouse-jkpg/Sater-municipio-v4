@@ -1,1 +1,0 @@
-Hello extension.foo.php!

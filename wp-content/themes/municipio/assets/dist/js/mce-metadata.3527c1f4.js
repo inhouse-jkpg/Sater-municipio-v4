@@ -1,2 +1,0 @@
-tinymce.PluginManager.add("metadata",(function(t,a){t.addButton("metadata",{type:"listbox",text:"Metadata",icon:!1,onselect:function(a){t.insertContent(this.value()),this.value("")},values:metadata_button})}));
-//# sourceMappingURL=mce-metadata.3527c1f4.js.map

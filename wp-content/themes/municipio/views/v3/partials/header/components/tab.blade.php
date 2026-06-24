@@ -1,1 +1,0 @@
-@includeWhen(!empty($tabMenu['items']), 'partials.navigation.tabs')

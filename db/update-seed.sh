@@ -1,1 +1,0 @@
-wp db export seed.sql
