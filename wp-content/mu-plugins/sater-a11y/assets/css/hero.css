@@ -1,0 +1,30 @@
+/**
+ * Bild (Image) module hero layout.
+ * Migrated from site custom CSS (Customizer).
+ *
+ * Bild modules are used as page heroes. cover: true is set via sater-a11y.php;
+ * these rules give the module a defined height so .c-image--cover can fill it.
+ */
+
+.modularity-mod-image {
+    position: relative;
+    min-height: 42vh;
+    max-height: 42vh;
+    overflow: hidden;
+}
+
+.modularity-mod-image .c-image .c-image__image-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.modularity-mod-image .c-image .c-image__image-wrapper img,
+.modularity-mod-image .c-image.c-image--cover .c-image__image {
+    object-fit: cover;
+}
+
+.site-wrapper > .o-container figure.c-image {
+    max-height: 42vh !important;
+    height: 100%;
+    width: 100%;
+}
