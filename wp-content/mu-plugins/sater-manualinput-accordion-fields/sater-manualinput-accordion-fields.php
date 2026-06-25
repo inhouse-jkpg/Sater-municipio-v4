@@ -49,17 +49,25 @@ function sater_manualinput_accordion_enqueue_styles(): void
         return;
     }
 
-    $cssPath = __DIR__ . '/assets/accordion.css';
-    if (!is_readable($cssPath)) {
-        return;
+    $accordionCss = __DIR__ . '/assets/accordion.css';
+    if (is_readable($accordionCss)) {
+        wp_enqueue_style(
+            'sater-miaf-accordion',
+            plugin_dir_url(__FILE__) . 'assets/accordion.css',
+            [],
+            (string) filemtime($accordionCss)
+        );
     }
 
-    wp_enqueue_style(
-        'sater-miaf-accordion',
-        plugin_dir_url(__FILE__) . 'assets/accordion.css',
-        [],
-        (string) filemtime($cssPath)
-    );
+    $cardsCss = __DIR__ . '/assets/cards.css';
+    if (is_readable($cardsCss)) {
+        wp_enqueue_style(
+            'sater-miaf-cards',
+            plugin_dir_url(__FILE__) . 'assets/cards.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($cardsCss)
+        );
+    }
 }
 
 /**
