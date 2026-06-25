@@ -55,37 +55,12 @@ if( !class_exists( 'Vizzit_Analytics' ) ) {
         echo '<!-- PLUGIN Vizzit Analytics for WordPress DEBUG START -->';
         echo '<!--';
         echo "\n";
-          var_dump( $options );
+        var_dump($options);
         echo "\n";
         echo '-->';
         echo '<!-- PLUGIN Vizzit Analytics for WordPress DEBUG END -->';
       }
     } // end apply_vizzit_analytics_debug()
-
-
-    /**
-     * Add parameter before inserting tag code
-     */
-    function add_tag_parameter() {
-      $options  = $this->get_options();
-
-      if( ( $options[ 'va_anonymize_ip' ] == 'on' ) || ( $options[ 'va_append_username' ] == 'on' ) || ( $options[ 'va_time_on_page' ] == 'on' ) ) {
-        echo '<script type="text/javascript">';
-
-        if( $options[ 'va_anonymize_ip' ] == 'on' ) {
-          echo '$vizzit_anonymizeIP = "true";';
-        }
-        if( $options[ 'va_append_username' ] == 'on' ) {
-          echo '$vizzit_user = "'.$this->currentUser.'";';
-        }
-        if( $options[ 'va_time_on_page' ] == 'on' ) {
-          echo '$vizzit_keepAlive = "true";';
-        }
-
-        echo '</script>';
-      } // end if( one-of-the-tag-parameters is set )
-
-    } // end add_tag_parameter()
 
 
     /**
@@ -97,18 +72,45 @@ if( !class_exists( 'Vizzit_Analytics' ) ) {
       // if on a page and customer ID is set
       // TODO: what about the list/overview of posts? this is not a page and not a post/single
       if( !is_admin() && ( isset( $options[ 'va_customer_id' ] ) && !empty( $options[ 'va_customer_id' ] ) ) ) {
-        // add "_test" to the customer-id if this is a test installation
         $va_customer_id = ( $options[ 'va_test_mode' ] == 'on' ) ? $options[ 'va_customer_id' ] . '_test' : $options[ 'va_customer_id' ];
 
-        // add some tag parameters?
-        $this->add_tag_parameter();
-
-        //echo '__TAG_ADDED__';
-
         echo '<!-- Vizzit Analytics Tag Start -->';
-        echo '<script type="text/javascript" src="'.VAWP_PATH_TAG.'"></script>';
-        echo '<!-- Vizzit Analytics Tag End -->';
 
+        echo '<script>
+                $vizzit$ = typeof $vizzit$ != "undefined" ? $vizzit$ : {};
+                $vizzit$ = {
+                    keys: $vizzit$.keys || {},
+                    client: $vizzit$.client || {},
+                    config: $vizzit$.config || {},
+                    endpoint: $vizzit$.endpoint || {},
+                };
+              </script>';
+
+        echo '<script>';
+
+        if ( $options[ 'va_append_username' ] == 'on' )
+          if ( $options[ 'va_anonymize_usernames' ] == 'on' ) {
+            echo '$vizzit$.client.username = "'.md5($this->currentUser).'";';
+            echo '$vizzit$.config.anonymize_username = true;';
+          }
+          else {
+            echo '$vizzit$.client.username = "'.$this->currentUser.'";';
+          }
+
+        if ( $options[ 'va_anonymize_ip' ] == 'on' )
+          echo '$vizzit$.config.anonymize_ip = true;';
+
+        if ( $options[ 'va_disable_cookie_auto' ] == 'on' )
+          echo '$vizzit$.config.cookie_auto = false;';
+
+        echo '$vizzit$.keys.public = "'.$options['va_public_key'].'";';
+        echo '</script>';
+        echo '<script type="text/javascript" src="'.VAWP_PATH_TAG.'"></script>';
+        
+        if($options[ 'va_disable_auto_integration' ] != 'on')
+          echo '<script>$vizzit$.integration.run();</script>';
+
+        echo '<!-- Vizzit Analytics Tag End -->';
       }
     } // end apply_vizzit_analytics_tag_code()
 

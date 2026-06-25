@@ -472,6 +472,10 @@ if( !class_exists( 'Vizzit_Analytics_Soap' ) ) {
 
       $options = get_site_option(VAWP_OPTION_NAME);
 
+      // Exit if settings not exists yet
+      if(!$options)
+        return;
+
       // check if webservice is allowed
       if( $options[ 'va_webservice' ] == 'on' ) {
         // Using a filter instead of an action to create the rewrite rules.

@@ -791,7 +791,7 @@ if( !class_exists( 'Vizzit_Analytics_Core' ) ) {
      */
     function vizzit_analytics_process( $va_exec = 'SCHEDULER' ) {
       global $wpdb;
-      $options            = $this->get_options();
+      $options = $this->get_options();
 
 
       $this->process_msg    = array(); // reset message variable
@@ -848,8 +848,6 @@ if( !class_exists( 'Vizzit_Analytics_Core' ) ) {
         // Encrypt the package
         $this->encrypt_package($targzFile, $encryptFile, $options['va_encryption']);
 
-        //$this->process_zip_write( array( 'filename_tree' => $treeFile, 'filename_zip' => $zipFile, 'filename_encrypt' => $encryptFile, 'sequence_number' => $sequenceNumber ) );
-
         // upload zip file
         if( isset( $options[ 'va_hidden_pref_no_upload' ] ) && $options[ 'va_hidden_pref_no_upload' ] == 'on' ) {
           $this->debug_log("Upload was disabled");
@@ -861,18 +859,6 @@ if( !class_exists( 'Vizzit_Analytics_Core' ) ) {
         // TODO: activate the "real" version which deletes all
         if( isset( $options[ 'va_hidden_pref_no_file_delete' ] ) && $options[ 'va_hidden_pref_no_file_delete' ] == 'on' )
         {
-          // do nothing
-          // leave the tree file for checking
-          #$this->process_cleanup(array(
-          #  'filename_zip' => $zipFile,
-          #  'filename_encrypt' => $encryptFile
-          #));
-
-          // leave the tree file AND zip file for checking
-          #$this->process_cleanup(array(
-          #  'filename_encrypt' => $encryptFile
-          #));
-
           // leave the zip file for checking
           $this->process_cleanup( array(
             'filename_tree' => $treeFile,
@@ -882,14 +868,6 @@ if( !class_exists( 'Vizzit_Analytics_Core' ) ) {
         }
         else
         {
-          /*
-          // clean all temp files       
-          $this->process_cleanup(array(
-            'filename_tree' => $treeFile,
-            'filename_zip' => $zipFile,
-            'filename_encrypt' => $encryptFile
-          ));
-          */
 
           // Clean up the tar.gz
           $this->process_cleanup( array(
