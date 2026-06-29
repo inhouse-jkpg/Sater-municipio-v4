@@ -50,6 +50,12 @@
         }
     }
 
+    function notifyFormValidation($input) {
+        // Municipio's js-form-validation only re-enables the submit button on
+        // change/keyup/focusout. jQuery UI Datepicker does not fire change on select.
+        $input.trigger('change');
+    }
+
     function buildOptions($input) {
         var min = parseIsoDate($input.attr('min'));
         var max = parseIsoDate($input.attr('max'));
@@ -65,6 +71,12 @@
             maxDate: max,
             beforeShow: function (input, inst) {
                 inst.dpDiv.addClass('sater-a11y-datepicker');
+            },
+            onSelect: function () {
+                notifyFormValidation($input);
+            },
+            onClose: function () {
+                notifyFormValidation($input);
             }
         };
     }
@@ -102,20 +114,22 @@
             return;
         }
 
-        function updateToMin(dateText) {
-            var fromDate = parseIsoDate(dateText || $from.val());
-            $to.datepicker('option', 'minDate', fromDate);
+        var baseToMinDate = parseIsoDate($to.attr('min'));
+
+        function updateToMin() {
+            var fromDate = parseIsoDate($from.val());
+            // Only constrain "till" when "från" is a valid date; otherwise leave it open.
+            $to.datepicker('option', 'minDate', fromDate || baseToMinDate);
         }
 
-        $from.on('change', function () {
-            updateToMin($from.val());
+        $from.on('change input', updateToMin);
+
+        $from.datepicker('option', 'onSelect', function () {
+            updateToMin();
+            notifyFormValidation($from);
         });
 
-        $from.datepicker('option', 'onSelect', function (dateText) {
-            updateToMin(dateText);
-        });
-
-        updateToMin($from.val());
+        updateToMin();
     }
 
     function initArchiveDatepickers() {
@@ -124,10 +138,16 @@
             return;
         }
 
-        var $from = initInput($root.find('input[type="date"][name="from"]'));
-        var $to = initInput($root.find('input[type="date"][name="to"]'));
+        var $from = initInput($root.find('input[name="from"]'));
+        var $to = initInput($root.find('input[name="to"]'));
 
         linkFromTo($from, $to);
+
+        $root.find('input[name="from"], input[name="to"], input[name="s"]').each(function () {
+            if (this.value) {
+                notifyFormValidation($(this));
+            }
+        });
     }
 
     $(initArchiveDatepickers);
