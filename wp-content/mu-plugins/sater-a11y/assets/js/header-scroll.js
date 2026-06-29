@@ -1,18 +1,18 @@
 /**
- * Säter A11y: Header hide-on-scroll in landscape
+ * Säter A11y: Header hide-on-scroll on small viewports
  *
  * WCAG 1.3.4 – Orientation
- * When the device is in landscape with a short viewport (phone), the sticky
+ * On small screens (portrait phones and short landscape viewports), the sticky
  * header is hidden as the user scrolls down and revealed when they scroll up.
  * This frees the majority of the screen for content, matching the audit
  * recommendation to hide the header on scroll rather than only at the footer.
  *
- * Works alongside landscape.css which defines the .is-scrolled-away transition.
+ * Works alongside mobile-header.css which defines the .is-scrolled-away transition.
  */
 (function () {
     'use strict';
 
-    var MEDIA_QUERY  = '(orientation: landscape) and (max-height: 500px)';
+    var MEDIA_QUERY  = '(max-height: 500px), (max-width: 767px)';
     var HIDDEN_CLASS = 'is-scrolled-away';
     var THRESHOLD    = 60; // px scrolled before hiding begins
 
@@ -58,7 +58,7 @@
         }
     }
 
-    // When rotating back to portrait, always restore the header.
+    // When the viewport no longer matches, restore the header.
     mq.addEventListener('change', function () {
         showHeaders();
         lastY = window.scrollY;

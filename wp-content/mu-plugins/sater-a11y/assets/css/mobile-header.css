@@ -1,11 +1,11 @@
 /**
- * Säter A11y: Landscape header fixes
+ * Säter A11y: Mobile header fixes
  *
  * WCAG 1.3.4 – Orientation
- * Sticky header consumes too much of the viewport in landscape.
- * Applied only to short landscape viewports (typical phone landscape).
+ * Sticky header consumes too much of the viewport on small screens.
  */
 
+/* Short landscape viewports (typical phone landscape). */
 @media (orientation: landscape) and (max-height: 500px) {
 
     /* Shrink the logotype height token to free vertical space. */
@@ -21,19 +21,25 @@
         min-height: calc(var(--base, 8px) * 6);
     }
 
-    /* Business header: trim decorative vertical padding. In landscape the
-       wide viewport width keeps the desktop spacer (24px) active even though
-       height is very short, making the red bar disproportionately tall. */
-    .c-header.c-header--business .c-header__menu.c-header__menu--primary {
-        padding-top: calc(var(--base, 8px) * 0.5);
-        padding-bottom: calc(var(--base, 8px) * 0.5);
-    }
-
     /* Quick links: release the second sticky bar so it doesn't
        stack on top of the primary sticky header. */
     #quicklinks-header.c-header--sticky {
         position: relative;
         top: auto;
+    }
+}
+
+/* Hide-on-scroll: short landscape or narrow portrait (typical phones). */
+@media (max-height: 500px), (max-width: 767px) {
+
+    /* Business header: trim decorative vertical padding on small screens. */
+    .c-header.c-header--business .c-header__menu.c-header__menu--primary {
+        padding-top: calc(var(--base, 8px) * 0.5);
+        padding-bottom: calc(var(--base, 8px) * 0.5);
+    }
+
+    #header-logotype .c-logotype__image {
+        width: 60%;
     }
 
     /* Animate hide/show triggered by header-scroll.js. */

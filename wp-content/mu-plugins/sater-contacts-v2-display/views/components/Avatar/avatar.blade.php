@@ -5,13 +5,15 @@
         
         {{-- If the avatar has an image --}}
         @if($image)
+            {{-- Decorative: alt="" avoids duplicate name in screen readers; aria-hidden hides image from AT. --}}
             @image(
                 [
                     'src' => $image,
                     'classList' => [$baseClass.'__image'],
-                    'alt' => $label,
+                    'alt' => '',
                     'attributeList' => [
-                        'aria-hidden' => 'true'
+                        'aria-hidden' => 'true',
+                        'data-decorative-avatar' => 'true',
                     ],
                     'cover' => true
                 ]

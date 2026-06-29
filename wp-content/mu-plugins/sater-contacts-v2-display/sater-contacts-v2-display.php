@@ -20,6 +20,8 @@ add_filter('/Modularity/externalViewPath', 'sater_contacts_v2_external_view_path
 add_filter('ComponentLibrary/ViewPaths', 'sater_contacts_v2_prepend_component_views', 1);
 add_filter('body_class', 'sater_contacts_v2_body_class');
 add_action('wp_enqueue_scripts', 'sater_contacts_v2_enqueue_assets', 100);
+add_filter('acf/validate_value/type=image', 'sater_contacts_v2_skip_decorative_avatar_alt_validation', 11, 4);
+add_filter('ComponentLibrary/Component/Image/Attribute', 'sater_contacts_v2_contact_avatar_attributes', 10, 1);
 
 /**
  * Enable WCAG 1.4.11 border contrast on contact cards.
@@ -116,4 +118,62 @@ function sater_contacts_v2_prepend_component_views(array $viewPaths): array
     array_unshift($filtered, $root);
 
     return $filtered;
+}
+
+/**
+ * Contact avatars are decorative; the name is shown in the signature.
+ * Skip Municipio's media-library alt requirement for contact image fields.
+ *
+ * @param bool|string $valid
+ * @param mixed $value
+ * @param array<string, mixed> $field
+ * @param string $input
+ * @return bool|string
+ */
+function sater_contacts_v2_skip_decorative_avatar_alt_validation($valid, $value, $field, $input)
+{
+    $exemptFieldKeys = [
+        'field_5805e5dc26dde', // Contacts v2 custom layout image
+        'field_56c714f8d0a42', // User profile picture (User contact layout)
+    ];
+
+    if (!in_array($field['key'] ?? '', $exemptFieldKeys, true)) {
+        return $valid;
+    }
+
+    if ($valid !== true && is_string($valid)) {
+        return true;
+    }
+
+    return $valid;
+}
+
+/**
+ * Contact avatars use alt="" (decorative). Suppress Municipio's editor-only
+ * data-a11y-error flag when the avatar is explicitly marked decorative.
+ *
+ * The Attribute filter runs twice: array while building, then the rendered string.
+ *
+ * @param array<string, string>|string $attribute
+ * @return array<string, string>|string
+ */
+function sater_contacts_v2_contact_avatar_attributes(array|string $attribute): array|string
+{
+    if (!is_array($attribute)) {
+        if (strpos($attribute, 'data-decorative-avatar') === false) {
+            return $attribute;
+        }
+
+        $attribute = preg_replace('/\s*data-a11y-error="[^"]*"/', '', $attribute);
+
+        return (string) preg_replace('/\s*data-decorative-avatar="[^"]*"/', '', $attribute);
+    }
+
+    if (($attribute['data-decorative-avatar'] ?? '') !== 'true') {
+        return $attribute;
+    }
+
+    unset($attribute['data-a11y-error'], $attribute['data-decorative-avatar']);
+
+    return $attribute;
 }
