@@ -14,14 +14,183 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+const SATER_A11Y_COMPONENT_VIEWS_DIR = __DIR__ . '/views/components';
+const SATER_A11Y_MODULARITY_VIEWS_DIR = __DIR__ . '/views/modularity';
+
 add_action('wp_enqueue_scripts', 'sater_a11y_enqueue_assets', 100);
 add_action('template_redirect', 'sater_a11y_ob_start', 1);
+add_filter('ComponentLibrary/ViewPaths', 'sater_a11y_prepend_component_views', 1);
+add_filter('/Modularity/externalViewPath', 'sater_a11y_external_view_paths', 20, 1);
 add_filter(
     'ComponentLibrary/Component/Image/Data',
     'sater_a11y_fix_responsive_images',
     10,
     1
 );
+add_filter(
+    'ComponentLibrary/Component/Icon/Data',
+    'sater_a11y_icon_data',
+    10,
+    1
+);
+add_filter(
+    'ComponentLibrary/Component/Button/Data',
+    'sater_a11y_button_data',
+    10,
+    1
+);
+add_filter(
+    'ComponentLibrary/Component/Button/Attribute',
+    'sater_a11y_button_attribute',
+    10,
+    1
+);
+add_filter(
+    'ComponentLibrary/Component/Field/Data',
+    'sater_a11y_field_data',
+    10,
+    1
+);
+
+/**
+ * Whether the button currently being rendered has visible text content.
+ */
+class Sater_A11y_Control_Label_State
+{
+    public static bool $hasVisibleText = false;
+}
+
+/**
+ * Prioritize Säter component view overrides for accessibility fixes.
+ *
+ * @param array<int, string> $viewPaths
+ * @return array<int, string>
+ */
+function sater_a11y_prepend_component_views(array $viewPaths): array
+{
+    if (!is_dir(SATER_A11Y_COMPONENT_VIEWS_DIR)) {
+        return $viewPaths;
+    }
+
+    $root = SATER_A11Y_COMPONENT_VIEWS_DIR;
+
+    $filtered = array_values(array_filter(
+        $viewPaths,
+        static function ($path) use ($root): bool {
+            return rtrim((string) $path, '/\\') !== $root;
+        }
+    ));
+
+    array_unshift($filtered, $root);
+
+    return $filtered;
+}
+
+/**
+ * Override Modularity Manual Input views for accessibility fixes.
+ *
+ * Merged with paths from other plugins (e.g. sater-manualinput-accordion-fields).
+ * Blade searches the last path first, so append the a11y views directory.
+ *
+ * @param array<string, string|array<int, string>> $paths
+ * @return array<string, string|array<int, string>>
+ */
+function sater_a11y_external_view_paths(array $paths): array
+{
+    if (!defined('MODULARITY_PATH') || !is_dir(SATER_A11Y_MODULARITY_VIEWS_DIR)) {
+        return $paths;
+    }
+
+    $defaultManualInputViews = MODULARITY_PATH . 'source/php/Module/ManualInput/views';
+    $existing = $paths['mod-manualinput'] ?? $defaultManualInputViews;
+
+    if (!is_array($existing)) {
+        $existing = [$existing];
+    }
+
+    $a11yRoot = rtrim(SATER_A11Y_MODULARITY_VIEWS_DIR, '/\\');
+    $existing = array_values(array_filter(
+        $existing,
+        static function ($path) use ($a11yRoot): bool {
+            return rtrim((string) $path, '/\\') !== $a11yRoot;
+        }
+    ));
+
+    $existing[] = SATER_A11Y_MODULARITY_VIEWS_DIR;
+    $paths['mod-manualinput'] = $existing;
+
+    return $paths;
+}
+
+/**
+ * Treat icons as decorative when a parent already requested aria-hidden.
+ *
+ * The default Button template passes aria-hidden on icons, but Icon::init()
+ * overwrites it unless decorative is true.
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function sater_a11y_icon_data(array $data): array
+{
+    if (($data['attributeList']['aria-hidden'] ?? '') === 'true') {
+        $data['decorative'] = true;
+    }
+
+    return $data;
+}
+
+/**
+ * Track whether the current button has visible text for aria-label cleanup.
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function sater_a11y_button_data(array $data): array
+{
+    Sater_A11y_Control_Label_State::$hasVisibleText = !empty($data['text']);
+
+    return $data;
+}
+
+/**
+ * Remove redundant aria-label when visible button text is present.
+ *
+ * The Attribute filter is invoked twice: first with an array while building
+ * attributes, then with the rendered string when getData() filters each key.
+ *
+ * @param array<string, string>|string $attribute
+ * @return array<string, string>|string
+ */
+function sater_a11y_button_attribute(array|string $attribute): array|string
+{
+    if (!is_array($attribute) || !Sater_A11y_Control_Label_State::$hasVisibleText) {
+        return $attribute;
+    }
+
+    unset($attribute['aria-label']);
+
+    return $attribute;
+}
+
+/**
+ * Hide decorative field icons when the field already has a text label.
+ *
+ * Covers the hero search magnifying glass and other labelled inputs.
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function sater_a11y_field_data(array $data): array
+{
+    if (empty($data['label']) || !is_array($data['icon'] ?? null)) {
+        return $data;
+    }
+
+    $data['icon']['decorative'] = true;
+
+    return $data;
+}
 
 function sater_a11y_should_enqueue_archive_datepicker(): bool
 {
