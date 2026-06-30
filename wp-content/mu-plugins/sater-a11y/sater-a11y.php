@@ -207,14 +207,32 @@ function sater_a11y_enqueue_archive_datepicker(): void
         return;
     }
 
-    wp_enqueue_script('jquery-ui-datepicker');
+    $duetBase = plugin_dir_url(__FILE__) . 'assets/vendor/duet/dist/duet/';
+    $duetPath = __DIR__ . '/assets/vendor/duet/dist/duet/duet.esm.js';
+
+    if (is_readable($duetPath)) {
+        wp_register_script_module(
+            'duet-date-picker',
+            $duetBase . 'duet.esm.js',
+            [],
+            '1.4.0'
+        );
+        wp_enqueue_script_module('duet-date-picker');
+
+        wp_enqueue_style(
+            'duet-date-picker',
+            $duetBase . 'themes/default.css',
+            [],
+            '1.4.0'
+        );
+    }
 
     $cssPath = __DIR__ . '/assets/css/archive-datepicker.css';
     if (is_readable($cssPath)) {
         wp_enqueue_style(
             'sater-a11y-archive-datepicker',
             plugin_dir_url(__FILE__) . 'assets/css/archive-datepicker.css',
-            ['styleguide-css', 'municipio-css'],
+            ['duet-date-picker', 'styleguide-css', 'municipio-css'],
             (string) filemtime($cssPath)
         );
     }
@@ -224,7 +242,7 @@ function sater_a11y_enqueue_archive_datepicker(): void
         wp_enqueue_script(
             'sater-a11y-archive-datepicker',
             plugin_dir_url(__FILE__) . 'assets/js/archive-datepicker.js',
-            ['jquery', 'jquery-ui-datepicker'],
+            [],
             (string) filemtime($jsPath),
             true
         );
