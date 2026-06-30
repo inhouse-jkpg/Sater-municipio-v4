@@ -1,21 +1,25 @@
 /**
- * Säter A11y: Zoom-friendly archive date picker
+ * Säter A11y: Accessible archive date picker (Duet Date Picker)
  *
- * Replaces native input[type=date] with jQuery UI Datepicker so the calendar
- * scales with page zoom (WCAG 1.4.4).
+ * Replaces native input[type=date] with Duet so the calendar scales with page
+ * zoom (WCAG 1.4.4) and supports full keyboard navigation.
  */
-(function ($) {
+(function () {
     'use strict';
 
-    if (!$.datepicker) {
-        return;
-    }
-
-    $.datepicker.regional.sv = {
-        closeText: 'Stäng',
-        prevText: 'Förra',
-        nextText: 'Nästa',
-        currentText: 'Idag',
+    var SV_LOCALIZATION = {
+        buttonLabel: 'Välj datum',
+        placeholder: 'åååå-mm-dd',
+        selectedDateMessage: 'Valt datum är',
+        prevMonthLabel: 'Föregående månad',
+        nextMonthLabel: 'Nästa månad',
+        monthSelectLabel: 'Månad',
+        yearSelectLabel: 'År',
+        closeLabel: 'Stäng',
+        calendarHeading: 'Välj datum',
+        dayNames: [
+            'söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'
+        ],
         monthNames: [
             'januari', 'februari', 'mars', 'april', 'maj', 'juni',
             'juli', 'augusti', 'september', 'oktober', 'november', 'december'
@@ -24,131 +28,131 @@
             'jan', 'feb', 'mar', 'apr', 'maj', 'jun',
             'jul', 'aug', 'sep', 'okt', 'nov', 'dec'
         ],
-        dayNamesShort: ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'],
-        dayNames: [
-            'söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'
-        ],
-        dayNamesMin: ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
-        weekHeader: 'Ve',
-        dateFormat: 'yy-mm-dd',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
+        locale: 'sv-SE'
     };
 
-    $.datepicker.setDefaults($.datepicker.regional.sv);
-
     function parseIsoDate(value) {
-        if (!value) {
+        if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            return '';
+        }
+        return value;
+    }
+
+    function notifyFormValidation(form) {
+        // Municipio Fields.checkEmpty() only inspects input/textarea/select captured
+        // at init. The sync input below is transformed before that runs.
+        form.dispatchEvent(new CustomEvent('formEmpty'));
+    }
+
+    function createSyncInput(sourceInput) {
+        var syncInput = document.createElement('input');
+        syncInput.type = 'text';
+        syncInput.value = sourceInput.value || '';
+        syncInput.className = 'sater-a11y-date-sync u-sr__only';
+        syncInput.tabIndex = -1;
+        syncInput.setAttribute('aria-hidden', 'true');
+        syncInput.setAttribute('autocomplete', 'off');
+        return syncInput;
+    }
+
+    function initInput(input) {
+        if (input.dataset.saterA11yDuet === 'replaced') {
             return null;
         }
-        try {
-            return $.datepicker.parseDate('yy-mm-dd', value);
-        } catch (e) {
-            return null;
-        }
-    }
 
-    function notifyFormValidation($input) {
-        // Municipio's js-form-validation only re-enables the submit button on
-        // change/keyup/focusout. jQuery UI Datepicker does not fire change on select.
-        $input.trigger('change');
-    }
+        var picker = document.createElement('duet-date-picker');
+        var identifier = input.id || ('sater-a11y-date-' + input.name);
+        var min = parseIsoDate(input.getAttribute('min'));
+        var max = parseIsoDate(input.getAttribute('max'));
+        var value = parseIsoDate(input.value);
 
-    function buildOptions($input) {
-        var min = parseIsoDate($input.attr('min'));
-        var max = parseIsoDate($input.attr('max'));
-
-        return {
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-            yearRange: '-100:+10',
-            showOtherMonths: true,
-            selectOtherMonths: true,
-            minDate: min,
-            maxDate: max,
-            beforeShow: function (input, inst) {
-                inst.dpDiv.addClass('sater-a11y-datepicker');
-            },
-            onSelect: function () {
-                notifyFormValidation($input);
-            },
-            onClose: function () {
-                notifyFormValidation($input);
-            }
-        };
-    }
-
-    function initInput($input) {
-        if ($input.data('saterA11yDatepicker')) {
-            return $input;
-        }
-
-        var value = $input.val();
-        var placeholder = $input.attr('placeholder') || 'yyyy-mm-dd';
-
-        $input.attr({
-            type: 'text',
-            autocomplete: 'off',
-            inputmode: 'numeric',
-            placeholder: placeholder
-        });
-
-        $input.datepicker(buildOptions($input));
+        picker.identifier = identifier;
+        picker.name = input.name;
+        picker.direction = 'left';
+        picker.firstDayOfWeek = 1;
+        picker.localization = SV_LOCALIZATION;
 
         if (value) {
-            var parsed = parseIsoDate(value);
-            if (parsed) {
-                $input.datepicker('setDate', parsed);
+            picker.value = value;
+        }
+        if (min) {
+            picker.min = min;
+        }
+        if (max) {
+            picker.max = max;
+        }
+
+        var syncInput = createSyncInput(input);
+        syncInput.value = value || input.value || '';
+
+        input.removeAttribute('id');
+        input.removeAttribute('name');
+        input.type = 'hidden';
+        input.value = '';
+        input.dataset.saterA11yDuet = 'replaced';
+        input.setAttribute('aria-hidden', 'true');
+        input.tabIndex = -1;
+
+        input.parentNode.insertBefore(picker, input);
+        input.parentNode.insertBefore(syncInput, input);
+
+        var form = input.closest('form');
+
+        function syncFromPicker() {
+            syncInput.value = picker.value || '';
+            if (form) {
+                notifyFormValidation(form);
             }
         }
 
-        $input.data('saterA11yDatepicker', true);
-        return $input;
+        picker.addEventListener('duetChange', syncFromPicker);
+        picker.addEventListener('duetClose', syncFromPicker);
+
+        return { picker: picker, syncInput: syncInput, baseMin: min };
     }
 
-    function linkFromTo($from, $to) {
-        if (!$from.length || !$to.length) {
+    function linkFromTo(fromEntry, toEntry) {
+        if (!fromEntry || !toEntry) {
             return;
         }
 
-        var baseToMinDate = parseIsoDate($to.attr('min'));
+        var fromPicker = fromEntry.picker;
+        var toPicker = toEntry.picker;
+        var baseToMin = toEntry.baseMin || '';
 
         function updateToMin() {
-            var fromDate = parseIsoDate($from.val());
-            // Only constrain "till" when "från" is a valid date; otherwise leave it open.
-            $to.datepicker('option', 'minDate', fromDate || baseToMinDate);
+            var fromDate = parseIsoDate(fromPicker.value);
+            toPicker.min = fromDate || baseToMin || '';
         }
 
-        $from.on('change input', updateToMin);
-
-        $from.datepicker('option', 'onSelect', function () {
-            updateToMin();
-            notifyFormValidation($from);
-        });
-
+        fromPicker.addEventListener('duetChange', updateToMin);
+        fromEntry.syncInput.addEventListener('change', updateToMin);
         updateToMin();
     }
 
     function initArchiveDatepickers() {
-        var $root = $('.s-archive-filter');
-        if (!$root.length) {
+        var root = document.querySelector('.s-archive-filter');
+        if (!root) {
             return;
         }
 
-        var $from = initInput($root.find('input[name="from"]'));
-        var $to = initInput($root.find('input[name="to"]'));
+        var fromInput = root.querySelector('input[name="from"]');
+        var toInput = root.querySelector('input[name="to"]');
+        var fromEntry = fromInput ? initInput(fromInput) : null;
+        var toEntry = toInput ? initInput(toInput) : null;
 
-        linkFromTo($from, $to);
+        linkFromTo(fromEntry, toEntry);
 
-        $root.find('input[name="from"], input[name="to"], input[name="s"]').each(function () {
-            if (this.value) {
-                notifyFormValidation($(this));
-            }
-        });
+        var form = root.querySelector('form');
+        if (form) {
+            root.querySelectorAll('.sater-a11y-date-sync').forEach(function (syncInput) {
+                if (syncInput.value) {
+                    notifyFormValidation(form);
+                }
+            });
+        }
     }
 
-    $(initArchiveDatepickers);
-}(jQuery));
+    // Run before Municipio Fields (styleguide) binds validation listeners.
+    document.addEventListener('DOMContentLoaded', initArchiveDatepickers, { capture: true });
+}());
