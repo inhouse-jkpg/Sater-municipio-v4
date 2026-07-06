@@ -16,6 +16,8 @@ if (!defined('ABSPATH')) {
 
 const SATER_A11Y_COMPONENT_VIEWS_DIR = __DIR__ . '/views/components';
 const SATER_A11Y_MODULARITY_VIEWS_DIR = __DIR__ . '/views/modularity';
+const SATER_A11Y_ETJANSTER_PAGE_SLUG = 'e-tjanster-och-blanketter';
+const SATER_A11Y_MI_IMAGE_FIELD_KEY = 'field_64ff2355d91bb';
 
 add_action('wp_enqueue_scripts', 'sater_a11y_enqueue_assets', 100);
 add_action('template_redirect', 'sater_a11y_ob_start', 1);
@@ -51,6 +53,15 @@ add_filter(
     10,
     1
 );
+add_filter(
+    'Modularity/Display/mod-manualinput/viewData',
+    'sater_a11y_flag_etjanster_decorative_card_images',
+    5,
+    1
+);
+add_filter('acf/validate_value/type=image', 'sater_a11y_skip_etjanster_mi_image_alt_validation', 11, 4);
+add_filter('ComponentLibrary/Component/Image/Attribute', 'sater_a11y_decorative_card_image_attributes', 10, 1);
+add_filter('ComponentLibrary/Component/Image/Alt', 'sater_a11y_decorative_card_image_alt', 10, 2);
 
 /**
  * Whether the button currently being rendered has visible text content.
@@ -190,6 +201,138 @@ function sater_a11y_field_data(array $data): array
     $data['icon']['decorative'] = true;
 
     return $data;
+}
+
+/**
+ * Whether the current request is the E-tjänster och blanketter page.
+ */
+function sater_a11y_is_etjanster_page(): bool
+{
+    return is_page(SATER_A11Y_ETJANSTER_PAGE_SLUG);
+}
+
+/**
+ * Page ID for E-tjänster och blanketter, or null if the page does not exist.
+ */
+function sater_a11y_get_etjanster_page_id(): ?int
+{
+    $page = get_page_by_path(SATER_A11Y_ETJANSTER_PAGE_SLUG);
+
+    return $page instanceof WP_Post ? (int) $page->ID : null;
+}
+
+/**
+ * Flag decorative card images on the E-tjänster page (Manual Input icons).
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function sater_a11y_flag_etjanster_decorative_card_images(array $data): array
+{
+    if (sater_a11y_is_etjanster_page()) {
+        $GLOBALS['sater_a11y_etjanster_decorative_card_images'] = true;
+    }
+
+    return $data;
+}
+
+/**
+ * Whether a Modularity module is used on the E-tjänster page.
+ */
+function sater_a11y_module_used_on_etjanster_page(int $moduleId): bool
+{
+    $pageId = sater_a11y_get_etjanster_page_id();
+
+    if ($pageId === null || $moduleId < 1) {
+        return false;
+    }
+
+    if (!class_exists(\Modularity\Helper\ModuleUsageById::class)) {
+        return false;
+    }
+
+    foreach (\Modularity\Helper\ModuleUsageById::getModuleUsageById((string) $moduleId) as $page) {
+        if ((int) ($page->post_id ?? 0) === $pageId) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Manual Input card icons on E-tjänster are decorative; titles are in the card text.
+ * Skip Municipio's media-library alt requirement when editing that module.
+ *
+ * @param bool|string $valid
+ * @param mixed $value
+ * @param array<string, mixed> $field
+ * @param string $input
+ * @return bool|string
+ */
+function sater_a11y_skip_etjanster_mi_image_alt_validation($valid, $value, $field, $input)
+{
+    if (($field['key'] ?? '') !== SATER_A11Y_MI_IMAGE_FIELD_KEY) {
+        return $valid;
+    }
+
+    $postId = isset($_POST['post_ID']) ? (int) $_POST['post_ID'] : 0;
+
+    if ($postId < 1 || !sater_a11y_module_used_on_etjanster_page($postId)) {
+        return $valid;
+    }
+
+    if ($valid !== true && is_string($valid)) {
+        return true;
+    }
+
+    return $valid;
+}
+
+/**
+ * E-tjänster card icons use alt="" (decorative). Suppress Municipio's editor-only
+ * data-a11y-error flag when explicitly marked decorative.
+ *
+ * The Attribute filter runs twice: array while building, then the rendered string.
+ *
+ * @param array<string, string>|string $attribute
+ * @return array<string, string>|string
+ */
+function sater_a11y_decorative_card_image_attributes(array|string $attribute): array|string
+{
+    if (!is_array($attribute)) {
+        if (strpos($attribute, 'data-decorative-card-image') === false) {
+            return $attribute;
+        }
+
+        $attribute = preg_replace('/\s*data-a11y-error="[^"]*"/', '', $attribute);
+
+        return (string) preg_replace('/\s*data-decorative-card-image="[^"]*"/', '', $attribute);
+    }
+
+    if (($attribute['data-decorative-card-image'] ?? '') !== 'true') {
+        return $attribute;
+    }
+
+    unset($attribute['data-a11y-error'], $attribute['data-decorative-card-image']);
+
+    return $attribute;
+}
+
+/**
+ * Force empty alt on decorative E-tjänster card icons at render time.
+ *
+ * @param string|null $alt
+ * @param array<int, string> $context
+ * @return string|null
+ */
+function sater_a11y_decorative_card_image_alt($alt, array $context): ?string
+{
+    if (!empty($GLOBALS['sater_a11y_etjanster_decorative_card_images'])) {
+        return '';
+    }
+
+    return is_string($alt) ? $alt : null;
 }
 
 function sater_a11y_should_enqueue_archive_datepicker(): bool
@@ -394,7 +537,8 @@ function sater_a11y_fix_responsive_images(array $data): array
     }
 
     // Carry over alt text before we lose the ImageInterface reference.
-    if (empty($data['alt'])) {
+    $isDecorativeCard = ($data['attributeList']['data-decorative-card-image'] ?? '') === 'true';
+    if (!$isDecorativeCard && empty($data['alt'])) {
         $data['alt'] = $src->getAltText() ?? '';
     }
 
