@@ -1,7 +1,7 @@
 
 <div class="{{$baseClass}}__image-container">
     @php
-        $decorative = !empty($GLOBALS['sater_a11y_etjanster_decorative_card_images']);
+        $decorative = !empty($GLOBALS['sater_a11y_etjanster_page_cards']);
         $alt = $decorative ? '' : (is_array($image) ? ($image['alt'] ?? null) : null);
         $attributeList = $decorative ? [
             'aria-hidden' => 'true',

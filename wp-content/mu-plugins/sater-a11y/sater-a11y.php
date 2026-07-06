@@ -55,7 +55,7 @@ add_filter(
 );
 add_filter(
     'Modularity/Display/mod-manualinput/viewData',
-    'sater_a11y_flag_etjanster_decorative_card_images',
+    'sater_a11y_flag_etjanster_page_cards',
     5,
     1
 );
@@ -222,15 +222,15 @@ function sater_a11y_get_etjanster_page_id(): ?int
 }
 
 /**
- * Flag decorative card images on the E-tjänster page (Manual Input icons).
+ * Flag E-tjänster Manual Input cards for link-grid a11y overrides (decorative images, non-heading titles).
  *
  * @param array<string, mixed> $data
  * @return array<string, mixed>
  */
-function sater_a11y_flag_etjanster_decorative_card_images(array $data): array
+function sater_a11y_flag_etjanster_page_cards(array $data): array
 {
     if (sater_a11y_is_etjanster_page()) {
-        $GLOBALS['sater_a11y_etjanster_decorative_card_images'] = true;
+        $GLOBALS['sater_a11y_etjanster_page_cards'] = true;
     }
 
     return $data;
@@ -328,7 +328,7 @@ function sater_a11y_decorative_card_image_attributes(array|string $attribute): a
  */
 function sater_a11y_decorative_card_image_alt($alt, array $context): ?string
 {
-    if (!empty($GLOBALS['sater_a11y_etjanster_decorative_card_images'])) {
+    if (!empty($GLOBALS['sater_a11y_etjanster_page_cards'])) {
         return '';
     }
 
@@ -415,6 +415,18 @@ function sater_a11y_enqueue_assets(): void
             ['styleguide-css', 'municipio-css'],
             (string) filemtime($heroCssPath)
         );
+    }
+
+    if (!is_admin() && sater_a11y_is_etjanster_page()) {
+        $etjansterCardsCss = __DIR__ . '/assets/css/etjanster-cards.css';
+        if (is_readable($etjansterCardsCss)) {
+            wp_enqueue_style(
+                'sater-a11y-etjanster-cards',
+                plugin_dir_url(__FILE__) . 'assets/css/etjanster-cards.css',
+                ['styleguide-css', 'municipio-css'],
+                (string) filemtime($etjansterCardsCss)
+            );
+        }
     }
 
     // Only enqueue the scroll script when the header is configured as sticky.

@@ -1,0 +1,6 @@
+/* E-tjänster Manual Input link cards: restore title look when h2 is replaced with span. */
+.modularity-mod-manualinput a.c-card .c-card__heading.sater-a11y-etjanster-card-title {
+    display: block;
+    text-decoration: underline;
+    color: #950024 !important;
+}
