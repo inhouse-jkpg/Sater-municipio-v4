@@ -62,6 +62,12 @@ add_filter(
 add_filter('acf/validate_value/type=image', 'sater_a11y_skip_etjanster_mi_image_alt_validation', 11, 4);
 add_filter('ComponentLibrary/Component/Image/Attribute', 'sater_a11y_decorative_card_image_attributes', 10, 1);
 add_filter('ComponentLibrary/Component/Image/Alt', 'sater_a11y_decorative_card_image_alt', 10, 2);
+add_filter(
+    'ComponentLibrary/Component/Iframe/Data',
+    'sater_a11y_youtube_iframe_data',
+    10,
+    1
+);
 
 /**
  * Whether the button currently being rendered has visible text content.
@@ -335,6 +341,38 @@ function sater_a11y_decorative_card_image_alt($alt, array $context): ?string
     return is_string($alt) ? $alt : null;
 }
 
+/**
+ * Keep YouTube video iframes out of the tab order to avoid keyboard traps.
+ *
+ * YouTube exposes focusable endscreen links inside the cross-origin iframe.
+ * Keyboard users reach the embed via skip / continue links instead.
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function sater_a11y_youtube_iframe_data(array $data): array
+{
+    if (($data['modifier'] ?? '') !== 'video') {
+        return $data;
+    }
+
+    $src = $data['attributeList']['src'] ?? $data['src'] ?? '';
+
+    if (!is_string($src) || !preg_match('#(?:youtube\.com|youtu\.be)#i', $src)) {
+        return $data;
+    }
+
+    $data['attributeList']['tabindex'] = '-1';
+
+    if (!isset($data['classList']) || !is_array($data['classList'])) {
+        $data['classList'] = [];
+    }
+
+    $data['classList'][] = 'sater-a11y-youtube-embed';
+
+    return $data;
+}
+
 function sater_a11y_should_enqueue_archive_datepicker(): bool
 {
     if (is_admin()) {
@@ -436,6 +474,31 @@ function sater_a11y_enqueue_assets(): void
             plugin_dir_url(__FILE__) . 'assets/js/header-scroll.js',
             [],
             (string) filemtime($jsPath),
+            true
+        );
+    }
+
+    if (is_admin()) {
+        return;
+    }
+
+    $youtubeCssPath = __DIR__ . '/assets/css/youtube-embed-focus.css';
+    if (is_readable($youtubeCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-youtube-embed-focus',
+            plugin_dir_url(__FILE__) . 'assets/css/youtube-embed-focus.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($youtubeCssPath)
+        );
+    }
+
+    $youtubeJsPath = __DIR__ . '/assets/js/youtube-embed-focus.js';
+    if (is_readable($youtubeJsPath)) {
+        wp_enqueue_script(
+            'sater-a11y-youtube-embed-focus',
+            plugin_dir_url(__FILE__) . 'assets/js/youtube-embed-focus.js',
+            [],
+            (string) filemtime($youtubeJsPath),
             true
         );
     }
