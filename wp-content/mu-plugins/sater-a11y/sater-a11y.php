@@ -502,6 +502,27 @@ function sater_a11y_enqueue_assets(): void
             true
         );
     }
+
+    $tableCssPath = __DIR__ . '/assets/css/table-collapse-button.css';
+    if (is_readable($tableCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-table-collapse-button',
+            plugin_dir_url(__FILE__) . 'assets/css/table-collapse-button.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($tableCssPath)
+        );
+    }
+
+    $tableJsPath = __DIR__ . '/assets/js/table-collapse-button.js';
+    if (is_readable($tableJsPath)) {
+        wp_enqueue_script(
+            'sater-a11y-table-collapse-button',
+            plugin_dir_url(__FILE__) . 'assets/js/table-collapse-button.js',
+            [],
+            (string) filemtime($tableJsPath),
+            true
+        );
+    }
 }
 
 /**
