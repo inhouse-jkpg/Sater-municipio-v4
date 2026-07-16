@@ -13,6 +13,7 @@
     var SKIP_CLASS = 'sater-a11y-youtube-skip';
     var EXIT_CLASS = 'sater-a11y-youtube-exit';
     var TARGET_CLASS = 'sater-a11y-youtube-target';
+    var MODAL_SETUP_ATTR = 'data-sater-a11y-youtube-modal-setup';
 
     function isYouTubeSrc(src) {
         return /youtube\.com|youtu\.be/i.test(src || '');
@@ -125,6 +126,65 @@
         });
     }
 
+    function getAcceptanceModal(container) {
+        return container.querySelector('dialog');
+    }
+
+    function getPreferredModalFocusTarget(dialog) {
+        if (!dialog) {
+            return null;
+        }
+
+        return dialog.querySelector('[data-close]')
+            || dialog.querySelector('.c-modal__content a[href]')
+            || dialog.querySelector('a[href], button:not([disabled])');
+    }
+
+    function focusAcceptanceModal(dialog) {
+        var target = getPreferredModalFocusTarget(dialog);
+
+        if (!target) {
+            return;
+        }
+
+        requestAnimationFrame(function () {
+            focusTarget(target);
+        });
+    }
+
+    function ensureModalFocus(container) {
+        var modal = getAcceptanceModal(container);
+
+        if (!modal || container.getAttribute(MODAL_SETUP_ATTR) === 'true') {
+            return;
+        }
+
+        container.setAttribute(MODAL_SETUP_ATTR, 'true');
+
+        modal.addEventListener('close', function () {
+            modal.dataset.saterA11yWasOpen = 'false';
+        });
+
+        var modalObserver = new MutationObserver(function () {
+            if (!modal.hasAttribute('open')) {
+                modal.dataset.saterA11yWasOpen = 'false';
+                return;
+            }
+
+            if (modal.dataset.saterA11yWasOpen === 'true') {
+                return;
+            }
+
+            modal.dataset.saterA11yWasOpen = 'true';
+            focusAcceptanceModal(modal);
+        });
+
+        modalObserver.observe(modal, {
+            attributes: true,
+            attributeFilter: ['open']
+        });
+    }
+
     function ensureSkipNavigation(container) {
         var existingTarget = container.nextElementSibling;
 
@@ -219,6 +279,7 @@
         }
 
         ensureSkipNavigation(container);
+        ensureModalFocus(container);
 
         var iframe = container.querySelector('.c-acceptance__content iframe');
 
