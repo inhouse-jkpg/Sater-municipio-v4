@@ -523,6 +523,27 @@ function sater_a11y_enqueue_assets(): void
             true
         );
     }
+
+    $galleryCssPath = __DIR__ . '/assets/css/gallery-keyboard.css';
+    if (is_readable($galleryCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-gallery-keyboard',
+            plugin_dir_url(__FILE__) . 'assets/css/gallery-keyboard.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($galleryCssPath)
+        );
+    }
+
+    $galleryJsPath = __DIR__ . '/assets/js/gallery-keyboard.js';
+    if (is_readable($galleryJsPath)) {
+        wp_enqueue_script(
+            'sater-a11y-gallery-keyboard',
+            plugin_dir_url(__FILE__) . 'assets/js/gallery-keyboard.js',
+            [],
+            (string) filemtime($galleryJsPath),
+            true
+        );
+    }
 }
 
 /**
