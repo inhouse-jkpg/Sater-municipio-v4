@@ -544,6 +544,27 @@ function sater_a11y_enqueue_assets(): void
             true
         );
     }
+
+    $navKeyboardJsPath = __DIR__ . '/assets/js/nav-keyboard.js';
+    if (is_readable($navKeyboardJsPath)) {
+        wp_enqueue_script(
+            'sater-a11y-nav-keyboard',
+            plugin_dir_url(__FILE__) . 'assets/js/nav-keyboard.js',
+            [],
+            (string) filemtime($navKeyboardJsPath),
+            true
+        );
+    }
+
+    $navKeyboardCssPath = __DIR__ . '/assets/css/nav-keyboard.css';
+    if (is_readable($navKeyboardCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-nav-keyboard',
+            plugin_dir_url(__FILE__) . 'assets/css/nav-keyboard.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($navKeyboardCssPath)
+        );
+    }
 }
 
 /**
