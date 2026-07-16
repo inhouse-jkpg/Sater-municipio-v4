@@ -40,6 +40,9 @@
                         'text' => $lang->resetFilterBtn,
                         'type' => 'basic',
                         'classList' => ['u-display--block@xs', 'u-width--100@xs'],
+                        'attributeList' => [
+                            'data-js-sater-archive-filter-reset' => ''
+                        ],
                     ])
                     @endbutton
                 </div>

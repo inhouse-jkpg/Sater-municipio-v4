@@ -153,6 +153,70 @@
         }
     }
 
+    function isLikelySkipLinkFocus(activeEl) {
+        if (!activeEl || !activeEl.tagName) {
+            return false;
+        }
+
+        var tagName = activeEl.tagName.toLowerCase();
+        if (tagName !== 'a') {
+            return false;
+        }
+
+        var className = (activeEl.className || '').toString();
+        // Skip-link in this codebase uses the `screen-reader-text` class.
+        return className.indexOf('screen-reader-text') !== -1;
+    }
+
+    function focusTarget(target) {
+        if (!target) {
+            return;
+        }
+
+        try {
+            target.focus({ preventScroll: false });
+        } catch (e) {
+            target.focus();
+        }
+
+        if (document.activeElement !== target) {
+            // Make it focusable in case styles/markup prevent default focus.
+            target.setAttribute('tabindex', '-1');
+            try {
+                target.focus({ preventScroll: false });
+            } catch (e) {
+                target.focus();
+            }
+        }
+    }
+
+    function focusArchiveResetAfterFilter() {
+        var resetEl = document.querySelector('[data-js-sater-archive-filter-reset]');
+        if (!resetEl) {
+            return;
+        }
+
+        // Only override focus when the browser focuses the skip link (or page body).
+        // This avoids stealing focus from other interactive widgets on reload.
+        var activeEl = document.activeElement;
+        if (
+            activeEl
+            && activeEl !== document.body
+            && activeEl !== document.documentElement
+            && !isLikelySkipLinkFocus(activeEl)
+        ) {
+            return;
+        }
+
+        // Defer one frame so we win over the browser's initial focus restoration.
+        requestAnimationFrame(function () {
+            focusTarget(resetEl);
+        });
+    }
+
     // Run before Municipio Fields (styleguide) binds validation listeners.
-    document.addEventListener('DOMContentLoaded', initArchiveDatepickers, { capture: true });
+    document.addEventListener('DOMContentLoaded', function () {
+        initArchiveDatepickers();
+        focusArchiveResetAfterFilter();
+    }, { capture: true });
 }());
