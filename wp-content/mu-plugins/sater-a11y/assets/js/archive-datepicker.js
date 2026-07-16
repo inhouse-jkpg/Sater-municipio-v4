@@ -190,8 +190,25 @@
         }
     }
 
+    function findArchiveResetControl(root) {
+        // Reset is rendered as a link-styled button (<a class="c-button">).
+        // Submit ("Filtrera") is a real <button type="submit">, so the form
+        // anchor is a stable selector without editing Composer-managed theme views.
+        var resetEl = root.querySelector('form a.c-button');
+        if (resetEl) {
+            return resetEl;
+        }
+
+        return root.querySelector('form a[href]');
+    }
+
     function focusArchiveResetAfterFilter() {
-        var resetEl = document.querySelector('[data-js-sater-archive-filter-reset]');
+        var root = document.querySelector('.s-archive-filter');
+        if (!root) {
+            return;
+        }
+
+        var resetEl = findArchiveResetControl(root);
         if (!resetEl) {
             return;
         }
