@@ -55,7 +55,7 @@ define( 'VAWP_PATH_APP_PORTAL',   'https://www.vizzit.se/portal/' ); // path to 
 
 define( 'VAWP_PATH_FAQ',    		    'https://www.vizzit.se/faq/' ); // path to FAQ
 define( 'VAWP_PATH_FILE_UPLOAD',    'https://upload.vizzit.se/' ); // path to upload-script // https://www.upload.vizzit.se
-define( 'VAWP_PATH_TAG',            plugin_dir_url(__FILE__) . 'assets/vizzit.services.js' ); // path to tag folder
+define( 'VAWP_PATH_TAG',            plugin_dir_url(__FILE__) . 'assets/vizzit.integration.js' ); // path to tag folder
 
 define( 'VAWP_EMAIL_SUPPORT',  		'support@vizzit.se' ); // mail address for support
 

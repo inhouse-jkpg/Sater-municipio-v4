@@ -20,20 +20,23 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
 
     var $vizzit_analytics_options = array(
       'general' => array(
-        'va_customer_id'				=> '', // the customer-id (unique identifier)
-        'va_test_mode'					=> '', // is this a test-installation?
-        'va_debug_logging'      => '', // Extended debug logging?
-        'va_webservice'					=> 'on', // allow access via webservice?
-        'va_crypt_key'          => '',  // the crypt-key
-        'va_crypt_iv'            => '', // the crypt-iv
-        'va_identity'					=> '', // identity key
-        'va_encryption'					=> '', // encryption key
-        'va_anonymize_ip'				=> '', // anonymize IP-address
-        'va_anonymize_usernames'		=> '', // anonymize Usernames - tag-variable
-        'va_append_username'			=> '', // add the username as tag-variable
-        'va_time_on_page'				=> '', // add measure time on page tag-variable
-        'va_hidden_pref_no_upload'		=> '',
-        'va_hidden_pref_no_file_delete'	=> ''
+        'va_customer_id'                => '', // the customer-id (unique identifier)
+        'va_test_mode'                  => '', // is this a test-installation?
+        'va_debug_logging'              => '', // Extended debug logging?
+        'va_webservice'                 => 'on', // allow access via webservice?
+        'va_crypt_iv'                   => '', // the crypt-iv
+        'va_identity'                   => '', // identity key
+        'va_encryption'                 => '', // encryption key
+        'va_public_key'                 => '', // public key
+        'va_private_key'                => '', // private key
+        'va_anonymize_ip'               => '', // anonymize IP-address
+        'va_anonymize_usernames'        => '', // anonymize Usernames - tag-variable
+        'va_append_username'            => '', // add the username as tag-variable
+        'va_time_on_page'               => '', // add measure time on page tag-variable
+        'va_disable_cookie_auto'        => '',
+        'va_disable_auto_integration'   => '',
+        'va_hidden_pref_no_upload'      => '',
+        'va_hidden_pref_no_file_delete' => ''
       ),
       'page_tree_structure' => array(
         'va_structure_include_all'    => 'on', // include all page types when processing the tree structure?
@@ -49,9 +52,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
         'va_structure_metadata_content_email' => '' // field name for retrieval of meta data content responsible email
       ),
       'page_display_options' => array(
-        'va_display_widget_dashboard'	=> '',
-        'va_display_widget_edit_pages'	=> '',
-        'va_display_widget_edit_posts'	=> '',
         'va_display_vds'				=> '',
         'va_display_v2'					=> '',
         'va_display_vms'				=> '',
@@ -81,21 +81,11 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
       // Register some styles/scripts etc.
       add_action( 'admin_init', 			array(&$this, 'vizzit_analytics_admin_init') );
 
-      // Add Vizzit button to admin bar
-      add_action('admin_bar_menu', array(&$this, 'vizzit_analytics_add_admin_bar_button'), 100);
-
       // Register the settings page
       if($this->is_network)
         add_action('network_admin_menu', array(&$this, 'register_settings_page'));
       else
         add_action('admin_menu', array(&$this, 'register_settings_page'));
-
-      // register Vizzit Analytics to the Dashboard
-      add_action('wp_dashboard_setup',    array(&$this, 'register_dashboard_widget' ) );
-
-      // register Vizzit Analytics to edit for pages/posts
-      // WP 3.0+
-      add_action( 'add_meta_boxes',         array(&$this, 'register_custom_box' ) );
 
       // Drop a warning on each page of the admin when Vizzit Analytics hasn't been configured
       add_action( 'admin_footer',     array(&$this, 'warning') );
@@ -114,19 +104,31 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
       add_action('admin_head', array(&$this, 'vizzit_echo_variables'));
       wp_enqueue_style( 'va_styles', $this->plugin_url . VAWP_DIR_ASSETS . 'styles.css', false, VAWP_VERSION );
       wp_enqueue_script( 'va_scripts', $this->plugin_url . VAWP_DIR_ASSETS . 'scripts.js', array( 'jquery' ), VAWP_VERSION );
-      wp_enqueue_script( 'va_overlay', $this->plugin_url . VAWP_DIR_ASSETS . 'vizzit.access.js', array('jquery'), VAWP_VERSION );
-      #wp_enqueue_script( 'va_overlay', '//www.vizzit.se/overlay/wordpress/?data1=' . $this->get_parameter_data1() . '&data2=' . $this->get_parameter_data2() . '&user=' . $this->currentUser, false, VAWP_VERSION);
     }
 
     function vizzit_echo_variables() {
+      $options = $this->get_options();
+
+      if(!$options)
+        return;
+
+      $privateKey = $options['va_private_key'];
+      if($privateKey == '')
+        return;
+
       $username = $this->currentUser;
-      $customer = $this->get_parameter_data1();
-      $pageId = $this->get_parameter_data2();
+      $pageId = $this->get_parameter_postId();
+
       echo '<script type="text/javascript">
         var $vizzit_username = "'.$username.'";
-        var $vizzit_customer = "'.$customer.'";
-        var $vizzit_pageId = "'.$pageId.'";
+        var $vizzit_page_id = "'.$pageId.'";
+        var $vizzit_private_key = "'.$privateKey.'";
         </script>';
+
+      // Add Vizzit button to admin bar
+      add_action('admin_bar_menu', array(&$this, 'vizzit_analytics_add_admin_bar_button'));
+
+      wp_enqueue_script( 'va_overlay', $this->plugin_url . VAWP_DIR_ASSETS . 'vizzit.access.js', array('jquery'), VAWP_VERSION );
     }
 
     /**
@@ -281,51 +283,22 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
       return $content;
     } // end form_table()
 
-
     /**
-     * Returns the "data1" parameter for loggin in to Vizzit Applications
+     * Returns "pageid" for current page
      */
-    function get_parameter_data1() {
-      $options = $this->get_options();
-
-      return str_replace( '+', '______', base64_encode( pack( 'H*', md5( $options[ 'va_customer_id' ] . $options[ 'va_crypt_iv' ] ) ) ) );
-    } // end get_parameter_data1()
-
-
-    /**
-     * Returns the "data2" parameter for loggin in to Vizzit Applications
-     */
-    function get_parameter_data2() {
+    function get_parameter_postId() {
       global $post;
-      $options = $this->get_options();
+
+      $postId = '';
+
       if($post !== NULL)
         $postId  = $post->ID;
-      
-      if(!isset($postId) && isset($_GET['post']))
+
       if(!isset($postId) && isset($_GET['post']))
         $postId = $_GET['post'];
 
-      if(!isset($postId))
-        $postId = 0;
-
-      return base64_encode( pack( 'H*', md5( $postId . $options[ 'va_crypt_iv' ] ) ) ); // use the pageId instead of the pageURL!
-    } // end return_parameter_data2()
-
-
-    /**
-     * Register custom box in edit for pages/posts
-     */
-    function register_custom_box() {
-      $options = $this->get_options();
-
-      if( isset( $options[ 'va_display_widget_edit_pages' ] ) && $options[ 'va_display_widget_edit_pages' ] == 'on' ) {
-        add_meta_box( 'va_widget_edit_pages', __( 'Vizzit Analytics', VAWP_LOCALE_HOOK ), array(&$this, 'custom_box_edit' ), 'page', 'side', 'high' );
-      }
-      if( isset( $options[ 'va_display_widget_edit_posts' ] ) && $options[ 'va_display_widget_edit_posts' ] == 'on' ) {
-        add_meta_box( 'va_widget_edit_posts', __( 'Vizzit Analytics', VAWP_LOCALE_HOOK ), array(&$this, 'custom_box_edit' ), 'post', 'side', 'high' );
-      }
-    } // end register_custom_box()
-
+      return $postId;
+    } // end get_parameter_postId()
 
     /**
      * Custom box in edit for pages/posts - Content
@@ -337,54 +310,9 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
 
       // Use nonce for verification
       echo '<p>';
-        // The actual fields for data entry
-        /*echo '<label for="">' . __( 'Description for this field', VAWP_LOCALE_HOOK ) . '</label>';
-        echo '<br />';*/
-
-        // if VDS is active
-        if( isset( $options[ 'va_display_vds' ] ) && $options[ 'va_display_vds' ] == 'on' ) {
-          echo '<a href="' . VAWP_PATH_APP_VDS . 'page.php?data1=' . $this->get_parameter_data1() . '&data2=' . $this->get_parameter_data2() . '&user=' . $current_user . '" title="" target="_blank">'. __( 'Vizzit This Page', VAWP_LOCALE_HOOK ) . '</a>';
-          echo '<br />';
-        }
-        // if Portal is active
-        if( isset( $options[ 'va_display_portal' ] ) && $options[ 'va_display_portal' ] == 'on' ) {
-          echo '<a href="' . VAWP_PATH_APP_PORTAL . '?data1=' . $this->get_parameter_data1() . '&user=' . $current_user . '" title="" target="_blank">'. __( 'Vizzit Portal', VAWP_LOCALE_HOOK ) . '</a>';
-        }
+       echo 'Disabled, will be removed.';
       echo '</p>';
     } // end custom_box_init()
-
-
-    /**
-     * Register the Dashboard Widget
-     */
-    function register_dashboard_widget() {
-      $options = $this->get_options();
-
-      if( isset( $options[ 'va_display_widget_dashboard' ] ) && $options[ 'va_display_widget_dashboard' ] == 'on' ) {
-        wp_add_dashboard_widget( 'va_widget_dashboard', __( 'Vizzit Analytics', VAWP_LOCALE_HOOK ), array(&$this, 'widget_dashboard' ) );
-      }
-    } // end register_dashboard_widget()
-
-
-    /**
-     * Dashboard Widget - Content
-     */
-    function widget_dashboard() {
-      $options = $this->get_options();
-      $current_user = ( $options[ 'va_anonymize_usernames' ] == 'on' ) ? md5( $this->currentUser ) : $this->currentUser; // check if needed to anonymize username
-
-      //the content of our custom widget
-      echo '<p>';
-        /*echo '<label for="">' . __( 'This widget could contain statistic as well...', VAWP_LOCALE_HOOK ) . '</label>';
-        echo '<br />';*/
-
-        // if Portal is active
-        if( isset( $options[ 'va_display_portal' ] ) && $options[ 'va_display_portal' ] == 'on' ) {
-          echo '<a href="' . VAWP_PATH_APP_PORTAL . '?data1=' . $this->get_parameter_data1() . '&user=' . $current_user . '" title="" target="_blank">'. __( 'Vizzit Portal', VAWP_LOCALE_HOOK ) . '</a>';
-        }
-      echo '</p>';
-    } // end widget_dashboard()
-
 
     /**
      * Register the admin menu
@@ -418,18 +346,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'id' => 'vizzit-settings-help-2',
             'title' => 'Vizzit Analytics Settings - Tree Structure',
             'content' => $va_help_submenu_page_1
-        ));
-      }
-
-      // chose which links to show (for editors, authors, ..) in other menus
-      $va_submenu_page_2 = add_submenu_page( $this->hook, __( 'Vizzit Analytics Settings - Display Options', VAWP_LOCALE_HOOK ), __( 'Display Options', VAWP_LOCALE_HOOK ), 'manage_options', $this->hook . '-display-options', array(&$this, 'settings_page_display_options') );
-      
-      // adding context-help to this page
-      if($va_submenu_page_2 && $screen) {
-        $screen->add_help_tab(array(
-            'id' => 'vizzit-settings-help-3',
-            'title' => 'Vizzit Analytics Settings - Display Options',
-            'content' => $va_help_submenu_page_2
         ));
       }
 
@@ -480,9 +396,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'content' => $va_help_submenu_page_1
         ));
       }
-
-      // chose which links to show (for editors, authors, ..) in other menus
-      $va_submenu_page_2 = add_submenu_page( $this->hook, __( 'Vizzit Analytics Settings - Display Options', VAWP_LOCALE_HOOK ), __( 'Display Options', VAWP_LOCALE_HOOK ), 'manage_options', $this->hook . '-display-options', array(&$this, 'settings_page_display_options') );
       
       // adding context-help to this page
       if($va_submenu_page_2 && $screen) {
@@ -525,11 +438,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
         $options = $this->set_defaults();
       }
 
-      // fetch crypt keys
-      //$crypt 	= $this->generate_crypt_keys();
-      //$key 		= $crypt[ 'key' ];
-      //$iv 		= $crypt[ 'iv' ];
-
 
       echo '<div class="wrap">';
         echo '<div class="icon32"><img src="' . $this->plugin_url . $this->vaicon32 . '" width="32" height="32" alt="va_icon" title="Vizzit Analytics" /></div>';
@@ -571,13 +479,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'desc' 		=> __( 'Grant access for Vizzit to contact the Vizzit Analytics WordPress Plugin', VAWP_LOCALE_HOOK ),
             'content' 	=> $this->form_checkbox( 'va_webservice', '' )
           );
-          #KEY
-          $rows[] = array(
-            'id'    => 'va_crypt_key',
-            'label'   => __( 'Private Key', VAWP_LOCALE_HOOK ),
-            'desc'    => __( 'Key generated from Vizzit Analytics', VAWP_LOCALE_HOOK )  . '</code>',
-            'content'   => $this->form_textinput( 'va_crypt_key' )
-          );
           #IV
           $rows[] = array(
             'id'    => 'va_crypt_iv',
@@ -598,6 +499,20 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'label' 	=> __( 'Encryption', VAWP_LOCALE_HOOK ),
             'desc' 		=> __( 'Key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . ' e.g. <code>' . "yY8lc4C2MLDkq7f042qVJSREY" . '</code>',
             'content' 	=> $this->form_textinput( 'va_encryption' )
+          );
+          # Public key
+          $rows[] = array(
+            'id'    => 'va_public_key',
+            'label'   => __( 'Public key', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Public key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . '</code>',
+            'content'   => $this->form_textinput( 'va_public_key' )
+          );
+          # Private key
+          $rows[] = array(
+            'id'    => 'va_private_key',
+            'label'   => __( 'Private key', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Private key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . '</code>',
+            'content'   => $this->form_textinput( 'va_private_key' )
           );
 
           $rows[] = array(
@@ -626,6 +541,20 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'label' 	=> __( 'Measure Time On Page', VAWP_LOCALE_HOOK ),
             'desc' 		=> __( 'Enables tracking the time the user spent on each page.', VAWP_LOCALE_HOOK ),
             'content' 	=> $this->form_checkbox( 'va_time_on_page' )
+          );
+
+          $rows[] = array(
+            'id'    => 'va_disable_cookie_auto',
+            'label'   => __( 'Disable automatic cookies', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Set cookie manually by calling <code>$vizzit.cookie.set();</code> via e.g. an onclick event on your consent button.', VAWP_LOCALE_HOOK ),
+            'content'   => $this->form_checkbox( 'va_disable_cookie_auto' )
+          );
+
+          $rows[] = array(
+            'id'    => 'va_disable_auto_integration',
+            'label'   => __( 'Disable automatic activation of javascript integration', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Activate manually by calling <code>$vizzit$.integration.run();</code> via e.g. an onclick event on your consent button.', VAWP_LOCALE_HOOK ),
+            'content'   => $this->form_checkbox( 'va_disable_auto_integration' )
           );
 
           /*
@@ -664,12 +593,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
         $options = $this->set_defaults();
       }
 
-      // fetch crypt keys
-      //$crypt  = $this->generate_crypt_keys();
-      //$key    = $crypt[ 'key' ];
-      //$iv     = $crypt[ 'iv' ];
-
-
       echo '<div class="wrap">';
         echo '<div class="icon32"><img src="' . $this->plugin_url . $this->vaicon32 . '" width="32" height="32" alt="va_icon" title="Vizzit Analytics" /></div>';
         echo "<h2>" . __( 'Vizzit Analytics General Settings', VAWP_LOCALE_HOOK ) . "</h2>";
@@ -703,13 +626,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'desc'    => __( 'Grant access for Vizzit to contact the Vizzit Analytics WordPress Plugin', VAWP_LOCALE_HOOK ),
             'content'   => $this->form_checkbox( 'va_webservice', '' )
           );
-          #KEY NETWORK
-          $rows[] = array(
-            'id'    => 'va_crypt_key',
-            'label'   => __( 'Private Key', VAWP_LOCALE_HOOK ),
-            'desc'    => __( 'Key generated from Vizzit Analytics', VAWP_LOCALE_HOOK )  . '</code>',
-            'content'   => $this->form_textinput( 'va_crypt_key' )
-          );
           #IV NETWORK
           $rows[] = array(
             'id'    => 'va_crypt_iv',
@@ -730,6 +646,21 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'label'   => __( 'Encryption', VAWP_LOCALE_HOOK ),
             'desc'    => __( 'Key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . ' e.g. <code>' . "yY8lc4C2MLDkq7f042qVJSREY" . '</code>',
             'content'   => $this->form_textinput( 'va_encryption' )
+          );
+          # Public key
+          $rows[] = array(
+            'id'    => 'va_public_key',
+            'label'   => __( 'Public key', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Public key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . '</code>',
+            'content'   => $this->form_textinput( 'va_public_key' )
+          );
+
+          # Private key
+          $rows[] = array(
+            'id'    => 'va_private_key',
+            'label'   => __( 'Private key', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Private key generated from Vizzit Analytics', VAWP_LOCALE_HOOK ) . '</code>',
+            'content'   => $this->form_textinput( 'va_private_key' )
           );
 
           $rows[] = array(
@@ -758,6 +689,20 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
             'label'   => __( 'Measure Time On Page', VAWP_LOCALE_HOOK ),
             'desc'    => __( 'Enables tracking the time the user spent on each page.', VAWP_LOCALE_HOOK ),
             'content'   => $this->form_checkbox( 'va_time_on_page' )
+          );
+
+          $rows[] = array(
+            'id'    => 'va_disable_cookie_auto',
+            'label'   => __( 'Disable automatic cookies', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Set cookie manually by calling <code>$vizzit.cookie.set();</code> via e.g. an onclick event on your consent button.', VAWP_LOCALE_HOOK ),
+            'content'   => $this->form_checkbox( 'va_disable_cookie_auto' )
+          );
+
+          $rows[] = array(
+            'id'    => 'va_disable_auto_integration',
+            'label'   => __( 'Disable automatic activation of javascript integration', VAWP_LOCALE_HOOK ),
+            'desc'    => __( 'Activate manually by calling <code>$vizzit$.integration.run();</code> via e.g. an onclick event on your consent button.', VAWP_LOCALE_HOOK ),
+            'content'   => $this->form_checkbox( 'va_disable_auto_integration' )
           );
 
           /*
@@ -933,62 +878,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
       echo '</div>';
     } // end settings_page_tree_structure()
 
-
-    /**
-     * Display options for Settings page
-     */
-    function settings_page_display_options() {
-      //must check that the user has the required capability
-      if( !current_user_can( 'manage_options' ) ) die( __( 'You cannot edit the Vizzit Analytics for WordPress options.', VAWP_LOCALE_HOOK ) );
-
-      // get options
-      $options = $this->get_options();
-
-      echo $this->msgUpdate; // show message
-      $this->msgUpdate = ''; // reset message
-
-      echo '<div class="wrap">';
-        echo '<div class="icon32"><img src="' . $this->plugin_url . $this->vaicon32 . '" width="32" height="32" alt="va_icon" title="Vizzit Analytics" /></div>';
-        echo "<h2>" . __( 'Vizzit Analytics Display Options', VAWP_LOCALE_HOOK ) . "</h2>";
-
-        echo '<p>';
-          _e( 'Settings for where ' . $this->longname . ' should be visible and accessible.', VAWP_LOCALE_HOOK );
-        echo '</p>';
-
-        ?>
-      <form action="<?php echo $this->plugin_options_url() . '-display-options'; ?>" method="post" id="vizzit-analytics-conf">
-        <input type="hidden" name="plugin" value="vizzit-analytics-for-wordpress" />
-        <input type="hidden" name="plugin-setting" value="page_display_options" />
-
-        <?php
-          $rows[] = array(
-            'id' 		=> '',
-            'label' 	=> __( 'Show Widget', VAWP_LOCALE_HOOK ),
-            'desc' 		=> __( 'Where to show the widget', VAWP_LOCALE_HOOK ),
-            'content' 	=>
-              $this->form_checkbox( 'va_display_widget_dashboard', __( 'On Dashboard', VAWP_LOCALE_HOOK ) ) . '<br />' .
-              $this->form_checkbox( 'va_display_widget_edit_pages', __( 'When editing Pages', VAWP_LOCALE_HOOK ) ) . '<br />' .
-              $this->form_checkbox( 'va_display_widget_edit_posts' , __( 'When editing Posts', VAWP_LOCALE_HOOK ) )
-          );
-          $rows[] = array(
-            'id' 		=> 'va_display_vds',
-            'label' 	=> __( 'Vizzit This Page', VAWP_LOCALE_HOOK ),
-            'desc' 		=> __( 'Show link to Vizzit This Page (on edit page/post)', VAWP_LOCALE_HOOK ),
-            'content' 	=> $this->form_checkbox( 'va_display_vds' )
-          );
-          $rows[] = array(
-            'id'    => 'va_display_portal',
-            'label'   => __( 'Vizzit Portal', VAWP_LOCALE_HOOK ),
-            'desc'    => __( 'Show link to Vizzit Portal (on dashboard and on edit/post)', VAWP_LOCALE_HOOK ),
-            'content'   => $this->form_checkbox( 'va_display_portal' )
-          );
-
-          echo $this->form_table( $rows ) . $this->form_save_button();
-        echo '</form>';
-      echo '</div>';
-    } // end settings_page_display_options()
-
-
     /**
      * Schedueling options
      */
@@ -1079,11 +968,6 @@ if( !class_exists( 'Vizzit_Analytics_Admin' ) ) {
      * Set default values for Vizzit_Analytics options - see class-variables
      */
     function set_defaults() {
-      // fetch crypt keys
-      //$crypt = $this->generate_crypt_keys();
-      //$this->vizzit_analytics_options[ 'general' ][ 'va_crypt_key' ] 	= base64_encode( $crypt[ 'key' ] );
-      //$this->vizzit_analytics_options[ 'general' ][ 'va_crypt_iv' ]		= base64_encode( $crypt[ 'iv' ] );
-
       // set the defaults based on class-variable-definition
       $options = array_merge(
         $this->vizzit_analytics_options[ 'general' ],
