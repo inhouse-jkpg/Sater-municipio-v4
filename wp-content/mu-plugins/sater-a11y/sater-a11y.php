@@ -104,7 +104,7 @@ function sater_a11y_prepend_component_views(array $viewPaths): array
 }
 
 /**
- * Override Modularity Manual Input views for accessibility fixes.
+ * Override Modularity views for accessibility fixes (Manual Input, Inlay List).
  *
  * Merged with paths from other plugins (e.g. sater-manualinput-accordion-fields).
  * Blade searches the last path first, so append the a11y views directory.
@@ -118,9 +118,25 @@ function sater_a11y_external_view_paths(array $paths): array
         return $paths;
     }
 
-    $defaultManualInputViews = MODULARITY_PATH . 'source/php/Module/ManualInput/views';
-    $existing = $paths['mod-manualinput'] ?? $defaultManualInputViews;
+    $paths['mod-manualinput'] = sater_a11y_append_modularity_view_path(
+        $paths['mod-manualinput'] ?? (MODULARITY_PATH . 'source/php/Module/ManualInput/views')
+    );
 
+    $paths['mod-inlaylist'] = sater_a11y_append_modularity_view_path(
+        $paths['mod-inlaylist'] ?? (MODULARITY_PATH . 'source/php/Module/InlayList/views')
+    );
+
+    return $paths;
+}
+
+/**
+ * Append the a11y Modularity views directory (last = searched first by Blade).
+ *
+ * @param string|array<int, string> $existing
+ * @return array<int, string>
+ */
+function sater_a11y_append_modularity_view_path(string|array $existing): array
+{
     if (!is_array($existing)) {
         $existing = [$existing];
     }
@@ -134,9 +150,8 @@ function sater_a11y_external_view_paths(array $paths): array
     ));
 
     $existing[] = SATER_A11Y_MODULARITY_VIEWS_DIR;
-    $paths['mod-manualinput'] = $existing;
 
-    return $paths;
+    return $existing;
 }
 
 /**
@@ -467,6 +482,18 @@ function sater_a11y_enqueue_assets(): void
         }
     }
 
+    if (!is_admin()) {
+        $inlaylistCss = __DIR__ . '/assets/css/inlaylist.css';
+        if (is_readable($inlaylistCss)) {
+            wp_enqueue_style(
+                'sater-a11y-inlaylist',
+                plugin_dir_url(__FILE__) . 'assets/css/inlaylist.css',
+                ['styleguide-css', 'municipio-css'],
+                (string) filemtime($inlaylistCss)
+            );
+        }
+    }
+
     // Only enqueue the scroll script when the header is configured as sticky.
     if (get_theme_mod('header_sticky') === 'sticky' && file_exists($jsPath)) {
         wp_enqueue_script(
@@ -510,6 +537,16 @@ function sater_a11y_enqueue_assets(): void
             plugin_dir_url(__FILE__) . 'assets/css/table-collapse-button.css',
             ['styleguide-css', 'municipio-css'],
             (string) filemtime($tableCssPath)
+        );
+    }
+
+    $tableColumnsCssPath = __DIR__ . '/assets/css/table-columns.css';
+    if (is_readable($tableColumnsCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-table-columns',
+            plugin_dir_url(__FILE__) . 'assets/css/table-columns.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($tableColumnsCssPath)
         );
     }
 
@@ -563,6 +600,16 @@ function sater_a11y_enqueue_assets(): void
             plugin_dir_url(__FILE__) . 'assets/css/nav-keyboard.css',
             ['styleguide-css', 'municipio-css'],
             (string) filemtime($navKeyboardCssPath)
+        );
+    }
+
+    $contactBannerFooterCssPath = __DIR__ . '/assets/css/contact-banner-footer.css';
+    if (is_readable($contactBannerFooterCssPath)) {
+        wp_enqueue_style(
+            'sater-a11y-contact-banner-footer',
+            plugin_dir_url(__FILE__) . 'assets/css/contact-banner-footer.css',
+            ['styleguide-css', 'municipio-css'],
+            (string) filemtime($contactBannerFooterCssPath)
         );
     }
 }

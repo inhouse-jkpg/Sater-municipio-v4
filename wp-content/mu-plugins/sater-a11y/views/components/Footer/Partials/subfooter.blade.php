@@ -6,7 +6,7 @@
                     @logotype([
                         'id' => 'footer-subfooter-logotype',
                         'src'=> $subfooterLogotype,
-                        'alt' => 'Säters kommun logotyp, till startsidan',
+                        'alt' => 'Säters kommun logotyp, gå till startsidan',
                         'classList' => [$baseClass . '__subfooter__logotype']
                     ])
                     @endlogotype

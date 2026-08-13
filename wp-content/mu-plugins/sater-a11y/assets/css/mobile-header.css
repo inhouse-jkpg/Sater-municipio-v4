@@ -38,8 +38,18 @@
         padding-bottom: calc(var(--base, 8px) * 0.5);
     }
 
+    /* Cap the logo link so Meny stays inside the viewport at zoom. */
+    #header-logotype {
+        max-width: 60%;
+        min-width: 0;
+    }
+
     #header-logotype .c-logotype__image {
         width: 60%;
+    }
+
+    .mobile-menu-trigger {
+        flex-shrink: 0;
     }
 
     /* Animate hide/show triggered by header-scroll.js. */

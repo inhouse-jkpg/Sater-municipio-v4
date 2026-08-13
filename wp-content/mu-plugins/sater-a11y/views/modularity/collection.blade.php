@@ -28,9 +28,10 @@
                         'justifyContent' => 'space-between'
                     ])
                         @typography([
-                            'element' => 'h2',
+                            'element' => !empty($input['link']) ? 'span' : 'h2',
                             'variant' => 'h3',
-                            'id'      => $input['id']
+                            'id'      => $input['id'],
+                            'classList' => !empty($input['link']) ? ['sater-a11y-inlaylist-item-title'] : [],
                         ])
                             {{ $input['title'] }}
                         @endtypography

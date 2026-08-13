@@ -12,7 +12,7 @@
                             @logotype([
                               'id' => 'footer-logotype',
                               'src'=> $logotype,
-                              'alt' => 'Säters kommun logotyp, till startsidan',
+                              'alt' => 'Säters kommun logotyp, gå till startsidan',
                               'classList' => ['site-footer__logo', 'c-footer__logotype'],
                               'context' => 'footer.logotype'
                             ])
@@ -60,7 +60,7 @@
         <div class="g-divider g-divider--lg"></div>
         <div class="{{ $baseClass }}__body">
             <a href="{{ $logotypeHref }}" class="{{ $baseClass }}__home-link">
-                <img id="logotype" src="{{ $logotype }}" alt="Säters kommun logotyp, till startsidan">
+                <img id="logotype" src="{{ $logotype }}" alt="Säters kommun logotyp, gå till startsidan">
             </a>
             <div class="{{ $baseClass }}__nav">
                 @if ($slot)
