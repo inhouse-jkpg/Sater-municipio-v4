@@ -1,0 +1,31 @@
+/**
+ * Säter A11y: Contact banner footer link labels
+ *
+ * Styleguide buttons use nowrap + ellipsis + fixed height, which truncates
+ * long CTA labels (e.g. "Hitta till Rådhuset med Google Maps") on small screens.
+ * Allow the label to wrap instead.
+ */
+
+.c-contact-banner .c-contact-banner__footer .c-button,
+.c-contact-banner .c-card__footer .c-button {
+    height: auto;
+    min-height: calc(var(--base, 8px) * 6.5);
+    max-width: 100%;
+    white-space: normal;
+}
+
+.c-contact-banner .c-contact-banner__footer .c-button__label,
+.c-contact-banner .c-card__footer .c-button__label {
+    height: auto;
+    min-width: 0;
+    align-items: flex-start;
+}
+
+.c-contact-banner .c-contact-banner__footer .c-button__label-text,
+.c-contact-banner .c-card__footer .c-button__label-text {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
