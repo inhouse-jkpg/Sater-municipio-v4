@@ -1,6 +1,14 @@
 {{-- Accordion Item --}}
 <{{$sectionElement}} class="{{$class}}" {!! $attribute !!}">
-    <{{$sectionHeadingElement}} class="{{$baseClass}}__button" aria-label="{{$ariaLabel}}" aria-controls="{{ $baseClass }}__aria-{{ $id }}" aria-expanded="false" js-expand-button href="#{{$id}}">
+    <{{$sectionHeadingElement}}
+        class="{{$baseClass}}__button"
+        @if($sectionHeadingElement === 'button')
+            type="button"
+        @endif
+        aria-controls="{{ $baseClass }}__aria-{{ $id }}"
+        aria-expanded="false"
+        js-expand-button
+    >
         <div class="{{$baseClass}}__button-wrapper {{$headingType}} " tabindex="-1">
             
             {!!$beforeHeading!!}
