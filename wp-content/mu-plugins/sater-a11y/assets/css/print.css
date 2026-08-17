@@ -1,0 +1,72 @@
+/**
+ * Print accessibility overrides (WCAG EN 5.4).
+ *
+ * Municipio print styles force color:#000 on all elements while preserving
+ * background colors (color-adjust: exact), which breaks contrast on dark bars
+ * such as module panel headers and the site header.
+ */
+
+@media print {
+    /* Undo Municipio's blanket black text; let themed colors cascade. */
+    *,
+    *::before,
+    *::after {
+        color: inherit !important;
+    }
+
+    body,
+    .site-wrapper {
+        color: #000 !important;
+    }
+
+    a,
+    a:visited {
+        color: #2e4453 !important;
+    }
+
+    /* Panel module headers lose their background in print — use dark text. */
+    .c-card--panel .c-card__header,
+    .c-card--panel .c-card__header * {
+        background: none !important;
+        color: #000 !important;
+    }
+
+    /* Regions that keep a dark or saturated background when printing. */
+    .site-header,
+    .site-header *,
+    .c-nav-h,
+    .c-nav-h *,
+    [class*="u-color__bg--primary"],
+    [class*="u-color__bg--primary"] *,
+    [class*="u-color__bg--secondary"],
+    [class*="u-color__bg--secondary"] *,
+    [class*="u-color__bg--darkest"],
+    [class*="u-color__bg--darkest"] *,
+    [class*="u-color__bg--darker"],
+    [class*="u-color__bg--darker"] *,
+    [class*="u-color__bg--dark"],
+    [class*="u-color__bg--dark"] *,
+    [class*="u-color__bg--info"],
+    [class*="u-color__bg--info"] *,
+    [class*="u-color__text--primary-contrasting"],
+    [class*="u-color__text--secondary-contrasting"],
+    [class*="u-color__text--white"] {
+        color: #fff !important;
+    }
+
+    /* Light backgrounds need dark text for contrast. */
+    [class*="u-color__bg--warning"],
+    [class*="u-color__bg--warning"] *,
+    [class*="u-color__bg--success"],
+    [class*="u-color__bg--success"] *,
+    [class*="u-color__bg--light"],
+    [class*="u-color__bg--light"] *,
+    [class*="u-color__bg--lighter"],
+    [class*="u-color__bg--lighter"] *,
+    [class*="u-color__bg--lightest"],
+    [class*="u-color__bg--lightest"] *,
+    [class*="u-color__bg--default"],
+    [class*="u-color__bg--default"] * {
+        color: #000 !important;
+    }
+}
