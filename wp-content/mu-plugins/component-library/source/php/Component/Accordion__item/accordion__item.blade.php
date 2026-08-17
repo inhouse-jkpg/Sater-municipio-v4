@@ -1,14 +1,6 @@
 {{-- Accordion Item --}}
 <{{$sectionElement}} class="{{$class}}" {!! $attribute !!}">
-    <{{$sectionHeadingElement}}
-        class="{{$baseClass}}__button"
-        @if($sectionHeadingElement === 'button')
-            type="button"
-        @endif
-        aria-controls="{{ $baseClass }}__aria-{{ $id }}"
-        aria-expanded="false"
-        js-expand-button
-    >
+    <{{$sectionHeadingElement}} class="{{$baseClass}}__button" aria-label="{{$ariaLabel}}" aria-controls="{{ $baseClass }}__aria-{{ $id }}" aria-expanded="false" js-expand-button href="#{{$id}}">
         <div class="{{$baseClass}}__button-wrapper {{$headingType}} " tabindex="-1">
             
             {!!$beforeHeading!!}
@@ -35,7 +27,7 @@
 
             {!!$afterHeading!!}
 
-            @icon(['icon' => $icon, 'size' => 'md', 'decorative' => true, 'classList' => [$baseClass . '__icon', $baseClass . '__icon--' . $icon]])
+            @icon(['icon' => $icon, 'size' => 'md', 'classList' => [$baseClass . '__icon', $baseClass . '__icon--' . $icon]])
             @endicon
         </div>
 

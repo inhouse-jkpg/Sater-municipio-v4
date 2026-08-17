@@ -21,7 +21,7 @@ const SATER_A11Y_MI_IMAGE_FIELD_KEY = 'field_64ff2355d91bb';
 
 add_action('wp_enqueue_scripts', 'sater_a11y_enqueue_assets', 100);
 add_action('template_redirect', 'sater_a11y_ob_start', 1);
-add_filter('ComponentLibrary/ViewPaths', 'sater_a11y_prepend_component_views', 1);
+add_filter('ComponentLibrary/ViewPaths', 'sater_a11y_prepend_component_views', 5);
 add_filter('/Modularity/externalViewPath', 'sater_a11y_external_view_paths', 20, 1);
 add_filter(
     'ComponentLibrary/Component/Image/Data',
