@@ -492,6 +492,16 @@ function sater_a11y_enqueue_assets(): void
                 (string) filemtime($inlaylistCss)
             );
         }
+
+        $printCss = __DIR__ . '/assets/css/print.css';
+        if (is_readable($printCss)) {
+            wp_enqueue_style(
+                'sater-a11y-print',
+                plugin_dir_url(__FILE__) . 'assets/css/print.css',
+                ['styleguide-css', 'municipio-css'],
+                (string) filemtime($printCss)
+            );
+        }
     }
 
     // Only enqueue the scroll script when the header is configured as sticky.

@@ -7,9 +7,12 @@
     *,
     *:before,
     *:after {
-        color: #000 !important; // Black prints faster: h5bp.com/s
         text-shadow: none !important;
         box-shadow: none !important;
+    }
+
+    body {
+        color: #000;
     }
 
     // Typography
