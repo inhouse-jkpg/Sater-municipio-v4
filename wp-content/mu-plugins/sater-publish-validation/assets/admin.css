@@ -1,0 +1,87 @@
+.sater-pv {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sater-pv[hidden],
+.sater-pv [hidden] {
+  display: none !important;
+}
+
+.sater-pv__continue {
+  display: none !important;
+}
+
+.sater-pv--can-publish .sater-pv__continue {
+  display: inline-block !important;
+}
+
+.sater-pv__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.sater-pv__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.sater-pv__title {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  color: #1d2327;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.sater-pv__intro,
+.sater-pv__warnings-title,
+.sater-pv__request-error {
+  margin: 0 0 0.75rem;
+}
+
+.sater-pv__errors,
+.sater-pv__warnings {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.sater-pv__errors li,
+.sater-pv__warnings li {
+  margin: 0 0 0.4rem;
+}
+
+.sater-pv__errors {
+  color: #8a2424;
+}
+
+.sater-pv__warnings-title {
+  font-weight: 600;
+}
+
+.sater-pv__request-error {
+  color: #8a2424;
+}
+
+.sater-pv__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+body.sater-pv-open {
+  overflow: hidden;
+}
