@@ -9,6 +9,9 @@ final class ManualInputOutline
     public const POST_TYPE = 'mod-manualinput';
     public const REPEATER_KEY = 'field_64ff22b2d91b7';
     public const CONTENT_KEY = 'field_64ff231ed91b9';
+    public const TITLE_KEY = 'field_64ff22fdd91b8';
+    public const LINK_KEY = 'field_64ff232ad91ba';
+    public const LINK_TEXT_KEY = 'field_65002bce6d459';
     private const MAX_MODULES = 50;
 
     /**
@@ -30,6 +33,30 @@ final class ManualInputOutline
         }
 
         return self::htmlForPageModules($postId);
+    }
+
+    /**
+     * Link labels from Manual Input rows that actually have a URL.
+     *
+     * @param array<string, mixed>|null $acf
+     * @return array<int, string>
+     */
+    public static function linkLabelsForPost(int $postId, string $postType, ?array $acf = null): array
+    {
+        if ($postType === self::POST_TYPE) {
+            return self::linkLabelsForModule($postId, $acf);
+        }
+
+        if ($postId < 1) {
+            return [];
+        }
+
+        $labels = [];
+        foreach (self::manualInputIdsOnPage($postId) as $moduleId) {
+            $labels = array_merge($labels, self::linkLabelsForModule($moduleId, null));
+        }
+
+        return $labels;
     }
 
     /**
@@ -143,6 +170,69 @@ final class ManualInputOutline
         $hidden = $module['hidden'];
 
         return $hidden === true || $hidden === 1 || $hidden === '1' || $hidden === 'true';
+    }
+
+    /**
+     * @param array<string, mixed>|null $acf
+     * @return array<int, string>
+     */
+    private static function linkLabelsForModule(int $moduleId, ?array $acf): array
+    {
+        $labels = [];
+
+        foreach (self::inputRows($moduleId, $acf) as $row) {
+            $link = self::rowString($row, 'link', self::LINK_KEY);
+            if ($link === '') {
+                continue;
+            }
+
+            $title = self::rowString($row, 'title', self::TITLE_KEY);
+            if ($title !== '') {
+                $labels[] = $title;
+            }
+
+            $linkText = self::rowString($row, 'link_text', self::LINK_TEXT_KEY);
+            if ($linkText !== '') {
+                $labels[] = $linkText;
+            }
+        }
+
+        return $labels;
+    }
+
+    /**
+     * @param array<string, mixed>|null $acf
+     * @return array<int, array<string, mixed>>
+     */
+    private static function inputRows(int $moduleId, ?array $acf): array
+    {
+        if (is_array($acf) && $acf !== []) {
+            $repeater = $acf[self::REPEATER_KEY] ?? $acf['manual_inputs'] ?? null;
+            if (is_array($repeater)) {
+                return array_values(array_filter($repeater, 'is_array'));
+            }
+        }
+
+        if ($moduleId < 1 || !function_exists('get_field')) {
+            return [];
+        }
+
+        $rows = get_field('manual_inputs', $moduleId);
+
+        return is_array($rows) ? array_values(array_filter($rows, 'is_array')) : [];
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     */
+    private static function rowString(array $row, string $name, string $key): string
+    {
+        $value = $row[$key] ?? $row[$name] ?? '';
+        if (!is_string($value) && !is_numeric($value)) {
+            return '';
+        }
+
+        return trim((string) wp_unslash((string) $value));
     }
 
     /**

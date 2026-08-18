@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Säter Publiceringsvalidering
- * Description: PoC som spärrar publicering när sidtitel, alt-texter eller rubrikstruktur i brödtext och manuell inmatning bryter mot riktlinjerna.
+ * Description: Publiceringsgrind för redaktörer: titel, rubrikstruktur (även manuell inmatning), alt-text och otydliga länktexter. Se README.md i pluginmappen.
  * Version: 1.0.0
  * Author: Säter kommun
  * License: MIT
@@ -26,6 +26,7 @@ require_once __DIR__ . '/src/Engine.php';
 require_once __DIR__ . '/src/Rules/TitleLengthRule.php';
 require_once __DIR__ . '/src/Rules/HeadingStructureRule.php';
 require_once __DIR__ . '/src/Rules/ImageAltRule.php';
+require_once __DIR__ . '/src/Rules/VagueLinkTextRule.php';
 
 add_action('init', 'sater_publish_validation_boot');
 
@@ -95,6 +96,7 @@ function sater_publish_validation_rules(): array
         ),
         new \Sater\PublishValidation\Rules\HeadingStructureRule(),
         new \Sater\PublishValidation\Rules\ImageAltRule(),
+        new \Sater\PublishValidation\Rules\VagueLinkTextRule(),
     ];
 
     /**
@@ -357,14 +359,14 @@ function sater_publish_validation_enqueue_admin_assets(string $hook): void
         $handle,
         $baseUrl . 'assets/admin.css',
         [],
-        '1.0.3'
+        '1.0.4'
     );
 
     wp_enqueue_script(
         $handle,
         $baseUrl . 'assets/admin.js',
         [],
-        '1.0.3',
+        '1.0.4',
         true
     );
 

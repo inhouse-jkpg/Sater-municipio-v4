@@ -288,6 +288,8 @@ wp-content/mu-plugins/sater-my-feature/
 
 Site-specific code lives in `wp-content/mu-plugins/sater-*` (e.g. `sater-internal-link-picker`, `sater-mediaflow-video-modularity`, `sater-latest-events-modularity`). These are committed to git and deployed normally.
 
+**Säter Publiceringsvalidering** (`sater-publish-validation`) is the publish gate for editors: it blocks or warns on empty/short titles, heading outline issues (including Manual Input modules), missing image alt text, and vague link texts such as "klicka här". See [wp-content/mu-plugins/sater-publish-validation/README.md](wp-content/mu-plugins/sater-publish-validation/README.md).
+
 Custom **Modularity modules** can also be mu-plugins: register a module class extending `\Modularity\Module` in the plugin's main file, same as a regular plugin module.
 
 ### Server-only overrides (`local_`)
