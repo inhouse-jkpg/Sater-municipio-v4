@@ -17,8 +17,9 @@
                 @endforeach
             @else
             @typography([
-                'element' => 'h3',
-                'variant' => 'h4'
+                'element' => 'span',
+                'variant' => 'h4',
+                'useHeadingsContext' => false
             ])
                 {!! $heading !!}
             @endtypography

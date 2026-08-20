@@ -75,6 +75,8 @@ add_filter(
 class Sater_A11y_Control_Label_State
 {
     public static bool $hasVisibleText = false;
+
+    public static bool $hasExplicitAriaLabel = false;
 }
 
 /**
@@ -181,6 +183,7 @@ function sater_a11y_icon_data(array $data): array
 function sater_a11y_button_data(array $data): array
 {
     Sater_A11y_Control_Label_State::$hasVisibleText = !empty($data['text']);
+    Sater_A11y_Control_Label_State::$hasExplicitAriaLabel = !empty($data['ariaLabel']);
 
     return $data;
 }
@@ -197,6 +200,10 @@ function sater_a11y_button_data(array $data): array
 function sater_a11y_button_attribute(array|string $attribute): array|string
 {
     if (!is_array($attribute) || !Sater_A11y_Control_Label_State::$hasVisibleText) {
+        return $attribute;
+    }
+
+    if (Sater_A11y_Control_Label_State::$hasExplicitAriaLabel) {
         return $attribute;
     }
 
