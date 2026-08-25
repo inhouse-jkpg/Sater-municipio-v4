@@ -6,7 +6,7 @@
  * Where event dates are stored:
  * - Post type: events (archive slug: evenemang). ACF group "Evenemang" (local_sater-custom-types/source/acf-export/evenemang.json).
  * - Meta keys: start_datum, slut_datum in wp_postmeta. Format: Y-m-d H:i (e.g. 2026-02-05 13:00).
- * - Single-event display: theme Singular controller + views/v3/templates/single.blade.php (Startdatum/Slutdatum cards).
+ * - Single-event display: sater-event-sidebar mu-plugin (Startdatum/Slutdatum/Plats/Pris/Arrangör cards).
  * Version: 1.3.0
  * Author: Jovica Bumbulovic
  */
