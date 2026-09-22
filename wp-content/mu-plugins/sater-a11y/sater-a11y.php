@@ -629,6 +629,65 @@ function sater_a11y_enqueue_assets(): void
             (string) filemtime($contactBannerFooterCssPath)
         );
     }
+
+    sater_a11y_enqueue_cookie_modal_keyboard();
+}
+
+/**
+ * Keyboard/focus fixes for the Cookies and Content Security Policy modal.
+ */
+function sater_a11y_enqueue_cookie_modal_keyboard(): void
+{
+    if (!function_exists('get_cacsp_options') && !function_exists('cacsp_option_actived')) {
+        return;
+    }
+
+    $jsPath = __DIR__ . '/assets/js/cookie-modal-keyboard.js';
+    if (is_readable($jsPath)) {
+        wp_enqueue_script(
+            'sater-a11y-cookie-modal-keyboard',
+            plugin_dir_url(__FILE__) . 'assets/js/cookie-modal-keyboard.js',
+            [],
+            (string) filemtime($jsPath),
+            true
+        );
+    }
+
+    // Print CSS late in <head> so it wins over styleguide *:focus-visible
+    // (white box-shadow) and CACSP outline:none on toggle links.
+    add_action('wp_head', 'sater_a11y_cookie_modal_focus_css', 99999);
+    add_action('login_head', 'sater_a11y_cookie_modal_focus_css', 99999);
+}
+
+/**
+ * Blue focus ring for CACSP modal controls (overrides white Municipio ring).
+ */
+function sater_a11y_cookie_modal_focus_css(): void
+{
+    echo '<style id="sater-a11y-cookie-modal-focus">'
+        . '.modal-cacsp-position a:focus-visible,'
+        . '.modal-cacsp-position a:focus,'
+        . '.modal-cacsp-position .modal-cacsp-btn:focus-visible,'
+        . '.modal-cacsp-position .modal-cacsp-btn:focus,'
+        . '.modal-cacsp-position .modal-cacsp-box-close:focus-visible,'
+        . '.modal-cacsp-position .modal-cacsp-box-close:focus,'
+        . '.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings'
+        . ' .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus-visible,'
+        . '.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings'
+        . ' .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus{'
+        . 'outline:3px solid #4d90fe!important;'
+        . 'outline-offset:2px!important;'
+        . 'box-shadow:none!important;'
+        . '-webkit-box-shadow:none!important;'
+        . '}'
+        . '.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings'
+        . ' .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus-visible *,'
+        . '.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings'
+        . ' .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus *{'
+        . 'outline:none!important;'
+        . 'box-shadow:none!important;'
+        . '}'
+        . '</style>' . "\n";
 }
 
 /**
