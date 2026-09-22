@@ -1,0 +1,25 @@
+/**
+ * Fallback stylesheet (also printed inline via wp_head for cascade priority).
+ * Municipio *:focus-visible uses a white box-shadow; CACSP removes the outline
+ * on toggle <a>s, leaving only white. Force blue outline, kill white shadow.
+ */
+
+.modal-cacsp-position a:focus-visible,
+.modal-cacsp-position a:focus,
+.modal-cacsp-position .modal-cacsp-btn:focus-visible,
+.modal-cacsp-position .modal-cacsp-btn:focus,
+.modal-cacsp-position .modal-cacsp-box-close:focus-visible,
+.modal-cacsp-position .modal-cacsp-box-close:focus,
+.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus-visible,
+.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus {
+    outline: 3px solid #4d90fe !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus-visible *,
+.modal-cacsp-position .modal-cacsp-box.modal-cacsp-box-settings .modal-cacsp-box-settings-list ul li a.modal-cacsp-toggle-switch:focus * {
+    outline: none !important;
+    box-shadow: none !important;
+}
