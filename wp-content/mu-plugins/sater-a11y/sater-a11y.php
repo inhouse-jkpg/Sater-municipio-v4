@@ -68,6 +68,11 @@ add_filter(
     10,
     1
 );
+add_filter(
+    'Municipio/Accessibility/Items',
+    'sater_a11y_print_accessibility_item_as_button',
+    20
+);
 
 /**
  * Whether the button currently being rendered has visible text content.
@@ -186,6 +191,32 @@ function sater_a11y_button_data(array $data): array
     Sater_A11y_Control_Label_State::$hasExplicitAriaLabel = !empty($data['ariaLabel']);
 
     return $data;
+}
+
+/**
+ * Render the accessibility "Print" control as a real button, not a fake link.
+ *
+ * Municipio passes href="#" with window.print() for this action. The Button
+ * component then emits an <a>, which is incorrect semantics for a function.
+ * Runs after PdfGenerator (priority 10) so PDF-replaced print items are left alone.
+ *
+ * @param array<string, mixed> $items
+ * @return array<string, mixed>
+ */
+function sater_a11y_print_accessibility_item_as_button(array $items): array
+{
+    if (!isset($items['print']) || !is_array($items['print'])) {
+        return $items;
+    }
+
+    $script = $items['print']['script'] ?? '';
+    if (!is_string($script) || !str_contains($script, 'window.print()')) {
+        return $items;
+    }
+
+    $items['print']['href'] = false;
+
+    return $items;
 }
 
 /**
