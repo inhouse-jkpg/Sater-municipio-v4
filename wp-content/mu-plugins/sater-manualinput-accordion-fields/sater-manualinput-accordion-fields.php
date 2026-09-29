@@ -128,12 +128,15 @@ function sater_manualinput_accordion_card_modifier(array $modifiers, array $cont
         }
     }
 
-    if ($themeMod !== 'none' && !in_array($themeMod, $modifiers, true)) {
-        $modifiers[] = $themeMod;
-    }
+    // Keep title as plain black text (not c-card--panel / E-tjänster maroon header).
+    // Accordion row buttons get the red style from accordion.css.
+    $modifiers = array_values(array_filter(
+        $modifiers,
+        static fn(string $mod): bool => $mod !== 'panel'
+    ));
 
-    if (!in_array('panel', $modifiers, true)) {
-        $modifiers[] = 'panel';
+    if ($themeMod !== 'none' && $themeMod !== 'panel' && !in_array($themeMod, $modifiers, true)) {
+        $modifiers[] = $themeMod;
     }
 
     return $modifiers;
