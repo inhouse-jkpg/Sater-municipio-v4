@@ -17,7 +17,7 @@ Extends Modularity **Manuell inmatning** (`mod-manualinput`) so **Visa som → A
 
 ## Frontend styling
 
-Accordion modules use the same Blade markup as **Inlägg → Expandable list** (`module.posts.expandablelist` card context, `prepareAccordion`, `data-js-item-id="manual-{moduleId}-{index}"`). Theme customizer **Expandable List** modifier applies the same red/header styling as Posts manual input.
+Accordion modules use the same Blade markup as **Inlägg → Expandable list** (`module.posts.expandablelist` card context, `prepareAccordion`, `data-js-item-id="manual-{moduleId}-{index}"`). Module title stays plain (black on white); accordion row buttons use the red FAQ styling. Do not apply `c-card--panel` here — that maroon header bar is for modules like E-tjänster.
 
 ## Performance
 

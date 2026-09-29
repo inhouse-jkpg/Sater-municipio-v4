@@ -11,6 +11,7 @@
 }
 
 .c-accordion.sater-miaf-accordion {
+	margin-top: 1rem;
 	padding-top: unset !important;
 	padding-bottom: unset !important;
 }
