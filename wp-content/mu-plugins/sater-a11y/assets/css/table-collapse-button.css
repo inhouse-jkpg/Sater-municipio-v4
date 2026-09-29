@@ -1,0 +1,5 @@
+.c-table__collapse-button:focus-visible {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+    border-radius: 2px;
+}

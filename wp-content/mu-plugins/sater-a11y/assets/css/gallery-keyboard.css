@@ -1,0 +1,31 @@
+.c-gallery [data-open][data-large-img] {
+    cursor: pointer;
+}
+
+.c-gallery [data-open][data-large-img]:focus-visible {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+/* Keep gallery modal nav inside the image bounds. */
+.c-modal.c-modal--gallery .c-modal__content {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+.c-modal--gallery .c-modal__prev,
+.c-modal--gallery .c-modal__next {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+}
+
+.c-modal--gallery .c-modal__prev {
+    left: calc(var(--base, 8px) * 1);
+}
+
+.c-modal--gallery .c-modal__next {
+    right: calc(var(--base, 8px) * 1);
+}

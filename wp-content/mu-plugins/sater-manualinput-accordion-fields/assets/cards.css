@@ -1,0 +1,31 @@
+/* Manual input cards: icon left, text right on small screens. */
+@media (max-width: 767px) {
+    .modularity-mod-manualinput .c-card.c-card--has-image {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: calc(var(--base, 8px) * 2);
+    }
+
+    .modularity-mod-manualinput .c-card__image-container {
+        --sater-miaf-icon-size: clamp(
+            calc(var(--base, 8px) * 8),
+            20vw,
+            calc(var(--base, 8px) * 10)
+        );
+        flex: 0 0 var(--sater-miaf-icon-size);
+        width: var(--sater-miaf-icon-size);
+        margin-inline: 0;
+        aspect-ratio: 1 / 1;
+    }
+
+    .modularity-mod-manualinput .c-card[class*="c-card--ratio-"] .c-card__image-container {
+        aspect-ratio: 1 / 1;
+    }
+
+    .modularity-mod-manualinput .c-card__body {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-block: calc(var(--base, 8px) * 1);
+    }
+}

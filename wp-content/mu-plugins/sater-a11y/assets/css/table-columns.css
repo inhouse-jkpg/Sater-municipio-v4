@@ -1,0 +1,26 @@
+/**
+ * Multidimensional tables: keep the sticky first column from crowding
+ * remaining columns on narrow layouts (small screens, tight columns, zoom).
+ * CSS cannot target browser zoom alone; container width is the proxy.
+ */
+.c-table--multidimensional {
+    container-type: inline-size;
+    container-name: sater-table;
+}
+
+@container sater-table (max-width: 36rem) {
+    .c-table__column-0 {
+        max-width: 50%;
+        min-width: 0;
+    }
+
+    .c-table__column:not(.c-table__column-0) {
+        min-width: 10rem;
+    }
+
+    .c-table__column-0 .c-table__column-content {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        hyphens: auto;
+    }
+}

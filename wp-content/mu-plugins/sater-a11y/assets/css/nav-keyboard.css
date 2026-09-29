@@ -1,0 +1,31 @@
+/**
+ * Keep keyboard focus rings visible in tight vertical menus.
+ *
+ * Municipio's default focus style uses a thick outer outline + white ring
+ * that extends outside the control. Sidebar / drawer items sit flush to the
+ * panel edge and against each other, so that ring gets clipped.
+ */
+.s-nav-sidebar,
+.c-nav--sidebar,
+#menu-mobile,
+#drawer-menu,
+.c-drawer .c-nav {
+    overflow: visible;
+}
+
+.s-nav-sidebar .c-nav__link:focus-visible,
+.s-nav-sidebar .c-nav__toggle:focus-visible,
+.c-nav--sidebar .c-nav__link:focus-visible,
+.c-nav--sidebar .c-nav__toggle:focus-visible,
+#menu-mobile .c-nav__link:focus-visible,
+#menu-mobile .c-nav__toggle:focus-visible,
+#drawer-menu .c-nav__link:focus-visible,
+#drawer-menu .c-nav__toggle:focus-visible,
+.c-drawer .c-nav .c-nav__link:focus-visible,
+.c-drawer .c-nav .c-nav__toggle:focus-visible {
+    position: relative;
+    z-index: 2;
+    outline: thick solid var(--color-focus-outline, #4d90fe);
+    outline-offset: calc(var(--base, 8px) * -0.5);
+    box-shadow: inset 0 0 0 3px var(--color-white, #ffffff);
+}

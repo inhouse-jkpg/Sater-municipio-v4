@@ -1,0 +1,57 @@
+{{-- Accordion Item --}}
+<{{$sectionElement}} class="{{$class}}" {!! $attribute !!}">
+    <button
+        class="{{$baseClass}}__button"
+        type="button"
+        aria-controls="{{ $baseClass }}__aria-{{ $id }}"
+        aria-expanded="false"
+        js-expand-button
+    >
+        <div class="{{$baseClass}}__button-wrapper {{$headingType}} " tabindex="-1">
+            
+            {!!$beforeHeading!!}
+            
+            @if (is_array($heading))
+                @foreach($heading as $headingItem)
+                    <span class="{{$baseClass}}__button-column">{{$headingItem}}</span>
+                @endforeach
+            @else
+            @typography([
+                'element' => 'span',
+                'variant' => 'h4',
+                'useHeadingsContext' => false
+            ])
+                {!! $heading !!}
+            @endtypography
+            @endif
+            
+            @if($taxonomyPosition === 'top' && $taxonomy > 0)
+                @tags([
+                    'tags' => $taxonomy
+                ])
+                @endtags
+            @endif
+
+            {!!$afterHeading!!}
+
+            @icon(['icon' => $icon, 'size' => 'md', 'decorative' => true, 'classList' => [$baseClass . '__icon', $baseClass . '__icon--' . $icon]])
+            @endicon
+        </div>
+
+        </button>
+
+            <{{$sectionContentElement}} class="{{$baseClass}}__content" id="{{ $baseClass }}__aria-{{ $id }}" aria-hidden="true">
+            
+            {!!$beforeContent!!}
+                {!! $slot !!}
+            {!!$afterContent!!}
+
+        @if($taxonomyPosition === 'below' && $taxonomy > 0)
+            @tags([
+                'tags' => $taxonomy
+            ])
+            @endtags
+        @endif
+    </{{$sectionContentElement}}>
+</{{$sectionElement}}>
+{{-- End Accordion Item --}}

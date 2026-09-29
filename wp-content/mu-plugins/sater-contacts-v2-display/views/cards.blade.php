@@ -3,24 +3,25 @@
         'id'        => 'mod-text-' . $ID .'-label',
         'element'   => 'h2', 
         'variant'   => 'h2', 
-        'classList' => ['module-title']
+        'classList' => ['module-title', 'sater-contacts-v2__title']
     ])
         {!! $postTitle !!}
     @endtypography
 @endif
 
-<div class="o-grid o-grid--half-gutter" @if (!$hideTitle && !empty($postTitle)) aria-labelledby="{{ 'mod-text-' . $ID . '-label' }}" @endif>
+<div class="o-grid o-grid--half-gutter sater-contacts-v2" @if (!$hideTitle && !empty($postTitle)) aria-labelledby="{{ 'mod-text-' . $ID . '-label' }}" @endif>
     @foreach ($contacts as $contact)
-        <div class="o-grid-12 {{apply_filters('Municipio/Controller/Archive/GridColumnClass', $columns)}}">
+        <div class="o-grid-12 {{apply_filters('Municipio/Controller/Archive/GridColumnClass', $columns)}} {{ (!empty($contact['address']) || !empty($contact['visiting_address'])) ? 'sater-contacts-v2__item--address' : '' }}">
             @card([
                 'attributeList' => [
                     'itemscope'     => '',
                     'itemtype'      => 'http://schema.org/Person'
                 ],
-                'classList'     => [
+                'classList'     => array_filter([
                     'u-height--100',
-                    'c-card--contact'
-                ],
+                    'c-card--contact',
+                    (!empty($contact['address']) || !empty($contact['visiting_address'])) ? 'c-card--contact-address' : null
+                ]),
                 'context' => 'module.contacts.card'
             ])
                 <div class="c-card__body u-padding--0">
@@ -68,7 +69,9 @@
                         {{-- Phone --}}
                         @if (!empty($contact['phone']))
                             @foreach ($contact['phone'] as $phone)
-                                @include('components.phone', $phone)
+                                @if (!empty($phone['number']))
+                                    @include('components.phone', $phone)
+                                @endif
                             @endforeach
                         @endif
 
