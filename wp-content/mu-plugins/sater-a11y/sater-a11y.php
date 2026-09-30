@@ -767,19 +767,20 @@ function sater_a11y_swap_loading_attr(string $html): string
 }
 
 /**
- * Whether the image is rendered by the Modularity Bild (Image) module.
+ * Whether the image is a Bild module placed in Municipio's Hero sidebar (slider-area).
  *
  * @param array $data Component data array (pre-init).
  *
  * @return bool
  */
-function sater_a11y_is_bild_module_image(array $data): bool
+function sater_a11y_is_hero_bild_module_image(array $data): bool
 {
     $context = $data['context'] ?? [];
+    $heroContext = 'sidebar.slider-area.module.image';
     if (is_string($context)) {
-        return $context === 'module.image';
+        return $context === $heroContext;
     }
-    return is_array($context) && in_array('module.image', $context, true);
+    return is_array($context) && in_array($heroContext, $context, true);
 }
 
 /**
@@ -816,9 +817,9 @@ function sater_a11y_fix_responsive_images(array $data): array
     $src = $data['src'];
     $srcset = $src->getSrcSet();
 
-    // Bild module images are used as page heroes site-wide. cover: true activates
-    // Municipio's .c-image--cover layout so the image fills its container.
-    if (sater_a11y_is_bild_module_image($data)) {
+    // Hero Bild modules (slider-area only): cover: true activates Municipio's
+    // .c-image--cover layout so the image fills the fixed-height hero container.
+    if (sater_a11y_is_hero_bild_module_image($data)) {
         $data['cover'] = true;
     }
 
