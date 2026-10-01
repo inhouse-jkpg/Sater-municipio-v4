@@ -767,19 +767,20 @@ function sater_a11y_swap_loading_attr(string $html): string
 }
 
 /**
- * Whether the image is rendered by the Modularity Bild (Image) module.
+ * Whether the image carries a given Municipio component context.
  *
- * @param array $data Component data array (pre-init).
+ * @param array  $data    Component data array (pre-init).
+ * @param string $context Context string to look for.
  *
  * @return bool
  */
-function sater_a11y_is_bild_module_image(array $data): bool
+function sater_a11y_image_has_context(array $data, string $context): bool
 {
-    $context = $data['context'] ?? [];
-    if (is_string($context)) {
-        return $context === 'module.image';
+    $contexts = $data['context'] ?? [];
+    if (is_string($contexts)) {
+        return $contexts === $context;
     }
-    return is_array($context) && in_array('module.image', $context, true);
+    return is_array($contexts) && in_array($context, $contexts, true);
 }
 
 /**
@@ -816,10 +817,15 @@ function sater_a11y_fix_responsive_images(array $data): array
     $src = $data['src'];
     $srcset = $src->getSrcSet();
 
-    // Bild module images are used as page heroes site-wide. cover: true activates
-    // Municipio's .c-image--cover layout so the image fills its container.
-    if (sater_a11y_is_bild_module_image($data)) {
+    // Hero Bild modules (slider-area): cover fills the fixed-height hero container.
+    // Other Bild modules: full-width fills the container width without cropping.
+    // Both count as full-bleed below, so sizes stays 100vw. Without a modifier the
+    // img keeps width:inherit (auto) and renders at the sizes hint instead of the
+    // container width, leaving the LQIP background exposed around it.
+    if (sater_a11y_image_has_context($data, 'sidebar.slider-area.module.image')) {
         $data['cover'] = true;
+    } elseif (sater_a11y_image_has_context($data, 'module.image')) {
+        $data['fullWidth'] = true;
     }
 
     // Only intercept when srcset would be meaningful (medium/large images).
