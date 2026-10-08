@@ -156,7 +156,7 @@
     "php-http/mock-client": "1.5.2",
     "pragmarx/ia-arr": "7.3.3",
     "psr/log": "1.1.4",
-    "roots/wordpress": "7.1.2",
+    "roots/wordpress": "7.1.3",
     "symfony/http-client": "5.4.x-dev#d77d8e212cde7b5c4a64142bf431522f19487c28",
     "symfony/http-client-contracts": "2.5.x-dev#48ef1d0a082885877b664332b9427662065a360c",
     "symfony/options-resolver": "^7.0",
